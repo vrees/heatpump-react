@@ -2,6 +2,8 @@ package de.vrees.heatpump.master;
 
 
 import de.vrees.heatpump.slaves.beckhoff.EL1008;
+import de.vrees.heatpump.slaves.beckhoff.EL2008;
+import de.vrees.heatpump.slaves.beckhoff.EL3122;
 import lombok.Getter;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

@@ -1,0 +1,100 @@
+
+entity Processdata {
+        timestamp Instant
+
+        /** Hochdruck Kältekreis in bar */
+        highPressure Float
+
+        /** Niederdruck Kältekreis in bar */
+        lowPressure Float
+
+        /** Verdampfungstemperatur in °C */
+        evaporatingTemperatureIn Float
+
+        /**  Verdampfungstemperatur out in °C */
+        evaporatingTemperatureOut Float
+
+        /** Druckdifferenz Verdampfer in mbar */
+        pressureDiffenceEvaporator Float
+
+        /** VorlaufTemperatur in °C */
+        flowTemperature Float
+
+        /** Rücklauf-Temperatur in °C  */
+        returnTemperature Float
+
+        /**
+         * schaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur in °C
+         */
+        switchOnSensorTemperature Float
+
+        /**
+         * Überhitzung: Kühlmittel-Temperatur am Ausgang des Verdampfers (berechnet ?)
+         */
+        overheatTemperature Float
+
+        /** SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters. Wird zusammen mit dem Druck im Verdampfer zur Bestimmung der Überhitzung benötigt
+         */
+        evaporatorOutTemperature Float
+
+        /**
+         * Wärme Anforderung
+         */
+        heatRequest Boolean
+
+        /**
+         * EinAusQuittierung
+         */
+        userConfirmation Boolean
+
+        /**
+         * Stoerung Durchfluss - minimale Druchlussmenge unterschritten
+         */
+        incidentFlow Boolean
+
+        /**
+         * Stoerung Verdichter / Motorschutzschalter
+         */
+        incidentCompressor Boolean
+
+        /**
+         * Stoerung Niederdruck: Ranco-Thermostat meldet zu niedrigen Niederdruck
+         */
+        incidentLowPressure Boolean
+
+        /**
+         * Stoerung Hochdruck Ranco-Thermostat meldet zu hohen Hochdruck
+         */
+        incidentHighPressure Boolean
+
+        /**
+         * Status Heizungspume: Ein/Aus
+         */
+        operatingStateWaterPump Boolean
+
+        /**
+         * Status Verdichter: Ein/Aus
+         */
+        operatingStateCompressor Boolean
+
+        /**
+         * Warung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)
+         */
+        warningLowPressure Boolean
+
+        /**
+         * Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)
+         */
+        warningHighPressure Boolean
+
+        /**
+         * Alarm des Elektronischen Expansionsentils EEV
+         */
+        alarmExpansionValve Boolean
+}
+
+
+enum Language {
+    FRENCH, ENGLISH, SPANISH
+}
+
