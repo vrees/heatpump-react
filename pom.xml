@@ -9,8 +9,19 @@
     <packaging>jar</packaging>
     <name>Heatpump</name>
 
+
     <repositories>
-        <!-- jhipster-needle-maven-repository -->
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <id>ihmc</id>
+            <name>ihmc</name>
+            <url>http://dl.bintray.com/ihmcrobotics/maven-release</url>
+            <layout>default</layout>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -293,6 +304,19 @@
             <artifactId>spring-security-messaging</artifactId>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
+
+        <dependency>
+            <groupId>us.ihmc</groupId>
+            <artifactId>ihmc-ethercat-master</artifactId>
+            <version>0.11.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+
     </dependencies>
 
     <build>
