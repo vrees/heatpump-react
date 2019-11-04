@@ -1,0 +1,124 @@
+{
+    "name": "Processdata",
+    "fields": [
+        {
+            "fieldName": "timestamp",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "highPressure",
+            "javadoc": "Hochdruck Kältekreis in bar",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "lowPressure",
+            "javadoc": "Niederdruck Kältekreis in bar",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "evaporatingTemperatureIn",
+            "javadoc": "Verdampfungstemperatur in °C",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "evaporatingTemperatureOut",
+            "javadoc": "Verdampfungstemperatur out in °C",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "pressureDiffenceEvaporator",
+            "javadoc": "Druckdifferenz Verdampfer in mbar",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "flowTemperature",
+            "javadoc": "VorlaufTemperatur in °C",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "returnTemperature",
+            "javadoc": "Rücklauf-Temperatur in °C",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "switchOnSensorTemperature",
+            "javadoc": "schaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur in °C",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "overheatTemperature",
+            "javadoc": "Überhitzung: Kühlmittel-Temperatur am Ausgang des Verdampfers (berechnet ?)",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "evaporatorOutTemperature",
+            "javadoc": "SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters. Wird zusammen mit dem Druck im Verdampfer zur Bestimmung der Überhitzung benötigt",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "heatRequest",
+            "javadoc": "Wärme Anforderung",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "userConfirmation",
+            "javadoc": "EinAusQuittierung",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "incidentFlow",
+            "javadoc": "Stoerung Durchfluss - minimale Druchlussmenge unterschritten",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "incidentCompressor",
+            "javadoc": "Stoerung Verdichter / Motorschutzschalter",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "incidentLowPressure",
+            "javadoc": "Stoerung Niederdruck: Ranco-Thermostat meldet zu niedrigen Niederdruck",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "incidentHighPressure",
+            "javadoc": "Stoerung Hochdruck Ranco-Thermostat meldet zu hohen Hochdruck",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "operatingStateWaterPump",
+            "javadoc": "Status Heizungspume: Ein/Aus",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "operatingStateCompressor",
+            "javadoc": "Status Verdichter: Ein/Aus",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "warningLowPressure",
+            "javadoc": "Warung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "warningHighPressure",
+            "javadoc": "Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "alarmExpansionValve",
+            "javadoc": "Alarm des Elektronischen Expansionsentils EEV",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20191006162638",
+    "entityTableName": "processdata",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
