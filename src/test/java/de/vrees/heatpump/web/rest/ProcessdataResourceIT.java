@@ -36,47 +36,36 @@ public class ProcessdataResourceIT {
 
     private static final Instant DEFAULT_TIMESTAMP = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_TIMESTAMP = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-    private static final Instant SMALLER_TIMESTAMP = Instant.ofEpochMilli(-1L);
 
     private static final Float DEFAULT_HIGH_PRESSURE = 1F;
     private static final Float UPDATED_HIGH_PRESSURE = 2F;
-    private static final Float SMALLER_HIGH_PRESSURE = 1F - 1F;
 
     private static final Float DEFAULT_LOW_PRESSURE = 1F;
     private static final Float UPDATED_LOW_PRESSURE = 2F;
-    private static final Float SMALLER_LOW_PRESSURE = 1F - 1F;
 
     private static final Float DEFAULT_EVAPORATING_TEMPERATURE_IN = 1F;
     private static final Float UPDATED_EVAPORATING_TEMPERATURE_IN = 2F;
-    private static final Float SMALLER_EVAPORATING_TEMPERATURE_IN = 1F - 1F;
 
     private static final Float DEFAULT_EVAPORATING_TEMPERATURE_OUT = 1F;
     private static final Float UPDATED_EVAPORATING_TEMPERATURE_OUT = 2F;
-    private static final Float SMALLER_EVAPORATING_TEMPERATURE_OUT = 1F - 1F;
 
     private static final Float DEFAULT_PRESSURE_DIFFENCE_EVAPORATOR = 1F;
     private static final Float UPDATED_PRESSURE_DIFFENCE_EVAPORATOR = 2F;
-    private static final Float SMALLER_PRESSURE_DIFFENCE_EVAPORATOR = 1F - 1F;
 
     private static final Float DEFAULT_FLOW_TEMPERATURE = 1F;
     private static final Float UPDATED_FLOW_TEMPERATURE = 2F;
-    private static final Float SMALLER_FLOW_TEMPERATURE = 1F - 1F;
 
     private static final Float DEFAULT_RETURN_TEMPERATURE = 1F;
     private static final Float UPDATED_RETURN_TEMPERATURE = 2F;
-    private static final Float SMALLER_RETURN_TEMPERATURE = 1F - 1F;
 
     private static final Float DEFAULT_SWITCH_ON_SENSOR_TEMPERATURE = 1F;
     private static final Float UPDATED_SWITCH_ON_SENSOR_TEMPERATURE = 2F;
-    private static final Float SMALLER_SWITCH_ON_SENSOR_TEMPERATURE = 1F - 1F;
 
     private static final Float DEFAULT_OVERHEAT_TEMPERATURE = 1F;
     private static final Float UPDATED_OVERHEAT_TEMPERATURE = 2F;
-    private static final Float SMALLER_OVERHEAT_TEMPERATURE = 1F - 1F;
 
     private static final Float DEFAULT_EVAPORATOR_OUT_TEMPERATURE = 1F;
     private static final Float UPDATED_EVAPORATOR_OUT_TEMPERATURE = 2F;
-    private static final Float SMALLER_EVAPORATOR_OUT_TEMPERATURE = 1F - 1F;
 
     private static final Boolean DEFAULT_HEAT_REQUEST = false;
     private static final Boolean UPDATED_HEAT_REQUEST = true;
