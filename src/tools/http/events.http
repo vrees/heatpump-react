@@ -1,0 +1,23 @@
+PUT http://localhost:8080/api/event/SWITCH_ON
+Content-Type: application/json
+
+{}
+
+###
+PUT http://localhost:8080/api/event/HEAT_REQUEST
+Content-Type: application/json
+
+{}
+###
+PUT http://localhost:8080/api/event/TEMPERATURE_REACHED
+Content-Type: application/json
+
+{}
+###
+PUT http://localhost:8080/api/event/COOLDED_DOWN
+Content-Type: application/json
+
+{}
+###
+
+

@@ -36,7 +36,7 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
         throws Exception {
         states
             .withStates()
-            .initial(States.INITIAL)
+            .initial(States.OFF)
             .states(EnumSet.allOf(States.class));
     }
 
@@ -63,8 +63,7 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
         return new StateMachineListenerAdapter<States, Events>() {
             @Override
             public void stateChanged(State<States, Events> from, State<States, Events> to) {
-
-                log.info("State change to " + to.getId());
+                log.info("Statemachine: State changed from {} to {}", from != null ? from.getId() : ".", to.getId());
             }
         };
     }

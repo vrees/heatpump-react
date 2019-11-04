@@ -1,10 +1,8 @@
 package de.vrees.heatpump.config;
 
-import de.vrees.heatpump.security.*;
-import de.vrees.heatpump.security.jwt.*;
-
-import org.springframework.beans.factory.BeanInitializationException;
-import org.springframework.beans.factory.InitializingBean;
+import de.vrees.heatpump.security.AuthoritiesConstants;
+import de.vrees.heatpump.security.jwt.JWTConfigurer;
+import de.vrees.heatpump.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
@@ -50,7 +48,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/i18n/**")
             .antMatchers("/content/**")
             .antMatchers("/swagger-ui/index.html")
-            .antMatchers("/test/**");
+            .antMatchers("/test/**")
+
+            // TODO vrees remove free security for api calls
+            .antMatchers("/api/**")
+        ;
     }
 
     @Override

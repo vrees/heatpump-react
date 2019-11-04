@@ -2,5 +2,5 @@ package de.vrees.heatpump.statemachine;
 
 public enum States {
 
-    INITIAL, OFF, READY, RUNNING,BACKLASH,ERROR
+    OFF, READY, RUNNING,BACKLASH,ERROR
 }
