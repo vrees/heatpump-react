@@ -7,6 +7,7 @@ import de.vrees.heatpump.slaves.beckhoff.EL3122;
 import lombok.Getter;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import us.ihmc.etherCAT.master.EtherCATRealtimeThread;
 import us.ihmc.etherCAT.slaves.beckhoff.EK1100;
@@ -16,6 +17,7 @@ import us.ihmc.realtime.PriorityParameters;
 
 
 @Component
+@Profile("!simulate")
 @Getter
 public class HeatpumpMaster extends EtherCATRealtimeThread implements ApplicationRunner {
 
