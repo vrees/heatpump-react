@@ -1,6 +1,5 @@
 package de.vrees.heatpump.service.mapper;
 
-
 import de.vrees.heatpump.HeatpumpApp;
 import de.vrees.heatpump.domain.User;
 import de.vrees.heatpump.service.dto.UserDTO;
