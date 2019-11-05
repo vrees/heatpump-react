@@ -92,3 +92,5 @@ entity Processdata {
         warningHighPressure Boolean
 }
 
+paginate Processdata with pagination
+

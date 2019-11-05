@@ -3,18 +3,21 @@ package de.vrees.heatpump.web.rest;
 import de.vrees.heatpump.domain.Processdata;
 import de.vrees.heatpump.repository.ProcessdataRepository;
 import de.vrees.heatpump.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -82,12 +85,16 @@ public class ProcessdataResource {
      * {@code GET  /processdata} : get all the processdata.
      *
 
+     * @param pageable the pagination information.
+
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of processdata in body.
      */
     @GetMapping("/processdata")
-    public List<Processdata> getAllProcessdata() {
-        log.debug("REST request to get all Processdata");
-        return processdataRepository.findAll();
+    public ResponseEntity<List<Processdata>> getAllProcessdata(Pageable pageable) {
+        log.debug("REST request to get a page of Processdata");
+        Page<Processdata> page = processdataRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

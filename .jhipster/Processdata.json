@@ -115,7 +115,7 @@
     "changelogDate": "20191006162638",
     "entityTableName": "processdata",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

@@ -52,6 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             // TODO vrees remove free security for api calls
             .antMatchers("/api/event/**")
+            .antMatchers("/api/processdata/**")
         ;
     }
 

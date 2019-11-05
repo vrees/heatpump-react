@@ -2,23 +2,52 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { ICrudGetAllAction, TextFormat } from 'react-jhipster';
+import { ICrudGetAllAction, TextFormat, getSortState, IPaginationBaseState, JhiPagination, JhiItemCount } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './processdata.reducer';
 import { IProcessdata } from 'app/shared/model/processdata.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface IProcessdataProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export class Processdata extends React.Component<IProcessdataProps> {
+export type IProcessdataState = IPaginationBaseState;
+
+export class Processdata extends React.Component<IProcessdataProps, IProcessdataState> {
+  state: IProcessdataState = {
+    ...getSortState(this.props.location, ITEMS_PER_PAGE)
+  };
+
   componentDidMount() {
-    this.props.getEntities();
+    this.getEntities();
   }
 
+  sort = prop => () => {
+    this.setState(
+      {
+        order: this.state.order === 'asc' ? 'desc' : 'asc',
+        sort: prop
+      },
+      () => this.sortEntities()
+    );
+  };
+
+  sortEntities() {
+    this.getEntities();
+    this.props.history.push(`${this.props.location.pathname}?page=${this.state.activePage}&sort=${this.state.sort},${this.state.order}`);
+  }
+
+  handlePagination = activePage => this.setState({ activePage }, () => this.sortEntities());
+
+  getEntities = () => {
+    const { activePage, itemsPerPage, sort, order } = this.state;
+    this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
+  };
+
   render() {
-    const { processdataList, match } = this.props;
+    const { processdataList, match, totalItems } = this.props;
     return (
       <div>
         <h2 id="processdata-heading">
@@ -33,29 +62,75 @@ export class Processdata extends React.Component<IProcessdataProps> {
             <Table responsive aria-describedby="processdata-heading">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Timestamp</th>
-                  <th>Temperature Evaporating In</th>
-                  <th>Temperature Evaporating Out</th>
-                  <th>Temperature Flow</th>
-                  <th>Temperature Return</th>
-                  <th>Temperature Switch On Sensor</th>
-                  <th>Temperature Overheated Gas</th>
-                  <th>Pressure High</th>
-                  <th>Pressure Low</th>
-                  <th>Pressure Diffence Evaporator</th>
-                  <th>Heat Request</th>
-                  <th>User Confirmation</th>
-                  <th>Alarm Expansion Valve</th>
-                  <th>Incident Flow</th>
-                  <th>Incident Compressor</th>
-                  <th>Incident Low Pressure</th>
-                  <th>Incident High Pressure</th>
-                  <th>Operating State Water Pump</th>
-                  <th>Operating State Compressor</th>
-                  <th>Calculated Overheat Temperature</th>
-                  <th>Warning Low Pressure</th>
-                  <th>Warning High Pressure</th>
+                  <th className="hand" onClick={this.sort('id')}>
+                    ID <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('timestamp')}>
+                    Timestamp <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('temperatureEvaporatingIn')}>
+                    Temperature Evaporating In <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('temperatureEvaporatingOut')}>
+                    Temperature Evaporating Out <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('temperatureFlow')}>
+                    Temperature Flow <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('temperatureReturn')}>
+                    Temperature Return <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('temperatureSwitchOnSensor')}>
+                    Temperature Switch On Sensor <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('temperatureOverheatedGas')}>
+                    Temperature Overheated Gas <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('pressureHigh')}>
+                    Pressure High <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('pressureLow')}>
+                    Pressure Low <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('pressureDiffenceEvaporator')}>
+                    Pressure Diffence Evaporator <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('heatRequest')}>
+                    Heat Request <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('userConfirmation')}>
+                    User Confirmation <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('alarmExpansionValve')}>
+                    Alarm Expansion Valve <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('incidentFlow')}>
+                    Incident Flow <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('incidentCompressor')}>
+                    Incident Compressor <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('incidentLowPressure')}>
+                    Incident Low Pressure <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('incidentHighPressure')}>
+                    Incident High Pressure <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('operatingStateWaterPump')}>
+                    Operating State Water Pump <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('operatingStateCompressor')}>
+                    Operating State Compressor <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('calculatedOverheatTemperature')}>
+                    Calculated Overheat Temperature <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('warningLowPressure')}>
+                    Warning Low Pressure <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('warningHighPressure')}>
+                    Warning High Pressure <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -112,13 +187,28 @@ export class Processdata extends React.Component<IProcessdataProps> {
             <div className="alert alert-warning">No Processdata found</div>
           )}
         </div>
+        <div className={processdataList && processdataList.length > 0 ? '' : 'd-none'}>
+          <Row className="justify-content-center">
+            <JhiItemCount page={this.state.activePage} total={totalItems} itemsPerPage={this.state.itemsPerPage} />
+          </Row>
+          <Row className="justify-content-center">
+            <JhiPagination
+              activePage={this.state.activePage}
+              onSelect={this.handlePagination}
+              maxButtons={5}
+              itemsPerPage={this.state.itemsPerPage}
+              totalItems={this.props.totalItems}
+            />
+          </Row>
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = ({ processdata }: IRootState) => ({
-  processdataList: processdata.entities
+  processdataList: processdata.entities,
+  totalItems: processdata.totalItems
 });
 
 const mapDispatchToProps = {
