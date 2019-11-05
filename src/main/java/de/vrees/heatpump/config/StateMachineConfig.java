@@ -55,6 +55,9 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
             .and()
             .withExternal()
             .source(States.BACKLASH).target(States.READY).event(Events.COOLDED_DOWN)
+            .and()
+            .withExternal()
+            .source(States.READY).target(States.OFF).event(Events.SWITCH_OFF)
         ;
     }
 
