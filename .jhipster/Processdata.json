@@ -6,53 +6,48 @@
             "fieldType": "Instant"
         },
         {
-            "fieldName": "highPressure",
-            "javadoc": "Hochdruck Kältekreis in bar",
-            "fieldType": "Float"
-        },
-        {
-            "fieldName": "lowPressure",
-            "javadoc": "Niederdruck Kältekreis in bar",
-            "fieldType": "Float"
-        },
-        {
-            "fieldName": "evaporatingTemperatureIn",
+            "fieldName": "temperatureEvaporatingIn",
             "javadoc": "Verdampfungstemperatur in °C",
             "fieldType": "Float"
         },
         {
-            "fieldName": "evaporatingTemperatureOut",
+            "fieldName": "temperatureEvaporatingOut",
             "javadoc": "Verdampfungstemperatur out in °C",
             "fieldType": "Float"
         },
         {
-            "fieldName": "pressureDiffenceEvaporator",
-            "javadoc": "Druckdifferenz Verdampfer in mbar",
+            "fieldName": "temperatureFlow",
+            "javadoc": "Vorlauf-Temperatur in °C",
             "fieldType": "Float"
         },
         {
-            "fieldName": "flowTemperature",
-            "javadoc": "VorlaufTemperatur in °C",
-            "fieldType": "Float"
-        },
-        {
-            "fieldName": "returnTemperature",
+            "fieldName": "temperatureReturn",
             "javadoc": "Rücklauf-Temperatur in °C",
             "fieldType": "Float"
         },
         {
-            "fieldName": "switchOnSensorTemperature",
-            "javadoc": "schaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur in °C",
+            "fieldName": "temperatureSwitchOnSensor",
+            "javadoc": "SchaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur am Puffer oben in °C",
             "fieldType": "Float"
         },
         {
-            "fieldName": "overheatTemperature",
-            "javadoc": "Überhitzung: Kühlmittel-Temperatur am Ausgang des Verdampfers (berechnet ?)",
+            "fieldName": "temperatureOverheatedGas",
+            "javadoc": "SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also auf der Niederdruck-Seite.\\nWird zusammen mit dem Druck im Verdampfer zur Berechnung der Überhitzung benötigt\\nGesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels\\nUeberhitzung = Temperatur des ueberhitzten Gases - GesättigteVerdampfungstemperatur",
             "fieldType": "Float"
         },
         {
-            "fieldName": "evaporatorOutTemperature",
-            "javadoc": "SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters. Wird zusammen mit dem Druck im Verdampfer zur Bestimmung der Überhitzung benötigt",
+            "fieldName": "pressureHigh",
+            "javadoc": "Hochdruck Kältekreis in bar",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "pressureLow",
+            "javadoc": "Niederdruck Kältekreis in bar",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "pressureDiffenceEvaporator",
+            "javadoc": "Druckdifferenz Verdampfer in mbar, minVal=0 maxVal=200",
             "fieldType": "Float"
         },
         {
@@ -62,12 +57,17 @@
         },
         {
             "fieldName": "userConfirmation",
-            "javadoc": "EinAusQuittierung",
+            "javadoc": "Taster Ein-/Aus- Quittierung",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "alarmExpansionValve",
+            "javadoc": "Alarm des Elektronischen Expansionsentils EEV",
             "fieldType": "Boolean"
         },
         {
             "fieldName": "incidentFlow",
-            "javadoc": "Stoerung Durchfluss - minimale Druchlussmenge unterschritten",
+            "javadoc": "Stoerung Durchfluss - minimale Druchlussmenge im Verdampfer unterschritten",
             "fieldType": "Boolean"
         },
         {
@@ -96,18 +96,18 @@
             "fieldType": "Boolean"
         },
         {
+            "fieldName": "calculatedOverheatTemperature",
+            "javadoc": "Überhitzung:  Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal TemperaturKonstante des Kühlmittels",
+            "fieldType": "Float"
+        },
+        {
             "fieldName": "warningLowPressure",
-            "javadoc": "Warung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)",
+            "javadoc": "Warnung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)",
             "fieldType": "Boolean"
         },
         {
             "fieldName": "warningHighPressure",
             "javadoc": "Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "alarmExpansionValve",
-            "javadoc": "Alarm des Elektronischen Expansionsentils EEV",
             "fieldType": "Boolean"
         }
     ],
@@ -120,5 +120,6 @@
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "readOnly": false
 }

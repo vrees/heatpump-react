@@ -22,74 +22,67 @@ public class Processdata implements Serializable {
     private Instant timestamp;
 
     /**
-     * Hochdruck Kältekreis in bar
-     */
-    @ApiModelProperty(value = "Hochdruck Kältekreis in bar")
-    @Field("high_pressure")
-    private Float highPressure;
-
-    /**
-     * Niederdruck Kältekreis in bar
-     */
-    @ApiModelProperty(value = "Niederdruck Kältekreis in bar")
-    @Field("low_pressure")
-    private Float lowPressure;
-
-    /**
      * Verdampfungstemperatur in °C
      */
     @ApiModelProperty(value = "Verdampfungstemperatur in °C")
-    @Field("evaporating_temperature_in")
-    private Float evaporatingTemperatureIn;
+    @Field("temperature_evaporating_in")
+    private Float temperatureEvaporatingIn;
 
     /**
      * Verdampfungstemperatur out in °C
      */
     @ApiModelProperty(value = "Verdampfungstemperatur out in °C")
-    @Field("evaporating_temperature_out")
-    private Float evaporatingTemperatureOut;
+    @Field("temperature_evaporating_out")
+    private Float temperatureEvaporatingOut;
 
     /**
-     * Druckdifferenz Verdampfer in mbar
+     * Vorlauf-Temperatur in °C
      */
-    @ApiModelProperty(value = "Druckdifferenz Verdampfer in mbar")
-    @Field("pressure_diffence_evaporator")
-    private Float pressureDiffenceEvaporator;
-
-    /**
-     * VorlaufTemperatur in °C
-     */
-    @ApiModelProperty(value = "VorlaufTemperatur in °C")
-    @Field("flow_temperature")
-    private Float flowTemperature;
+    @ApiModelProperty(value = "Vorlauf-Temperatur in °C")
+    @Field("temperature_flow")
+    private Float temperatureFlow;
 
     /**
      * Rücklauf-Temperatur in °C
      */
     @ApiModelProperty(value = "Rücklauf-Temperatur in °C")
-    @Field("return_temperature")
-    private Float returnTemperature;
+    @Field("temperature_return")
+    private Float temperatureReturn;
 
     /**
-     * schaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur in °C
+     * SchaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur am Puffer oben in °C
      */
-    @ApiModelProperty(value = "schaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur in °C")
-    @Field("switch_on_sensor_temperature")
-    private Float switchOnSensorTemperature;
+    @ApiModelProperty(value = "SchaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur am Puffer oben in °C")
+    @Field("temperature_switch_on_sensor")
+    private Float temperatureSwitchOnSensor;
 
     /**
-     * Überhitzung: Kühlmittel-Temperatur am Ausgang des Verdampfers (berechnet ?)
+     * SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also auf der Niederdruck-Seite.\nWird zusammen mit dem Druck im Verdampfer zur Berechnung der Überhitzung benötigt\nGesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels\nUeberhitzung = Temperatur des ueberhitzten Gases - GesättigteVerdampfungstemperatur
      */
-    @ApiModelProperty(value = "Überhitzung: Kühlmittel-Temperatur am Ausgang des Verdampfers (berechnet ?)")
-    @Field("overheat_temperature")
-    private Float overheatTemperature;
+    @ApiModelProperty(value = "SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also auf der Niederdruck-Seite.\nWird zusammen mit dem Druck im Verdampfer zur Berechnung der Überhitzung benötigt\nGesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels\nUeberhitzung = Temperatur des ueberhitzten Gases - GesättigteVerdampfungstemperatur")
+    @Field("temperature_overheated_gas")
+    private Float temperatureOverheatedGas;
 
     /**
-     * SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters. Wird zusammen mit dem Druck im Verdampfer zur Bestimmung der Überhitzung benötigt
+     * Hochdruck Kältekreis in bar
      */
-    @ApiModelProperty(value = "SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters. Wird zusammen mit dem Druck im Verdampfer zur Bestimmung der Überhitzung benötigt")
-    @Field("evaporator_out_temperature")
-    private Float evaporatorOutTemperature;
+    @ApiModelProperty(value = "Hochdruck Kältekreis in bar")
+    @Field("pressure_high")
+    private Float pressureHigh;
+
+    /**
+     * Niederdruck Kältekreis in bar
+     */
+    @ApiModelProperty(value = "Niederdruck Kältekreis in bar")
+    @Field("pressure_low")
+    private Float pressureLow;
+
+    /**
+     * Druckdifferenz Verdampfer in mbar, minVal=0 maxVal=200
+     */
+    @ApiModelProperty(value = "Druckdifferenz Verdampfer in mbar, minVal=0 maxVal=200")
+    @Field("pressure_diffence_evaporator")
+    private Float pressureDiffenceEvaporator;
 
     /**
      * Wärme Anforderung
@@ -99,16 +92,23 @@ public class Processdata implements Serializable {
     private Boolean heatRequest;
 
     /**
-     * EinAusQuittierung
+     * Taster Ein-/Aus- Quittierung
      */
-    @ApiModelProperty(value = "EinAusQuittierung")
+    @ApiModelProperty(value = "Taster Ein-/Aus- Quittierung")
     @Field("user_confirmation")
     private Boolean userConfirmation;
 
     /**
-     * Stoerung Durchfluss - minimale Druchlussmenge unterschritten
+     * Alarm des Elektronischen Expansionsentils EEV
      */
-    @ApiModelProperty(value = "Stoerung Durchfluss - minimale Druchlussmenge unterschritten")
+    @ApiModelProperty(value = "Alarm des Elektronischen Expansionsentils EEV")
+    @Field("alarm_expansion_valve")
+    private Boolean alarmExpansionValve;
+
+    /**
+     * Stoerung Durchfluss - minimale Druchlussmenge im Verdampfer unterschritten
+     */
+    @ApiModelProperty(value = "Stoerung Durchfluss - minimale Druchlussmenge im Verdampfer unterschritten")
     @Field("incident_flow")
     private Boolean incidentFlow;
 
@@ -148,9 +148,16 @@ public class Processdata implements Serializable {
     private Boolean operatingStateCompressor;
 
     /**
-     * Warung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)
+     * Überhitzung:  Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal TemperaturKonstante des Kühlmittels
      */
-    @ApiModelProperty(value = "Warung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)")
+    @ApiModelProperty(value = "Überhitzung:  Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal TemperaturKonstante des Kühlmittels")
+    @Field("calculated_overheat_temperature")
+    private Float calculatedOverheatTemperature;
+
+    /**
+     * Warnung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)
+     */
+    @ApiModelProperty(value = "Warnung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)")
     @Field("warning_low_pressure")
     private Boolean warningLowPressure;
 
@@ -160,13 +167,6 @@ public class Processdata implements Serializable {
     @ApiModelProperty(value = "Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)")
     @Field("warning_high_pressure")
     private Boolean warningHighPressure;
-
-    /**
-     * Alarm des Elektronischen Expansionsentils EEV
-     */
-    @ApiModelProperty(value = "Alarm des Elektronischen Expansionsentils EEV")
-    @Field("alarm_expansion_valve")
-    private Boolean alarmExpansionValve;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -190,56 +190,108 @@ public class Processdata implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public Float getHighPressure() {
-        return highPressure;
+    public Float getTemperatureEvaporatingIn() {
+        return temperatureEvaporatingIn;
     }
 
-    public Processdata highPressure(Float highPressure) {
-        this.highPressure = highPressure;
+    public Processdata temperatureEvaporatingIn(Float temperatureEvaporatingIn) {
+        this.temperatureEvaporatingIn = temperatureEvaporatingIn;
         return this;
     }
 
-    public void setHighPressure(Float highPressure) {
-        this.highPressure = highPressure;
+    public void setTemperatureEvaporatingIn(Float temperatureEvaporatingIn) {
+        this.temperatureEvaporatingIn = temperatureEvaporatingIn;
     }
 
-    public Float getLowPressure() {
-        return lowPressure;
+    public Float getTemperatureEvaporatingOut() {
+        return temperatureEvaporatingOut;
     }
 
-    public Processdata lowPressure(Float lowPressure) {
-        this.lowPressure = lowPressure;
+    public Processdata temperatureEvaporatingOut(Float temperatureEvaporatingOut) {
+        this.temperatureEvaporatingOut = temperatureEvaporatingOut;
         return this;
     }
 
-    public void setLowPressure(Float lowPressure) {
-        this.lowPressure = lowPressure;
+    public void setTemperatureEvaporatingOut(Float temperatureEvaporatingOut) {
+        this.temperatureEvaporatingOut = temperatureEvaporatingOut;
     }
 
-    public Float getEvaporatingTemperatureIn() {
-        return evaporatingTemperatureIn;
+    public Float getTemperatureFlow() {
+        return temperatureFlow;
     }
 
-    public Processdata evaporatingTemperatureIn(Float evaporatingTemperatureIn) {
-        this.evaporatingTemperatureIn = evaporatingTemperatureIn;
+    public Processdata temperatureFlow(Float temperatureFlow) {
+        this.temperatureFlow = temperatureFlow;
         return this;
     }
 
-    public void setEvaporatingTemperatureIn(Float evaporatingTemperatureIn) {
-        this.evaporatingTemperatureIn = evaporatingTemperatureIn;
+    public void setTemperatureFlow(Float temperatureFlow) {
+        this.temperatureFlow = temperatureFlow;
     }
 
-    public Float getEvaporatingTemperatureOut() {
-        return evaporatingTemperatureOut;
+    public Float getTemperatureReturn() {
+        return temperatureReturn;
     }
 
-    public Processdata evaporatingTemperatureOut(Float evaporatingTemperatureOut) {
-        this.evaporatingTemperatureOut = evaporatingTemperatureOut;
+    public Processdata temperatureReturn(Float temperatureReturn) {
+        this.temperatureReturn = temperatureReturn;
         return this;
     }
 
-    public void setEvaporatingTemperatureOut(Float evaporatingTemperatureOut) {
-        this.evaporatingTemperatureOut = evaporatingTemperatureOut;
+    public void setTemperatureReturn(Float temperatureReturn) {
+        this.temperatureReturn = temperatureReturn;
+    }
+
+    public Float getTemperatureSwitchOnSensor() {
+        return temperatureSwitchOnSensor;
+    }
+
+    public Processdata temperatureSwitchOnSensor(Float temperatureSwitchOnSensor) {
+        this.temperatureSwitchOnSensor = temperatureSwitchOnSensor;
+        return this;
+    }
+
+    public void setTemperatureSwitchOnSensor(Float temperatureSwitchOnSensor) {
+        this.temperatureSwitchOnSensor = temperatureSwitchOnSensor;
+    }
+
+    public Float getTemperatureOverheatedGas() {
+        return temperatureOverheatedGas;
+    }
+
+    public Processdata temperatureOverheatedGas(Float temperatureOverheatedGas) {
+        this.temperatureOverheatedGas = temperatureOverheatedGas;
+        return this;
+    }
+
+    public void setTemperatureOverheatedGas(Float temperatureOverheatedGas) {
+        this.temperatureOverheatedGas = temperatureOverheatedGas;
+    }
+
+    public Float getPressureHigh() {
+        return pressureHigh;
+    }
+
+    public Processdata pressureHigh(Float pressureHigh) {
+        this.pressureHigh = pressureHigh;
+        return this;
+    }
+
+    public void setPressureHigh(Float pressureHigh) {
+        this.pressureHigh = pressureHigh;
+    }
+
+    public Float getPressureLow() {
+        return pressureLow;
+    }
+
+    public Processdata pressureLow(Float pressureLow) {
+        this.pressureLow = pressureLow;
+        return this;
+    }
+
+    public void setPressureLow(Float pressureLow) {
+        this.pressureLow = pressureLow;
     }
 
     public Float getPressureDiffenceEvaporator() {
@@ -253,71 +305,6 @@ public class Processdata implements Serializable {
 
     public void setPressureDiffenceEvaporator(Float pressureDiffenceEvaporator) {
         this.pressureDiffenceEvaporator = pressureDiffenceEvaporator;
-    }
-
-    public Float getFlowTemperature() {
-        return flowTemperature;
-    }
-
-    public Processdata flowTemperature(Float flowTemperature) {
-        this.flowTemperature = flowTemperature;
-        return this;
-    }
-
-    public void setFlowTemperature(Float flowTemperature) {
-        this.flowTemperature = flowTemperature;
-    }
-
-    public Float getReturnTemperature() {
-        return returnTemperature;
-    }
-
-    public Processdata returnTemperature(Float returnTemperature) {
-        this.returnTemperature = returnTemperature;
-        return this;
-    }
-
-    public void setReturnTemperature(Float returnTemperature) {
-        this.returnTemperature = returnTemperature;
-    }
-
-    public Float getSwitchOnSensorTemperature() {
-        return switchOnSensorTemperature;
-    }
-
-    public Processdata switchOnSensorTemperature(Float switchOnSensorTemperature) {
-        this.switchOnSensorTemperature = switchOnSensorTemperature;
-        return this;
-    }
-
-    public void setSwitchOnSensorTemperature(Float switchOnSensorTemperature) {
-        this.switchOnSensorTemperature = switchOnSensorTemperature;
-    }
-
-    public Float getOverheatTemperature() {
-        return overheatTemperature;
-    }
-
-    public Processdata overheatTemperature(Float overheatTemperature) {
-        this.overheatTemperature = overheatTemperature;
-        return this;
-    }
-
-    public void setOverheatTemperature(Float overheatTemperature) {
-        this.overheatTemperature = overheatTemperature;
-    }
-
-    public Float getEvaporatorOutTemperature() {
-        return evaporatorOutTemperature;
-    }
-
-    public Processdata evaporatorOutTemperature(Float evaporatorOutTemperature) {
-        this.evaporatorOutTemperature = evaporatorOutTemperature;
-        return this;
-    }
-
-    public void setEvaporatorOutTemperature(Float evaporatorOutTemperature) {
-        this.evaporatorOutTemperature = evaporatorOutTemperature;
     }
 
     public Boolean isHeatRequest() {
@@ -344,6 +331,19 @@ public class Processdata implements Serializable {
 
     public void setUserConfirmation(Boolean userConfirmation) {
         this.userConfirmation = userConfirmation;
+    }
+
+    public Boolean isAlarmExpansionValve() {
+        return alarmExpansionValve;
+    }
+
+    public Processdata alarmExpansionValve(Boolean alarmExpansionValve) {
+        this.alarmExpansionValve = alarmExpansionValve;
+        return this;
+    }
+
+    public void setAlarmExpansionValve(Boolean alarmExpansionValve) {
+        this.alarmExpansionValve = alarmExpansionValve;
     }
 
     public Boolean isIncidentFlow() {
@@ -424,6 +424,19 @@ public class Processdata implements Serializable {
         this.operatingStateCompressor = operatingStateCompressor;
     }
 
+    public Float getCalculatedOverheatTemperature() {
+        return calculatedOverheatTemperature;
+    }
+
+    public Processdata calculatedOverheatTemperature(Float calculatedOverheatTemperature) {
+        this.calculatedOverheatTemperature = calculatedOverheatTemperature;
+        return this;
+    }
+
+    public void setCalculatedOverheatTemperature(Float calculatedOverheatTemperature) {
+        this.calculatedOverheatTemperature = calculatedOverheatTemperature;
+    }
+
     public Boolean isWarningLowPressure() {
         return warningLowPressure;
     }
@@ -449,19 +462,6 @@ public class Processdata implements Serializable {
     public void setWarningHighPressure(Boolean warningHighPressure) {
         this.warningHighPressure = warningHighPressure;
     }
-
-    public Boolean isAlarmExpansionValve() {
-        return alarmExpansionValve;
-    }
-
-    public Processdata alarmExpansionValve(Boolean alarmExpansionValve) {
-        this.alarmExpansionValve = alarmExpansionValve;
-        return this;
-    }
-
-    public void setAlarmExpansionValve(Boolean alarmExpansionValve) {
-        this.alarmExpansionValve = alarmExpansionValve;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -485,27 +485,27 @@ public class Processdata implements Serializable {
         return "Processdata{" +
             "id=" + getId() +
             ", timestamp='" + getTimestamp() + "'" +
-            ", highPressure=" + getHighPressure() +
-            ", lowPressure=" + getLowPressure() +
-            ", evaporatingTemperatureIn=" + getEvaporatingTemperatureIn() +
-            ", evaporatingTemperatureOut=" + getEvaporatingTemperatureOut() +
+            ", temperatureEvaporatingIn=" + getTemperatureEvaporatingIn() +
+            ", temperatureEvaporatingOut=" + getTemperatureEvaporatingOut() +
+            ", temperatureFlow=" + getTemperatureFlow() +
+            ", temperatureReturn=" + getTemperatureReturn() +
+            ", temperatureSwitchOnSensor=" + getTemperatureSwitchOnSensor() +
+            ", temperatureOverheatedGas=" + getTemperatureOverheatedGas() +
+            ", pressureHigh=" + getPressureHigh() +
+            ", pressureLow=" + getPressureLow() +
             ", pressureDiffenceEvaporator=" + getPressureDiffenceEvaporator() +
-            ", flowTemperature=" + getFlowTemperature() +
-            ", returnTemperature=" + getReturnTemperature() +
-            ", switchOnSensorTemperature=" + getSwitchOnSensorTemperature() +
-            ", overheatTemperature=" + getOverheatTemperature() +
-            ", evaporatorOutTemperature=" + getEvaporatorOutTemperature() +
             ", heatRequest='" + isHeatRequest() + "'" +
             ", userConfirmation='" + isUserConfirmation() + "'" +
+            ", alarmExpansionValve='" + isAlarmExpansionValve() + "'" +
             ", incidentFlow='" + isIncidentFlow() + "'" +
             ", incidentCompressor='" + isIncidentCompressor() + "'" +
             ", incidentLowPressure='" + isIncidentLowPressure() + "'" +
             ", incidentHighPressure='" + isIncidentHighPressure() + "'" +
             ", operatingStateWaterPump='" + isOperatingStateWaterPump() + "'" +
             ", operatingStateCompressor='" + isOperatingStateCompressor() + "'" +
+            ", calculatedOverheatTemperature=" + getCalculatedOverheatTemperature() +
             ", warningLowPressure='" + isWarningLowPressure() + "'" +
             ", warningHighPressure='" + isWarningHighPressure() + "'" +
-            ", alarmExpansionValve='" + isAlarmExpansionValve() + "'" +
             "}";
     }
 }

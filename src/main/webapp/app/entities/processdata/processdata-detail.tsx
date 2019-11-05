@@ -33,62 +33,59 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
               <TextFormat value={processdataEntity.timestamp} type="date" format={APP_DATE_FORMAT} />
             </dd>
             <dt>
-              <span id="highPressure">High Pressure</span>
-              <UncontrolledTooltip target="highPressure">Hochdruck Kältekreis in bar</UncontrolledTooltip>
+              <span id="temperatureEvaporatingIn">Temperature Evaporating In</span>
+              <UncontrolledTooltip target="temperatureEvaporatingIn">Verdampfungstemperatur in °C</UncontrolledTooltip>
             </dt>
-            <dd>{processdataEntity.highPressure}</dd>
+            <dd>{processdataEntity.temperatureEvaporatingIn}</dd>
             <dt>
-              <span id="lowPressure">Low Pressure</span>
-              <UncontrolledTooltip target="lowPressure">Niederdruck Kältekreis in bar</UncontrolledTooltip>
+              <span id="temperatureEvaporatingOut">Temperature Evaporating Out</span>
+              <UncontrolledTooltip target="temperatureEvaporatingOut">Verdampfungstemperatur out in °C</UncontrolledTooltip>
             </dt>
-            <dd>{processdataEntity.lowPressure}</dd>
+            <dd>{processdataEntity.temperatureEvaporatingOut}</dd>
             <dt>
-              <span id="evaporatingTemperatureIn">Evaporating Temperature In</span>
-              <UncontrolledTooltip target="evaporatingTemperatureIn">Verdampfungstemperatur in °C</UncontrolledTooltip>
+              <span id="temperatureFlow">Temperature Flow</span>
+              <UncontrolledTooltip target="temperatureFlow">Vorlauf-Temperatur in °C</UncontrolledTooltip>
             </dt>
-            <dd>{processdataEntity.evaporatingTemperatureIn}</dd>
+            <dd>{processdataEntity.temperatureFlow}</dd>
             <dt>
-              <span id="evaporatingTemperatureOut">Evaporating Temperature Out</span>
-              <UncontrolledTooltip target="evaporatingTemperatureOut">Verdampfungstemperatur out in °C</UncontrolledTooltip>
+              <span id="temperatureReturn">Temperature Return</span>
+              <UncontrolledTooltip target="temperatureReturn">Rücklauf-Temperatur in °C</UncontrolledTooltip>
             </dt>
-            <dd>{processdataEntity.evaporatingTemperatureOut}</dd>
+            <dd>{processdataEntity.temperatureReturn}</dd>
+            <dt>
+              <span id="temperatureSwitchOnSensor">Temperature Switch On Sensor</span>
+              <UncontrolledTooltip target="temperatureSwitchOnSensor">
+                SchaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur am Puffer oben in °C
+              </UncontrolledTooltip>
+            </dt>
+            <dd>{processdataEntity.temperatureSwitchOnSensor}</dd>
+            <dt>
+              <span id="temperatureOverheatedGas">Temperature Overheated Gas</span>
+              <UncontrolledTooltip target="temperatureOverheatedGas">
+                SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also auf der
+                Niederdruck-Seite.\nWird zusammen mit dem Druck im Verdampfer zur Berechnung der Überhitzung
+                benötigt\nGesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels\nUeberhitzung = Temperatur des
+                ueberhitzten Gases - GesättigteVerdampfungstemperatur
+              </UncontrolledTooltip>
+            </dt>
+            <dd>{processdataEntity.temperatureOverheatedGas}</dd>
+            <dt>
+              <span id="pressureHigh">Pressure High</span>
+              <UncontrolledTooltip target="pressureHigh">Hochdruck Kältekreis in bar</UncontrolledTooltip>
+            </dt>
+            <dd>{processdataEntity.pressureHigh}</dd>
+            <dt>
+              <span id="pressureLow">Pressure Low</span>
+              <UncontrolledTooltip target="pressureLow">Niederdruck Kältekreis in bar</UncontrolledTooltip>
+            </dt>
+            <dd>{processdataEntity.pressureLow}</dd>
             <dt>
               <span id="pressureDiffenceEvaporator">Pressure Diffence Evaporator</span>
-              <UncontrolledTooltip target="pressureDiffenceEvaporator">Druckdifferenz Verdampfer in mbar</UncontrolledTooltip>
+              <UncontrolledTooltip target="pressureDiffenceEvaporator">
+                Druckdifferenz Verdampfer in mbar, minVal=0 maxVal=200
+              </UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.pressureDiffenceEvaporator}</dd>
-            <dt>
-              <span id="flowTemperature">Flow Temperature</span>
-              <UncontrolledTooltip target="flowTemperature">VorlaufTemperatur in °C</UncontrolledTooltip>
-            </dt>
-            <dd>{processdataEntity.flowTemperature}</dd>
-            <dt>
-              <span id="returnTemperature">Return Temperature</span>
-              <UncontrolledTooltip target="returnTemperature">Rücklauf-Temperatur in °C</UncontrolledTooltip>
-            </dt>
-            <dd>{processdataEntity.returnTemperature}</dd>
-            <dt>
-              <span id="switchOnSensorTemperature">Switch On Sensor Temperature</span>
-              <UncontrolledTooltip target="switchOnSensorTemperature">
-                schaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur in °C
-              </UncontrolledTooltip>
-            </dt>
-            <dd>{processdataEntity.switchOnSensorTemperature}</dd>
-            <dt>
-              <span id="overheatTemperature">Overheat Temperature</span>
-              <UncontrolledTooltip target="overheatTemperature">
-                Überhitzung: Kühlmittel-Temperatur am Ausgang des Verdampfers (berechnet ?)
-              </UncontrolledTooltip>
-            </dt>
-            <dd>{processdataEntity.overheatTemperature}</dd>
-            <dt>
-              <span id="evaporatorOutTemperature">Evaporator Out Temperature</span>
-              <UncontrolledTooltip target="evaporatorOutTemperature">
-                SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters. Wird zusammen mit dem
-                Druck im Verdampfer zur Bestimmung der Überhitzung benötigt
-              </UncontrolledTooltip>
-            </dt>
-            <dd>{processdataEntity.evaporatorOutTemperature}</dd>
             <dt>
               <span id="heatRequest">Heat Request</span>
               <UncontrolledTooltip target="heatRequest">Wärme Anforderung</UncontrolledTooltip>
@@ -96,12 +93,19 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             <dd>{processdataEntity.heatRequest ? 'true' : 'false'}</dd>
             <dt>
               <span id="userConfirmation">User Confirmation</span>
-              <UncontrolledTooltip target="userConfirmation">EinAusQuittierung</UncontrolledTooltip>
+              <UncontrolledTooltip target="userConfirmation">Taster Ein-/Aus- Quittierung</UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.userConfirmation ? 'true' : 'false'}</dd>
             <dt>
+              <span id="alarmExpansionValve">Alarm Expansion Valve</span>
+              <UncontrolledTooltip target="alarmExpansionValve">Alarm des Elektronischen Expansionsentils EEV</UncontrolledTooltip>
+            </dt>
+            <dd>{processdataEntity.alarmExpansionValve ? 'true' : 'false'}</dd>
+            <dt>
               <span id="incidentFlow">Incident Flow</span>
-              <UncontrolledTooltip target="incidentFlow">Stoerung Durchfluss - minimale Druchlussmenge unterschritten</UncontrolledTooltip>
+              <UncontrolledTooltip target="incidentFlow">
+                Stoerung Durchfluss - minimale Druchlussmenge im Verdampfer unterschritten
+              </UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.incidentFlow ? 'true' : 'false'}</dd>
             <dt>
@@ -134,9 +138,17 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             </dt>
             <dd>{processdataEntity.operatingStateCompressor ? 'true' : 'false'}</dd>
             <dt>
+              <span id="calculatedOverheatTemperature">Calculated Overheat Temperature</span>
+              <UncontrolledTooltip target="calculatedOverheatTemperature">
+                Überhitzung: Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal TemperaturKonstante des
+                Kühlmittels
+              </UncontrolledTooltip>
+            </dt>
+            <dd>{processdataEntity.calculatedOverheatTemperature}</dd>
+            <dt>
               <span id="warningLowPressure">Warning Low Pressure</span>
               <UncontrolledTooltip target="warningLowPressure">
-                Warung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)
+                Warnung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)
               </UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.warningLowPressure ? 'true' : 'false'}</dd>
@@ -147,11 +159,6 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
               </UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.warningHighPressure ? 'true' : 'false'}</dd>
-            <dt>
-              <span id="alarmExpansionValve">Alarm Expansion Valve</span>
-              <UncontrolledTooltip target="alarmExpansionValve">Alarm des Elektronischen Expansionsentils EEV</UncontrolledTooltip>
-            </dt>
-            <dd>{processdataEntity.alarmExpansionValve ? 'true' : 'false'}</dd>
           </dl>
           <Button tag={Link} to="/entity/processdata" replace color="info">
             <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

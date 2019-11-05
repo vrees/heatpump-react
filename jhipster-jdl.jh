@@ -1,100 +1,94 @@
 
 entity Processdata {
+		// aktueller Zeitstempel
         timestamp Instant
 
-        /** Hochdruck Kältekreis in bar */
-        highPressure Float
 
-        /** Niederdruck Kältekreis in bar */
-        lowPressure Float
+		//***** Temperatures ********************/
 
         /** Verdampfungstemperatur in °C */
-        evaporatingTemperatureIn Float
+        temperatureEvaporatingIn Float
 
         /**  Verdampfungstemperatur out in °C */
-        evaporatingTemperatureOut Float
+        temperatureEvaporatingOut Float
 
-        /** Druckdifferenz Verdampfer in mbar */
-        pressureDiffenceEvaporator Float
-
-        /** VorlaufTemperatur in °C */
-        flowTemperature Float
+        /** Vorlauf-Temperatur in °C */
+        temperatureFlow Float
 
         /** Rücklauf-Temperatur in °C  */
-        returnTemperature Float
+        temperatureReturn Float
 
-        /**
-         * schaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur in °C
-         */
-        switchOnSensorTemperature Float
+        /** SchaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur am Puffer oben in °C     */
+        temperatureSwitchOnSensor Float
 
-        /**
-         * Überhitzung: Kühlmittel-Temperatur am Ausgang des Verdampfers (berechnet ?)
+        /** SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also auf der Niederdruck-Seite.
+         *  Wird zusammen mit dem Druck im Verdampfer zur Berechnung der Überhitzung benötigt
+         *  GesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels
+         *  Ueberhitzung = Temperatur des ueberhitzten Gases - GesättigteVerdampfungstemperatur
          */
-        overheatTemperature Float
+        temperatureOverheatedGas Float
 
-        /** SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters. Wird zusammen mit dem Druck im Verdampfer zur Bestimmung der Überhitzung benötigt
-         */
-        evaporatorOutTemperature Float
 
-        /**
-         * Wärme Anforderung
-         */
+
+        //***** Pressure and Pressure Differences ********************/
+
+		/** Hochdruck Kältekreis in bar */
+        pressureHigh Float
+
+        /** Niederdruck Kältekreis in bar */
+        pressureLow Float
+
+        /** Druckdifferenz Verdampfer in mbar, minVal=0 maxVal=200 */
+        pressureDiffenceEvaporator Float
+
+
+
+        //***** Digital Inputs  *************************/
+
+		/** Wärme Anforderung */
         heatRequest Boolean
 
-        /**
-         * EinAusQuittierung
-         */
+        /** Taster Ein-/Aus- Quittierung */
         userConfirmation Boolean
 
-        /**
-         * Stoerung Durchfluss - minimale Druchlussmenge unterschritten
-         */
+        /** Status der Heizpumpe am Relais */
+        alarmExpansionValve Boolean
+
+        /** Alarm des Elektronischen Expansionsentils EEV */
+        alarmExpansionValve Boolean
+
+        /** Stoerung Durchfluss - minimale Druchlussmenge im Verdampfer unterschritten  */
         incidentFlow Boolean
 
-        /**
-         * Stoerung Verdichter / Motorschutzschalter
-         */
+        /**  Stoerung Verdichter / Motorschutzschalter */
         incidentCompressor Boolean
 
-        /**
-         * Stoerung Niederdruck: Ranco-Thermostat meldet zu niedrigen Niederdruck
-         */
+        /** Stoerung Niederdruck: Ranco-Thermostat meldet zu niedrigen Niederdruck */
         incidentLowPressure Boolean
 
-        /**
-         * Stoerung Hochdruck Ranco-Thermostat meldet zu hohen Hochdruck
-         */
+        /** Stoerung Hochdruck Ranco-Thermostat meldet zu hohen Hochdruck */
         incidentHighPressure Boolean
 
-        /**
-         * Status Heizungspume: Ein/Aus
-         */
+
+        //***** Digital Outputs  *************************/
+
+        /** Status Heizungspume: Ein/Aus */
         operatingStateWaterPump Boolean
 
-        /**
-         * Status Verdichter: Ein/Aus
-         */
+        /** Status Verdichter: Ein/Aus */
         operatingStateCompressor Boolean
 
-        /**
-         * Warung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)
-         */
+
+
+        //***** Calculated Values  *************************/
+
+        /**  Überhitzung:  Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal TemperaturKonstante des Kühlmittels */
+        calculatedOverheatTemperature Float
+
+        /** Warnung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt) */
         warningLowPressure Boolean
 
-        /**
-         * Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)
-         */
+        /** Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt) */
         warningHighPressure Boolean
-
-        /**
-         * Alarm des Elektronischen Expansionsentils EEV
-         */
-        alarmExpansionValve Boolean
-}
-
-
-enum Language {
-    FRENCH, ENGLISH, SPANISH
 }
 

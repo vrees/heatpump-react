@@ -35,27 +35,27 @@ export class Processdata extends React.Component<IProcessdataProps> {
                 <tr>
                   <th>ID</th>
                   <th>Timestamp</th>
-                  <th>High Pressure</th>
-                  <th>Low Pressure</th>
-                  <th>Evaporating Temperature In</th>
-                  <th>Evaporating Temperature Out</th>
+                  <th>Temperature Evaporating In</th>
+                  <th>Temperature Evaporating Out</th>
+                  <th>Temperature Flow</th>
+                  <th>Temperature Return</th>
+                  <th>Temperature Switch On Sensor</th>
+                  <th>Temperature Overheated Gas</th>
+                  <th>Pressure High</th>
+                  <th>Pressure Low</th>
                   <th>Pressure Diffence Evaporator</th>
-                  <th>Flow Temperature</th>
-                  <th>Return Temperature</th>
-                  <th>Switch On Sensor Temperature</th>
-                  <th>Overheat Temperature</th>
-                  <th>Evaporator Out Temperature</th>
                   <th>Heat Request</th>
                   <th>User Confirmation</th>
+                  <th>Alarm Expansion Valve</th>
                   <th>Incident Flow</th>
                   <th>Incident Compressor</th>
                   <th>Incident Low Pressure</th>
                   <th>Incident High Pressure</th>
                   <th>Operating State Water Pump</th>
                   <th>Operating State Compressor</th>
+                  <th>Calculated Overheat Temperature</th>
                   <th>Warning Low Pressure</th>
                   <th>Warning High Pressure</th>
-                  <th>Alarm Expansion Valve</th>
                   <th />
                 </tr>
               </thead>
@@ -70,27 +70,27 @@ export class Processdata extends React.Component<IProcessdataProps> {
                     <td>
                       <TextFormat type="date" value={processdata.timestamp} format={APP_DATE_FORMAT} />
                     </td>
-                    <td>{processdata.highPressure}</td>
-                    <td>{processdata.lowPressure}</td>
-                    <td>{processdata.evaporatingTemperatureIn}</td>
-                    <td>{processdata.evaporatingTemperatureOut}</td>
+                    <td>{processdata.temperatureEvaporatingIn}</td>
+                    <td>{processdata.temperatureEvaporatingOut}</td>
+                    <td>{processdata.temperatureFlow}</td>
+                    <td>{processdata.temperatureReturn}</td>
+                    <td>{processdata.temperatureSwitchOnSensor}</td>
+                    <td>{processdata.temperatureOverheatedGas}</td>
+                    <td>{processdata.pressureHigh}</td>
+                    <td>{processdata.pressureLow}</td>
                     <td>{processdata.pressureDiffenceEvaporator}</td>
-                    <td>{processdata.flowTemperature}</td>
-                    <td>{processdata.returnTemperature}</td>
-                    <td>{processdata.switchOnSensorTemperature}</td>
-                    <td>{processdata.overheatTemperature}</td>
-                    <td>{processdata.evaporatorOutTemperature}</td>
                     <td>{processdata.heatRequest ? 'true' : 'false'}</td>
                     <td>{processdata.userConfirmation ? 'true' : 'false'}</td>
+                    <td>{processdata.alarmExpansionValve ? 'true' : 'false'}</td>
                     <td>{processdata.incidentFlow ? 'true' : 'false'}</td>
                     <td>{processdata.incidentCompressor ? 'true' : 'false'}</td>
                     <td>{processdata.incidentLowPressure ? 'true' : 'false'}</td>
                     <td>{processdata.incidentHighPressure ? 'true' : 'false'}</td>
                     <td>{processdata.operatingStateWaterPump ? 'true' : 'false'}</td>
                     <td>{processdata.operatingStateCompressor ? 'true' : 'false'}</td>
+                    <td>{processdata.calculatedOverheatTemperature}</td>
                     <td>{processdata.warningLowPressure ? 'true' : 'false'}</td>
                     <td>{processdata.warningHighPressure ? 'true' : 'false'}</td>
-                    <td>{processdata.alarmExpansionValve ? 'true' : 'false'}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${processdata.id}`} color="info" size="sm">

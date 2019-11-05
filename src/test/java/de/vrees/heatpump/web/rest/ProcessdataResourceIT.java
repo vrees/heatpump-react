@@ -37,41 +37,41 @@ public class ProcessdataResourceIT {
     private static final Instant DEFAULT_TIMESTAMP = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_TIMESTAMP = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Float DEFAULT_HIGH_PRESSURE = 1F;
-    private static final Float UPDATED_HIGH_PRESSURE = 2F;
+    private static final Float DEFAULT_TEMPERATURE_EVAPORATING_IN = 1F;
+    private static final Float UPDATED_TEMPERATURE_EVAPORATING_IN = 2F;
 
-    private static final Float DEFAULT_LOW_PRESSURE = 1F;
-    private static final Float UPDATED_LOW_PRESSURE = 2F;
+    private static final Float DEFAULT_TEMPERATURE_EVAPORATING_OUT = 1F;
+    private static final Float UPDATED_TEMPERATURE_EVAPORATING_OUT = 2F;
 
-    private static final Float DEFAULT_EVAPORATING_TEMPERATURE_IN = 1F;
-    private static final Float UPDATED_EVAPORATING_TEMPERATURE_IN = 2F;
+    private static final Float DEFAULT_TEMPERATURE_FLOW = 1F;
+    private static final Float UPDATED_TEMPERATURE_FLOW = 2F;
 
-    private static final Float DEFAULT_EVAPORATING_TEMPERATURE_OUT = 1F;
-    private static final Float UPDATED_EVAPORATING_TEMPERATURE_OUT = 2F;
+    private static final Float DEFAULT_TEMPERATURE_RETURN = 1F;
+    private static final Float UPDATED_TEMPERATURE_RETURN = 2F;
+
+    private static final Float DEFAULT_TEMPERATURE_SWITCH_ON_SENSOR = 1F;
+    private static final Float UPDATED_TEMPERATURE_SWITCH_ON_SENSOR = 2F;
+
+    private static final Float DEFAULT_TEMPERATURE_OVERHEATED_GAS = 1F;
+    private static final Float UPDATED_TEMPERATURE_OVERHEATED_GAS = 2F;
+
+    private static final Float DEFAULT_PRESSURE_HIGH = 1F;
+    private static final Float UPDATED_PRESSURE_HIGH = 2F;
+
+    private static final Float DEFAULT_PRESSURE_LOW = 1F;
+    private static final Float UPDATED_PRESSURE_LOW = 2F;
 
     private static final Float DEFAULT_PRESSURE_DIFFENCE_EVAPORATOR = 1F;
     private static final Float UPDATED_PRESSURE_DIFFENCE_EVAPORATOR = 2F;
-
-    private static final Float DEFAULT_FLOW_TEMPERATURE = 1F;
-    private static final Float UPDATED_FLOW_TEMPERATURE = 2F;
-
-    private static final Float DEFAULT_RETURN_TEMPERATURE = 1F;
-    private static final Float UPDATED_RETURN_TEMPERATURE = 2F;
-
-    private static final Float DEFAULT_SWITCH_ON_SENSOR_TEMPERATURE = 1F;
-    private static final Float UPDATED_SWITCH_ON_SENSOR_TEMPERATURE = 2F;
-
-    private static final Float DEFAULT_OVERHEAT_TEMPERATURE = 1F;
-    private static final Float UPDATED_OVERHEAT_TEMPERATURE = 2F;
-
-    private static final Float DEFAULT_EVAPORATOR_OUT_TEMPERATURE = 1F;
-    private static final Float UPDATED_EVAPORATOR_OUT_TEMPERATURE = 2F;
 
     private static final Boolean DEFAULT_HEAT_REQUEST = false;
     private static final Boolean UPDATED_HEAT_REQUEST = true;
 
     private static final Boolean DEFAULT_USER_CONFIRMATION = false;
     private static final Boolean UPDATED_USER_CONFIRMATION = true;
+
+    private static final Boolean DEFAULT_ALARM_EXPANSION_VALVE = false;
+    private static final Boolean UPDATED_ALARM_EXPANSION_VALVE = true;
 
     private static final Boolean DEFAULT_INCIDENT_FLOW = false;
     private static final Boolean UPDATED_INCIDENT_FLOW = true;
@@ -91,14 +91,14 @@ public class ProcessdataResourceIT {
     private static final Boolean DEFAULT_OPERATING_STATE_COMPRESSOR = false;
     private static final Boolean UPDATED_OPERATING_STATE_COMPRESSOR = true;
 
+    private static final Float DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE = 1F;
+    private static final Float UPDATED_CALCULATED_OVERHEAT_TEMPERATURE = 2F;
+
     private static final Boolean DEFAULT_WARNING_LOW_PRESSURE = false;
     private static final Boolean UPDATED_WARNING_LOW_PRESSURE = true;
 
     private static final Boolean DEFAULT_WARNING_HIGH_PRESSURE = false;
     private static final Boolean UPDATED_WARNING_HIGH_PRESSURE = true;
-
-    private static final Boolean DEFAULT_ALARM_EXPANSION_VALVE = false;
-    private static final Boolean UPDATED_ALARM_EXPANSION_VALVE = true;
 
     @Autowired
     private ProcessdataRepository processdataRepository;
@@ -140,27 +140,27 @@ public class ProcessdataResourceIT {
     public static Processdata createEntity() {
         Processdata processdata = new Processdata()
             .timestamp(DEFAULT_TIMESTAMP)
-            .highPressure(DEFAULT_HIGH_PRESSURE)
-            .lowPressure(DEFAULT_LOW_PRESSURE)
-            .evaporatingTemperatureIn(DEFAULT_EVAPORATING_TEMPERATURE_IN)
-            .evaporatingTemperatureOut(DEFAULT_EVAPORATING_TEMPERATURE_OUT)
+            .temperatureEvaporatingIn(DEFAULT_TEMPERATURE_EVAPORATING_IN)
+            .temperatureEvaporatingOut(DEFAULT_TEMPERATURE_EVAPORATING_OUT)
+            .temperatureFlow(DEFAULT_TEMPERATURE_FLOW)
+            .temperatureReturn(DEFAULT_TEMPERATURE_RETURN)
+            .temperatureSwitchOnSensor(DEFAULT_TEMPERATURE_SWITCH_ON_SENSOR)
+            .temperatureOverheatedGas(DEFAULT_TEMPERATURE_OVERHEATED_GAS)
+            .pressureHigh(DEFAULT_PRESSURE_HIGH)
+            .pressureLow(DEFAULT_PRESSURE_LOW)
             .pressureDiffenceEvaporator(DEFAULT_PRESSURE_DIFFENCE_EVAPORATOR)
-            .flowTemperature(DEFAULT_FLOW_TEMPERATURE)
-            .returnTemperature(DEFAULT_RETURN_TEMPERATURE)
-            .switchOnSensorTemperature(DEFAULT_SWITCH_ON_SENSOR_TEMPERATURE)
-            .overheatTemperature(DEFAULT_OVERHEAT_TEMPERATURE)
-            .evaporatorOutTemperature(DEFAULT_EVAPORATOR_OUT_TEMPERATURE)
             .heatRequest(DEFAULT_HEAT_REQUEST)
             .userConfirmation(DEFAULT_USER_CONFIRMATION)
+            .alarmExpansionValve(DEFAULT_ALARM_EXPANSION_VALVE)
             .incidentFlow(DEFAULT_INCIDENT_FLOW)
             .incidentCompressor(DEFAULT_INCIDENT_COMPRESSOR)
             .incidentLowPressure(DEFAULT_INCIDENT_LOW_PRESSURE)
             .incidentHighPressure(DEFAULT_INCIDENT_HIGH_PRESSURE)
             .operatingStateWaterPump(DEFAULT_OPERATING_STATE_WATER_PUMP)
             .operatingStateCompressor(DEFAULT_OPERATING_STATE_COMPRESSOR)
+            .calculatedOverheatTemperature(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE)
             .warningLowPressure(DEFAULT_WARNING_LOW_PRESSURE)
-            .warningHighPressure(DEFAULT_WARNING_HIGH_PRESSURE)
-            .alarmExpansionValve(DEFAULT_ALARM_EXPANSION_VALVE);
+            .warningHighPressure(DEFAULT_WARNING_HIGH_PRESSURE);
         return processdata;
     }
     /**
@@ -172,27 +172,27 @@ public class ProcessdataResourceIT {
     public static Processdata createUpdatedEntity() {
         Processdata processdata = new Processdata()
             .timestamp(UPDATED_TIMESTAMP)
-            .highPressure(UPDATED_HIGH_PRESSURE)
-            .lowPressure(UPDATED_LOW_PRESSURE)
-            .evaporatingTemperatureIn(UPDATED_EVAPORATING_TEMPERATURE_IN)
-            .evaporatingTemperatureOut(UPDATED_EVAPORATING_TEMPERATURE_OUT)
+            .temperatureEvaporatingIn(UPDATED_TEMPERATURE_EVAPORATING_IN)
+            .temperatureEvaporatingOut(UPDATED_TEMPERATURE_EVAPORATING_OUT)
+            .temperatureFlow(UPDATED_TEMPERATURE_FLOW)
+            .temperatureReturn(UPDATED_TEMPERATURE_RETURN)
+            .temperatureSwitchOnSensor(UPDATED_TEMPERATURE_SWITCH_ON_SENSOR)
+            .temperatureOverheatedGas(UPDATED_TEMPERATURE_OVERHEATED_GAS)
+            .pressureHigh(UPDATED_PRESSURE_HIGH)
+            .pressureLow(UPDATED_PRESSURE_LOW)
             .pressureDiffenceEvaporator(UPDATED_PRESSURE_DIFFENCE_EVAPORATOR)
-            .flowTemperature(UPDATED_FLOW_TEMPERATURE)
-            .returnTemperature(UPDATED_RETURN_TEMPERATURE)
-            .switchOnSensorTemperature(UPDATED_SWITCH_ON_SENSOR_TEMPERATURE)
-            .overheatTemperature(UPDATED_OVERHEAT_TEMPERATURE)
-            .evaporatorOutTemperature(UPDATED_EVAPORATOR_OUT_TEMPERATURE)
             .heatRequest(UPDATED_HEAT_REQUEST)
             .userConfirmation(UPDATED_USER_CONFIRMATION)
+            .alarmExpansionValve(UPDATED_ALARM_EXPANSION_VALVE)
             .incidentFlow(UPDATED_INCIDENT_FLOW)
             .incidentCompressor(UPDATED_INCIDENT_COMPRESSOR)
             .incidentLowPressure(UPDATED_INCIDENT_LOW_PRESSURE)
             .incidentHighPressure(UPDATED_INCIDENT_HIGH_PRESSURE)
             .operatingStateWaterPump(UPDATED_OPERATING_STATE_WATER_PUMP)
             .operatingStateCompressor(UPDATED_OPERATING_STATE_COMPRESSOR)
+            .calculatedOverheatTemperature(UPDATED_CALCULATED_OVERHEAT_TEMPERATURE)
             .warningLowPressure(UPDATED_WARNING_LOW_PRESSURE)
-            .warningHighPressure(UPDATED_WARNING_HIGH_PRESSURE)
-            .alarmExpansionValve(UPDATED_ALARM_EXPANSION_VALVE);
+            .warningHighPressure(UPDATED_WARNING_HIGH_PRESSURE);
         return processdata;
     }
 
@@ -217,27 +217,27 @@ public class ProcessdataResourceIT {
         assertThat(processdataList).hasSize(databaseSizeBeforeCreate + 1);
         Processdata testProcessdata = processdataList.get(processdataList.size() - 1);
         assertThat(testProcessdata.getTimestamp()).isEqualTo(DEFAULT_TIMESTAMP);
-        assertThat(testProcessdata.getHighPressure()).isEqualTo(DEFAULT_HIGH_PRESSURE);
-        assertThat(testProcessdata.getLowPressure()).isEqualTo(DEFAULT_LOW_PRESSURE);
-        assertThat(testProcessdata.getEvaporatingTemperatureIn()).isEqualTo(DEFAULT_EVAPORATING_TEMPERATURE_IN);
-        assertThat(testProcessdata.getEvaporatingTemperatureOut()).isEqualTo(DEFAULT_EVAPORATING_TEMPERATURE_OUT);
+        assertThat(testProcessdata.getTemperatureEvaporatingIn()).isEqualTo(DEFAULT_TEMPERATURE_EVAPORATING_IN);
+        assertThat(testProcessdata.getTemperatureEvaporatingOut()).isEqualTo(DEFAULT_TEMPERATURE_EVAPORATING_OUT);
+        assertThat(testProcessdata.getTemperatureFlow()).isEqualTo(DEFAULT_TEMPERATURE_FLOW);
+        assertThat(testProcessdata.getTemperatureReturn()).isEqualTo(DEFAULT_TEMPERATURE_RETURN);
+        assertThat(testProcessdata.getTemperatureSwitchOnSensor()).isEqualTo(DEFAULT_TEMPERATURE_SWITCH_ON_SENSOR);
+        assertThat(testProcessdata.getTemperatureOverheatedGas()).isEqualTo(DEFAULT_TEMPERATURE_OVERHEATED_GAS);
+        assertThat(testProcessdata.getPressureHigh()).isEqualTo(DEFAULT_PRESSURE_HIGH);
+        assertThat(testProcessdata.getPressureLow()).isEqualTo(DEFAULT_PRESSURE_LOW);
         assertThat(testProcessdata.getPressureDiffenceEvaporator()).isEqualTo(DEFAULT_PRESSURE_DIFFENCE_EVAPORATOR);
-        assertThat(testProcessdata.getFlowTemperature()).isEqualTo(DEFAULT_FLOW_TEMPERATURE);
-        assertThat(testProcessdata.getReturnTemperature()).isEqualTo(DEFAULT_RETURN_TEMPERATURE);
-        assertThat(testProcessdata.getSwitchOnSensorTemperature()).isEqualTo(DEFAULT_SWITCH_ON_SENSOR_TEMPERATURE);
-        assertThat(testProcessdata.getOverheatTemperature()).isEqualTo(DEFAULT_OVERHEAT_TEMPERATURE);
-        assertThat(testProcessdata.getEvaporatorOutTemperature()).isEqualTo(DEFAULT_EVAPORATOR_OUT_TEMPERATURE);
         assertThat(testProcessdata.isHeatRequest()).isEqualTo(DEFAULT_HEAT_REQUEST);
         assertThat(testProcessdata.isUserConfirmation()).isEqualTo(DEFAULT_USER_CONFIRMATION);
+        assertThat(testProcessdata.isAlarmExpansionValve()).isEqualTo(DEFAULT_ALARM_EXPANSION_VALVE);
         assertThat(testProcessdata.isIncidentFlow()).isEqualTo(DEFAULT_INCIDENT_FLOW);
         assertThat(testProcessdata.isIncidentCompressor()).isEqualTo(DEFAULT_INCIDENT_COMPRESSOR);
         assertThat(testProcessdata.isIncidentLowPressure()).isEqualTo(DEFAULT_INCIDENT_LOW_PRESSURE);
         assertThat(testProcessdata.isIncidentHighPressure()).isEqualTo(DEFAULT_INCIDENT_HIGH_PRESSURE);
         assertThat(testProcessdata.isOperatingStateWaterPump()).isEqualTo(DEFAULT_OPERATING_STATE_WATER_PUMP);
         assertThat(testProcessdata.isOperatingStateCompressor()).isEqualTo(DEFAULT_OPERATING_STATE_COMPRESSOR);
+        assertThat(testProcessdata.getCalculatedOverheatTemperature()).isEqualTo(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE);
         assertThat(testProcessdata.isWarningLowPressure()).isEqualTo(DEFAULT_WARNING_LOW_PRESSURE);
         assertThat(testProcessdata.isWarningHighPressure()).isEqualTo(DEFAULT_WARNING_HIGH_PRESSURE);
-        assertThat(testProcessdata.isAlarmExpansionValve()).isEqualTo(DEFAULT_ALARM_EXPANSION_VALVE);
     }
 
     @Test
@@ -270,27 +270,27 @@ public class ProcessdataResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(processdata.getId())))
             .andExpect(jsonPath("$.[*].timestamp").value(hasItem(DEFAULT_TIMESTAMP.toString())))
-            .andExpect(jsonPath("$.[*].highPressure").value(hasItem(DEFAULT_HIGH_PRESSURE.doubleValue())))
-            .andExpect(jsonPath("$.[*].lowPressure").value(hasItem(DEFAULT_LOW_PRESSURE.doubleValue())))
-            .andExpect(jsonPath("$.[*].evaporatingTemperatureIn").value(hasItem(DEFAULT_EVAPORATING_TEMPERATURE_IN.doubleValue())))
-            .andExpect(jsonPath("$.[*].evaporatingTemperatureOut").value(hasItem(DEFAULT_EVAPORATING_TEMPERATURE_OUT.doubleValue())))
+            .andExpect(jsonPath("$.[*].temperatureEvaporatingIn").value(hasItem(DEFAULT_TEMPERATURE_EVAPORATING_IN.doubleValue())))
+            .andExpect(jsonPath("$.[*].temperatureEvaporatingOut").value(hasItem(DEFAULT_TEMPERATURE_EVAPORATING_OUT.doubleValue())))
+            .andExpect(jsonPath("$.[*].temperatureFlow").value(hasItem(DEFAULT_TEMPERATURE_FLOW.doubleValue())))
+            .andExpect(jsonPath("$.[*].temperatureReturn").value(hasItem(DEFAULT_TEMPERATURE_RETURN.doubleValue())))
+            .andExpect(jsonPath("$.[*].temperatureSwitchOnSensor").value(hasItem(DEFAULT_TEMPERATURE_SWITCH_ON_SENSOR.doubleValue())))
+            .andExpect(jsonPath("$.[*].temperatureOverheatedGas").value(hasItem(DEFAULT_TEMPERATURE_OVERHEATED_GAS.doubleValue())))
+            .andExpect(jsonPath("$.[*].pressureHigh").value(hasItem(DEFAULT_PRESSURE_HIGH.doubleValue())))
+            .andExpect(jsonPath("$.[*].pressureLow").value(hasItem(DEFAULT_PRESSURE_LOW.doubleValue())))
             .andExpect(jsonPath("$.[*].pressureDiffenceEvaporator").value(hasItem(DEFAULT_PRESSURE_DIFFENCE_EVAPORATOR.doubleValue())))
-            .andExpect(jsonPath("$.[*].flowTemperature").value(hasItem(DEFAULT_FLOW_TEMPERATURE.doubleValue())))
-            .andExpect(jsonPath("$.[*].returnTemperature").value(hasItem(DEFAULT_RETURN_TEMPERATURE.doubleValue())))
-            .andExpect(jsonPath("$.[*].switchOnSensorTemperature").value(hasItem(DEFAULT_SWITCH_ON_SENSOR_TEMPERATURE.doubleValue())))
-            .andExpect(jsonPath("$.[*].overheatTemperature").value(hasItem(DEFAULT_OVERHEAT_TEMPERATURE.doubleValue())))
-            .andExpect(jsonPath("$.[*].evaporatorOutTemperature").value(hasItem(DEFAULT_EVAPORATOR_OUT_TEMPERATURE.doubleValue())))
             .andExpect(jsonPath("$.[*].heatRequest").value(hasItem(DEFAULT_HEAT_REQUEST.booleanValue())))
             .andExpect(jsonPath("$.[*].userConfirmation").value(hasItem(DEFAULT_USER_CONFIRMATION.booleanValue())))
+            .andExpect(jsonPath("$.[*].alarmExpansionValve").value(hasItem(DEFAULT_ALARM_EXPANSION_VALVE.booleanValue())))
             .andExpect(jsonPath("$.[*].incidentFlow").value(hasItem(DEFAULT_INCIDENT_FLOW.booleanValue())))
             .andExpect(jsonPath("$.[*].incidentCompressor").value(hasItem(DEFAULT_INCIDENT_COMPRESSOR.booleanValue())))
             .andExpect(jsonPath("$.[*].incidentLowPressure").value(hasItem(DEFAULT_INCIDENT_LOW_PRESSURE.booleanValue())))
             .andExpect(jsonPath("$.[*].incidentHighPressure").value(hasItem(DEFAULT_INCIDENT_HIGH_PRESSURE.booleanValue())))
             .andExpect(jsonPath("$.[*].operatingStateWaterPump").value(hasItem(DEFAULT_OPERATING_STATE_WATER_PUMP.booleanValue())))
             .andExpect(jsonPath("$.[*].operatingStateCompressor").value(hasItem(DEFAULT_OPERATING_STATE_COMPRESSOR.booleanValue())))
+            .andExpect(jsonPath("$.[*].calculatedOverheatTemperature").value(hasItem(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE.doubleValue())))
             .andExpect(jsonPath("$.[*].warningLowPressure").value(hasItem(DEFAULT_WARNING_LOW_PRESSURE.booleanValue())))
-            .andExpect(jsonPath("$.[*].warningHighPressure").value(hasItem(DEFAULT_WARNING_HIGH_PRESSURE.booleanValue())))
-            .andExpect(jsonPath("$.[*].alarmExpansionValve").value(hasItem(DEFAULT_ALARM_EXPANSION_VALVE.booleanValue())));
+            .andExpect(jsonPath("$.[*].warningHighPressure").value(hasItem(DEFAULT_WARNING_HIGH_PRESSURE.booleanValue())));
     }
     
     @Test
@@ -304,27 +304,27 @@ public class ProcessdataResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(processdata.getId()))
             .andExpect(jsonPath("$.timestamp").value(DEFAULT_TIMESTAMP.toString()))
-            .andExpect(jsonPath("$.highPressure").value(DEFAULT_HIGH_PRESSURE.doubleValue()))
-            .andExpect(jsonPath("$.lowPressure").value(DEFAULT_LOW_PRESSURE.doubleValue()))
-            .andExpect(jsonPath("$.evaporatingTemperatureIn").value(DEFAULT_EVAPORATING_TEMPERATURE_IN.doubleValue()))
-            .andExpect(jsonPath("$.evaporatingTemperatureOut").value(DEFAULT_EVAPORATING_TEMPERATURE_OUT.doubleValue()))
+            .andExpect(jsonPath("$.temperatureEvaporatingIn").value(DEFAULT_TEMPERATURE_EVAPORATING_IN.doubleValue()))
+            .andExpect(jsonPath("$.temperatureEvaporatingOut").value(DEFAULT_TEMPERATURE_EVAPORATING_OUT.doubleValue()))
+            .andExpect(jsonPath("$.temperatureFlow").value(DEFAULT_TEMPERATURE_FLOW.doubleValue()))
+            .andExpect(jsonPath("$.temperatureReturn").value(DEFAULT_TEMPERATURE_RETURN.doubleValue()))
+            .andExpect(jsonPath("$.temperatureSwitchOnSensor").value(DEFAULT_TEMPERATURE_SWITCH_ON_SENSOR.doubleValue()))
+            .andExpect(jsonPath("$.temperatureOverheatedGas").value(DEFAULT_TEMPERATURE_OVERHEATED_GAS.doubleValue()))
+            .andExpect(jsonPath("$.pressureHigh").value(DEFAULT_PRESSURE_HIGH.doubleValue()))
+            .andExpect(jsonPath("$.pressureLow").value(DEFAULT_PRESSURE_LOW.doubleValue()))
             .andExpect(jsonPath("$.pressureDiffenceEvaporator").value(DEFAULT_PRESSURE_DIFFENCE_EVAPORATOR.doubleValue()))
-            .andExpect(jsonPath("$.flowTemperature").value(DEFAULT_FLOW_TEMPERATURE.doubleValue()))
-            .andExpect(jsonPath("$.returnTemperature").value(DEFAULT_RETURN_TEMPERATURE.doubleValue()))
-            .andExpect(jsonPath("$.switchOnSensorTemperature").value(DEFAULT_SWITCH_ON_SENSOR_TEMPERATURE.doubleValue()))
-            .andExpect(jsonPath("$.overheatTemperature").value(DEFAULT_OVERHEAT_TEMPERATURE.doubleValue()))
-            .andExpect(jsonPath("$.evaporatorOutTemperature").value(DEFAULT_EVAPORATOR_OUT_TEMPERATURE.doubleValue()))
             .andExpect(jsonPath("$.heatRequest").value(DEFAULT_HEAT_REQUEST.booleanValue()))
             .andExpect(jsonPath("$.userConfirmation").value(DEFAULT_USER_CONFIRMATION.booleanValue()))
+            .andExpect(jsonPath("$.alarmExpansionValve").value(DEFAULT_ALARM_EXPANSION_VALVE.booleanValue()))
             .andExpect(jsonPath("$.incidentFlow").value(DEFAULT_INCIDENT_FLOW.booleanValue()))
             .andExpect(jsonPath("$.incidentCompressor").value(DEFAULT_INCIDENT_COMPRESSOR.booleanValue()))
             .andExpect(jsonPath("$.incidentLowPressure").value(DEFAULT_INCIDENT_LOW_PRESSURE.booleanValue()))
             .andExpect(jsonPath("$.incidentHighPressure").value(DEFAULT_INCIDENT_HIGH_PRESSURE.booleanValue()))
             .andExpect(jsonPath("$.operatingStateWaterPump").value(DEFAULT_OPERATING_STATE_WATER_PUMP.booleanValue()))
             .andExpect(jsonPath("$.operatingStateCompressor").value(DEFAULT_OPERATING_STATE_COMPRESSOR.booleanValue()))
+            .andExpect(jsonPath("$.calculatedOverheatTemperature").value(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE.doubleValue()))
             .andExpect(jsonPath("$.warningLowPressure").value(DEFAULT_WARNING_LOW_PRESSURE.booleanValue()))
-            .andExpect(jsonPath("$.warningHighPressure").value(DEFAULT_WARNING_HIGH_PRESSURE.booleanValue()))
-            .andExpect(jsonPath("$.alarmExpansionValve").value(DEFAULT_ALARM_EXPANSION_VALVE.booleanValue()));
+            .andExpect(jsonPath("$.warningHighPressure").value(DEFAULT_WARNING_HIGH_PRESSURE.booleanValue()));
     }
 
     @Test
@@ -345,27 +345,27 @@ public class ProcessdataResourceIT {
         Processdata updatedProcessdata = processdataRepository.findById(processdata.getId()).get();
         updatedProcessdata
             .timestamp(UPDATED_TIMESTAMP)
-            .highPressure(UPDATED_HIGH_PRESSURE)
-            .lowPressure(UPDATED_LOW_PRESSURE)
-            .evaporatingTemperatureIn(UPDATED_EVAPORATING_TEMPERATURE_IN)
-            .evaporatingTemperatureOut(UPDATED_EVAPORATING_TEMPERATURE_OUT)
+            .temperatureEvaporatingIn(UPDATED_TEMPERATURE_EVAPORATING_IN)
+            .temperatureEvaporatingOut(UPDATED_TEMPERATURE_EVAPORATING_OUT)
+            .temperatureFlow(UPDATED_TEMPERATURE_FLOW)
+            .temperatureReturn(UPDATED_TEMPERATURE_RETURN)
+            .temperatureSwitchOnSensor(UPDATED_TEMPERATURE_SWITCH_ON_SENSOR)
+            .temperatureOverheatedGas(UPDATED_TEMPERATURE_OVERHEATED_GAS)
+            .pressureHigh(UPDATED_PRESSURE_HIGH)
+            .pressureLow(UPDATED_PRESSURE_LOW)
             .pressureDiffenceEvaporator(UPDATED_PRESSURE_DIFFENCE_EVAPORATOR)
-            .flowTemperature(UPDATED_FLOW_TEMPERATURE)
-            .returnTemperature(UPDATED_RETURN_TEMPERATURE)
-            .switchOnSensorTemperature(UPDATED_SWITCH_ON_SENSOR_TEMPERATURE)
-            .overheatTemperature(UPDATED_OVERHEAT_TEMPERATURE)
-            .evaporatorOutTemperature(UPDATED_EVAPORATOR_OUT_TEMPERATURE)
             .heatRequest(UPDATED_HEAT_REQUEST)
             .userConfirmation(UPDATED_USER_CONFIRMATION)
+            .alarmExpansionValve(UPDATED_ALARM_EXPANSION_VALVE)
             .incidentFlow(UPDATED_INCIDENT_FLOW)
             .incidentCompressor(UPDATED_INCIDENT_COMPRESSOR)
             .incidentLowPressure(UPDATED_INCIDENT_LOW_PRESSURE)
             .incidentHighPressure(UPDATED_INCIDENT_HIGH_PRESSURE)
             .operatingStateWaterPump(UPDATED_OPERATING_STATE_WATER_PUMP)
             .operatingStateCompressor(UPDATED_OPERATING_STATE_COMPRESSOR)
+            .calculatedOverheatTemperature(UPDATED_CALCULATED_OVERHEAT_TEMPERATURE)
             .warningLowPressure(UPDATED_WARNING_LOW_PRESSURE)
-            .warningHighPressure(UPDATED_WARNING_HIGH_PRESSURE)
-            .alarmExpansionValve(UPDATED_ALARM_EXPANSION_VALVE);
+            .warningHighPressure(UPDATED_WARNING_HIGH_PRESSURE);
 
         restProcessdataMockMvc.perform(put("/api/processdata")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -377,27 +377,27 @@ public class ProcessdataResourceIT {
         assertThat(processdataList).hasSize(databaseSizeBeforeUpdate);
         Processdata testProcessdata = processdataList.get(processdataList.size() - 1);
         assertThat(testProcessdata.getTimestamp()).isEqualTo(UPDATED_TIMESTAMP);
-        assertThat(testProcessdata.getHighPressure()).isEqualTo(UPDATED_HIGH_PRESSURE);
-        assertThat(testProcessdata.getLowPressure()).isEqualTo(UPDATED_LOW_PRESSURE);
-        assertThat(testProcessdata.getEvaporatingTemperatureIn()).isEqualTo(UPDATED_EVAPORATING_TEMPERATURE_IN);
-        assertThat(testProcessdata.getEvaporatingTemperatureOut()).isEqualTo(UPDATED_EVAPORATING_TEMPERATURE_OUT);
+        assertThat(testProcessdata.getTemperatureEvaporatingIn()).isEqualTo(UPDATED_TEMPERATURE_EVAPORATING_IN);
+        assertThat(testProcessdata.getTemperatureEvaporatingOut()).isEqualTo(UPDATED_TEMPERATURE_EVAPORATING_OUT);
+        assertThat(testProcessdata.getTemperatureFlow()).isEqualTo(UPDATED_TEMPERATURE_FLOW);
+        assertThat(testProcessdata.getTemperatureReturn()).isEqualTo(UPDATED_TEMPERATURE_RETURN);
+        assertThat(testProcessdata.getTemperatureSwitchOnSensor()).isEqualTo(UPDATED_TEMPERATURE_SWITCH_ON_SENSOR);
+        assertThat(testProcessdata.getTemperatureOverheatedGas()).isEqualTo(UPDATED_TEMPERATURE_OVERHEATED_GAS);
+        assertThat(testProcessdata.getPressureHigh()).isEqualTo(UPDATED_PRESSURE_HIGH);
+        assertThat(testProcessdata.getPressureLow()).isEqualTo(UPDATED_PRESSURE_LOW);
         assertThat(testProcessdata.getPressureDiffenceEvaporator()).isEqualTo(UPDATED_PRESSURE_DIFFENCE_EVAPORATOR);
-        assertThat(testProcessdata.getFlowTemperature()).isEqualTo(UPDATED_FLOW_TEMPERATURE);
-        assertThat(testProcessdata.getReturnTemperature()).isEqualTo(UPDATED_RETURN_TEMPERATURE);
-        assertThat(testProcessdata.getSwitchOnSensorTemperature()).isEqualTo(UPDATED_SWITCH_ON_SENSOR_TEMPERATURE);
-        assertThat(testProcessdata.getOverheatTemperature()).isEqualTo(UPDATED_OVERHEAT_TEMPERATURE);
-        assertThat(testProcessdata.getEvaporatorOutTemperature()).isEqualTo(UPDATED_EVAPORATOR_OUT_TEMPERATURE);
         assertThat(testProcessdata.isHeatRequest()).isEqualTo(UPDATED_HEAT_REQUEST);
         assertThat(testProcessdata.isUserConfirmation()).isEqualTo(UPDATED_USER_CONFIRMATION);
+        assertThat(testProcessdata.isAlarmExpansionValve()).isEqualTo(UPDATED_ALARM_EXPANSION_VALVE);
         assertThat(testProcessdata.isIncidentFlow()).isEqualTo(UPDATED_INCIDENT_FLOW);
         assertThat(testProcessdata.isIncidentCompressor()).isEqualTo(UPDATED_INCIDENT_COMPRESSOR);
         assertThat(testProcessdata.isIncidentLowPressure()).isEqualTo(UPDATED_INCIDENT_LOW_PRESSURE);
         assertThat(testProcessdata.isIncidentHighPressure()).isEqualTo(UPDATED_INCIDENT_HIGH_PRESSURE);
         assertThat(testProcessdata.isOperatingStateWaterPump()).isEqualTo(UPDATED_OPERATING_STATE_WATER_PUMP);
         assertThat(testProcessdata.isOperatingStateCompressor()).isEqualTo(UPDATED_OPERATING_STATE_COMPRESSOR);
+        assertThat(testProcessdata.getCalculatedOverheatTemperature()).isEqualTo(UPDATED_CALCULATED_OVERHEAT_TEMPERATURE);
         assertThat(testProcessdata.isWarningLowPressure()).isEqualTo(UPDATED_WARNING_LOW_PRESSURE);
         assertThat(testProcessdata.isWarningHighPressure()).isEqualTo(UPDATED_WARNING_HIGH_PRESSURE);
-        assertThat(testProcessdata.isAlarmExpansionValve()).isEqualTo(UPDATED_ALARM_EXPANSION_VALVE);
     }
 
     @Test

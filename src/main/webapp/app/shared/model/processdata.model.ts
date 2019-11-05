@@ -3,32 +3,33 @@ import { Moment } from 'moment';
 export interface IProcessdata {
   id?: string;
   timestamp?: Moment;
-  highPressure?: number;
-  lowPressure?: number;
-  evaporatingTemperatureIn?: number;
-  evaporatingTemperatureOut?: number;
+  temperatureEvaporatingIn?: number;
+  temperatureEvaporatingOut?: number;
+  temperatureFlow?: number;
+  temperatureReturn?: number;
+  temperatureSwitchOnSensor?: number;
+  temperatureOverheatedGas?: number;
+  pressureHigh?: number;
+  pressureLow?: number;
   pressureDiffenceEvaporator?: number;
-  flowTemperature?: number;
-  returnTemperature?: number;
-  switchOnSensorTemperature?: number;
-  overheatTemperature?: number;
-  evaporatorOutTemperature?: number;
   heatRequest?: boolean;
   userConfirmation?: boolean;
+  alarmExpansionValve?: boolean;
   incidentFlow?: boolean;
   incidentCompressor?: boolean;
   incidentLowPressure?: boolean;
   incidentHighPressure?: boolean;
   operatingStateWaterPump?: boolean;
   operatingStateCompressor?: boolean;
+  calculatedOverheatTemperature?: number;
   warningLowPressure?: boolean;
   warningHighPressure?: boolean;
-  alarmExpansionValve?: boolean;
 }
 
 export const defaultValue: Readonly<IProcessdata> = {
   heatRequest: false,
   userConfirmation: false,
+  alarmExpansionValve: false,
   incidentFlow: false,
   incidentCompressor: false,
   incidentLowPressure: false,
@@ -36,6 +37,5 @@ export const defaultValue: Readonly<IProcessdata> = {
   operatingStateWaterPump: false,
   operatingStateCompressor: false,
   warningLowPressure: false,
-  warningHighPressure: false,
-  alarmExpansionValve: false
+  warningHighPressure: false
 };
