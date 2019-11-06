@@ -85,3 +85,12 @@ A gradle wrapper is provided, optionally you can use your system gradle by repla
 
 **react-redux-typescript-guide:**
 https://github.com/piotrwitek/react-redux-typescript-guide/blob/master/README.md#react---type-definitions-cheatsheet
+
+**Techniques for Animating on the Canvas in React:**
+https://dzone.com/articles/techniques-for-animating-on-the-canvas-in-react
+
+**React Snipplets:**
+https://github.com/jinsihou19/ReactSnippets/blob/master/README.md
+
+**React Tutorial:**
+https://reactjs.org/tutorial/tutorial.html
