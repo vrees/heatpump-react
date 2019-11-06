@@ -11,34 +11,40 @@ interface IDashboardProps {
 }
 
 interface IDashboardState {
-  rotation: number;
+  sizefactor: number;
 }
 
 export class Dashboard extends Component<IDashboardProps, IDashboardState> {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      rotation: 0
+      sizefactor: 8
     }
-    this.tick = this.tick.bind(this);
+
+    window.addEventListener("resize", this.update);
   }
 
   componentDidMount() {
-    requestAnimationFrame(this.tick);
+    this.update();
   }
 
-  tick() {
-    const rotation = this.state.rotation + 0.04;
-    this.setState({ rotation });
-    requestAnimationFrame(this.tick);
-  }
+  update = () => {
+    const minSizefactor = 3;
+    const sizefactorW = (window.innerWidth - 100) / 110;
+    const sizefactorH = (window.innerHeight - 160) / 70;
+    const factor = Number((sizefactorW < sizefactorH ? sizefactorW : sizefactorH).toFixed(1));
+
+    this.setState({
+      sizefactor: factor < minSizefactor ? minSizefactor : factor
+    });
+  };
 
   render() {
     return (
       <div>
-        <HeatCycleGraphic width={200} height={200} sizefactor={8} fontsize={12}/>
-        HalloHallo
+        <HeatCycleGraphic width={200} height={200} sizefactor={this.state.sizefactor} fontsize={12}/>
       </div>
     );
   }

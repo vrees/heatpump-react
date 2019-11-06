@@ -34,19 +34,9 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     this.drawVerdampfer(context, sizefactor);
     this.drawVerfluessiger(context, sizefactor);
     this.drawKuehlmittelKreis(context, sizefactor);
-    // drawText(context, sizefactor, fontsize);
+    this.drawLabels(context, sizefactor, fontsize);
     this.drawPfeile(context, sizefactor);
     this.drawPumpe(context, sizefactor);
-
-    /*
-        context.clearRect(0, 0, width, height);
-        context.save();
-        context.translate(100, 100);
-        context.rotate(5);
-        context.fillStyle = "#F00";
-        context.fillRect(-50, -50, 100, 100);
-        context.restore();
-    */
   }
 
 
@@ -279,6 +269,28 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     ctx.lineWidth = 2;
     ctx.stroke();
   }
+
+  private drawLabels(ctx, sizefactor, fontsize) {
+    // Sizefactor ausgeben
+    ctx.font = '12pt Vardena';
+    ctx.fillStyle = "black";
+    ctx.fillText(sizefactor, 0.5 * sizefactor, 69 * sizefactor);
+
+    // Beschriftungen
+    ctx.font = fontsize + ' Verdana';
+    ctx.textAlign = 'center';
+    ctx.fillText('Kompressor', 58 * sizefactor, 2.8 * sizefactor);
+    ctx.fillText('Niederdruck', 40.5 * sizefactor, 15 * sizefactor);
+    ctx.fillText('Hochdruck', 75.5 * sizefactor, 15 * sizefactor);
+    ctx.fillText('Expansionsventil', 58 * sizefactor, 65.8 * sizefactor);
+    ctx.fillText('Pumpe', 104 * sizefactor, 39 * sizefactor);
+    ctx.textAlign = 'left';
+    ctx.fillText('Verdampfer', 30 * sizefactor, 53 * sizefactor);
+    ctx.textAlign = 'right';
+    ctx.fillText("Verfluessiger", 86 * sizefactor, 53 * sizefactor);
+  }
+
+
 
   render() {
     const {width, height} = this.props;
