@@ -76,3 +76,12 @@ A gradle wrapper is provided, optionally you can use your system gradle by repla
     make
     ../gradlew publishToMavenLocal -Ptarget=JAVA   (gradle publishToMavenLocal -Ptarget=JAVA)
     ../gradlew publishToMavenLocal -Ptarget=PLATFORM
+
+## Links
+
+**JHister:** https://www.jhipster.tech
+
+**Spring Boot State Machine:** https://docs.spring.io/spring-statemachine/docs/2.1.3.RELEASE/reference
+
+**react-redux-typescript-guide:**
+https://github.com/piotrwitek/react-redux-typescript-guide/blob/master/README.md#react---type-definitions-cheatsheet
