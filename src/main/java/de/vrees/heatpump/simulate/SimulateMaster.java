@@ -1,39 +1,36 @@
 package de.vrees.heatpump.simulate;
 
 
-import com.google.common.collect.Lists;
 import de.vrees.heatpump.statemachine.Events;
 import de.vrees.heatpump.statemachine.States;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static de.vrees.heatpump.simulate.ProcessdataConstants.SIMULATION_DATA;
+
 
 @Component
+@RequiredArgsConstructor
 @Profile("simulate")
 @Slf4j
 public class SimulateMaster implements Iterator<SimulationDataDef> {
 
-    private StateMachine<States, Events> stateMachine;
+    private static final List<SimulationDataDef> simulationData = SIMULATION_DATA;
 
-    private List<SimulationDataDef> simulationData = new ArrayList();
+    private final StateMachine<States, Events> stateMachine;
+
+    private final ProcessdataMapper processdataMapper;
 
     private int indexOfDefRecord = 0;
     private int indexInsideDefRecord = -1;
 
-    public SimulateMaster(StateMachine<States, Events> sm) {
-        this.stateMachine = sm;
-        simulationData.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 20, Lists.newArrayList(Events.SWITCH_ON), null));
-        simulationData.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 100, Lists.newArrayList(Events.HEAT_REQUEST), null));
-        simulationData.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 70, Lists.newArrayList(Events.TEMPERATURE_REACHED), null));
-        simulationData.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 10, Lists.newArrayList(Events.COOLDED_DOWN), null));
-    }
 
     @Scheduled(fixedRate = 100)
     public void scheduleTask() {
@@ -43,7 +40,7 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
             definition.getEventsToSend().forEach(e -> stateMachine.sendEvent(e));
         }
 
-//        log.debug("Scheduler fired! indexOfDefRecord={}, indexInsideDefRecord={}", indexOfDefRecord, indexInsideDefRecord);
+//        Processdata obj = processdataMapper.map(definition.getProcessdata());
     }
 
 

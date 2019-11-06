@@ -1,14 +1,30 @@
 package de.vrees.heatpump.simulate;
 
+import com.google.common.collect.Lists;
 import de.vrees.heatpump.domain.Processdata;
+import de.vrees.heatpump.statemachine.Events;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProcessdataConstants {
 
     public static final Processdata PD_DEFAULT = initializeDefault();
 
-    private static Processdata initializeDefault()
-    {
+    public static final List<SimulationDataDef> SIMULATION_DATA = initializeSimulationData();
+
+
+    private static List<SimulationDataDef> initializeSimulationData() {
+        ArrayList list = new ArrayList();
+        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 20, Lists.newArrayList(Events.SWITCH_ON), null));
+        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 100, Lists.newArrayList(Events.HEAT_REQUEST), null));
+        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 70, Lists.newArrayList(Events.TEMPERATURE_REACHED), null));
+        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 10, Lists.newArrayList(Events.COOLDED_DOWN), null));
+        return list;
+    }
+
+    private static Processdata initializeDefault() {
         Processdata pd = new Processdata();
         pd.setTemperatureEvaporatingIn(6.4f);
         pd.setTemperatureEvaporatingOut(4.2f);
