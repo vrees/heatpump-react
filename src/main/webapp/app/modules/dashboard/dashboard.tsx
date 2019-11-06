@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {findDOMNode} from 'react-dom';
 import {Home} from "app/modules/home/home";
-import Graphic from "app/modules/dashboard/graphic";
+import HeatCycleGraphic from "app/modules/dashboard/heatCycleGraphic";
 import {Processdata} from "app/entities/processdata/processdata";
 
 
@@ -37,7 +37,7 @@ export class Dashboard extends Component<IDashboardProps, IDashboardState> {
   render() {
     return (
       <div>
-        <Graphic rotation={this.state.rotation} width={200} height={200} />
+        <HeatCycleGraphic width={200} height={200} sizefactor={8} fontsize={12}/>
         HalloHallo
       </div>
     );
