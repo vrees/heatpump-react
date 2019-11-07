@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-
+import {IProcessdata} from "app/shared/model/processdata.model";
 
 interface IGraphicProps {
   sizefactor: number;
-  fontsize: number;
+  processData: IProcessdata;
 }
 
 class HeatCycleGraphic extends Component<IGraphicProps> {
@@ -15,12 +15,12 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     this.paint = this.paint.bind(this);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     this.paint();
   }
 
   private paint() {
-    const {sizefactor, fontsize} = this.props;
+    const {sizefactor, processData} = this.props;
     const canvas = this.canvasRef.current;
     const context = canvas.getContext('2d');
 
@@ -32,9 +32,11 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     this.drawVerdampfer(context, sizefactor);
     this.drawVerfluessiger(context, sizefactor);
     this.drawKuehlmittelKreis(context, sizefactor);
-    this.drawLabels(context, sizefactor, fontsize);
+    this.drawLabels(context, sizefactor);
     this.drawPfeile(context, sizefactor);
     this.drawPumpe(context, sizefactor);
+
+    this.drawValues(context, sizefactor, processData);
   }
 
 
@@ -268,14 +270,14 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     ctx.stroke();
   }
 
-  private drawLabels(ctx, sizefactor, fontsize) {
+  private drawLabels(ctx, sizefactor) {
     // Sizefactor ausgeben
-    ctx.font = '12pt Vardena';
+    ctx.font = '8pt Vardena';
     ctx.fillStyle = "black";
     ctx.fillText(sizefactor, 0.5 * sizefactor, 69 * sizefactor);
 
     // Beschriftungen
-    ctx.font = fontsize + ' Verdana';
+    ctx.font = '12pt Verdana';
     ctx.textAlign = 'center';
     ctx.fillText('Kompressor', 58 * sizefactor, 2.8 * sizefactor);
     ctx.fillText('Niederdruck', 40.5 * sizefactor, 15 * sizefactor);
@@ -286,6 +288,15 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     ctx.fillText('Verdampfer', 30 * sizefactor, 53 * sizefactor);
     ctx.textAlign = 'right';
     ctx.fillText("Verfluessiger", 86 * sizefactor, 53 * sizefactor);
+  }
+
+  private drawValues(ctx, sizefactor, pd: IProcessdata) {
+    // Sizefactor ausgeben
+    ctx.font = '10pt Vardena bold';
+    ctx.fillStyle = "blue";
+    ctx.fillText(pd.temperatureEvaporatingIn, 20 * sizefactor, 10 * sizefactor);
+
+
   }
 
   render() {

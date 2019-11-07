@@ -5,10 +5,12 @@ import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
 import { IProcessdata, defaultValue } from 'app/shared/model/processdata.model';
+import { IPayload } from 'react-jhipster/src/type/redux-action.type';
 
 export const ACTION_TYPES = {
   FETCH_PROCESSDATA_LIST: 'processdata/FETCH_PROCESSDATA_LIST',
   FETCH_PROCESSDATA: 'processdata/FETCH_PROCESSDATA',
+  FETCH_LATEST_PROCESSDATA: 'processdata/FETCH_LATEST_PROCESSDATA',
   CREATE_PROCESSDATA: 'processdata/CREATE_PROCESSDATA',
   UPDATE_PROCESSDATA: 'processdata/UPDATE_PROCESSDATA',
   DELETE_PROCESSDATA: 'processdata/DELETE_PROCESSDATA',
@@ -33,6 +35,7 @@ export default (state: ProcessdataState = initialState, action): ProcessdataStat
   switch (action.type) {
     case REQUEST(ACTION_TYPES.FETCH_PROCESSDATA_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PROCESSDATA):
+    case REQUEST(ACTION_TYPES.FETCH_LATEST_PROCESSDATA):
       return {
         ...state,
         errorMessage: null,
@@ -50,6 +53,7 @@ export default (state: ProcessdataState = initialState, action): ProcessdataStat
       };
     case FAILURE(ACTION_TYPES.FETCH_PROCESSDATA_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PROCESSDATA):
+    case FAILURE(ACTION_TYPES.FETCH_LATEST_PROCESSDATA):
     case FAILURE(ACTION_TYPES.CREATE_PROCESSDATA):
     case FAILURE(ACTION_TYPES.UPDATE_PROCESSDATA):
     case FAILURE(ACTION_TYPES.DELETE_PROCESSDATA):
@@ -68,6 +72,7 @@ export default (state: ProcessdataState = initialState, action): ProcessdataStat
         totalItems: parseInt(action.payload.headers['x-total-count'], 10)
       };
     case SUCCESS(ACTION_TYPES.FETCH_PROCESSDATA):
+    case SUCCESS(ACTION_TYPES.FETCH_LATEST_PROCESSDATA):
       return {
         ...state,
         loading: false,
@@ -144,6 +149,16 @@ export const deleteEntity: ICrudDeleteAction<IProcessdata> = id => async dispatc
   dispatch(getEntities());
   return result;
 };
+
+export const getLatestProcessdata: IGetLatestProcessdataAction<IProcessdata> = () => {
+  const requestUrl = `${apiUrl}/latest`;
+  return {
+    type: ACTION_TYPES.FETCH_PROCESSDATA,
+    payload: axios.get<IProcessdata>(requestUrl)
+  };
+};
+
+export type IGetLatestProcessdataAction<T> = () => IPayload<T> | ((dispatch: any) => IPayload<T>);
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET

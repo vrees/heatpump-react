@@ -122,4 +122,11 @@ public class ProcessdataResource {
         processdataRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
+
+    @GetMapping("/processdata/latest")
+    public ResponseEntity<Processdata> getProcessdata() {
+        log.debug("REST request to get latest Processdata");
+        Optional<Processdata> processdata = processdataRepository.findTopByOrderByTimestampDesc();
+        return ResponseUtil.wrapOrNotFound(processdata);
+    }
 }

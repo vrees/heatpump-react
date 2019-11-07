@@ -3,15 +3,22 @@ import {connect} from 'react-redux';
 import {findDOMNode} from 'react-dom';
 import {Home} from "app/modules/home/home";
 import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
-import {Processdata} from "app/entities/processdata/processdata";
+import {IProcessdata} from "app/shared/model/processdata.model";
+import moment from "moment";
+import {IPaginationBaseState} from "react-jhipster";
+import {getEntity, getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
+import {RouteComponentProps} from "react-router";
+import {IRootState} from "app/shared/reducers";
+import {ProcessdataDetail} from "app/entities/processdata/processdata-detail";
 
 
-interface IControlPanelProps {
-  processdata: Processdata;
-}
+export type IControlPanelProps = DispatchProps;
+
+export type IProcessdataState = IPaginationBaseState;
 
 interface IControlPanelState {
   sizefactor: number;
+  processdata: IProcessdata;
 }
 
 export class ControlPanel extends Component<IControlPanelProps, IControlPanelState> {
@@ -20,7 +27,8 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
     super(props);
 
     this.state = {
-      sizefactor: 8
+      sizefactor: 8,
+      processdata: null,
     }
 
     window.addEventListener("resize", this.update);
@@ -30,7 +38,12 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
     this.update();
   }
 
+
   update = () => {
+    /* eslint-disable no-console */
+    console.log("tpeof  this.props.getLatestProcessdata", typeof this.props.getLatestProcessdata);
+    /* eslint-enable no-console */
+    const latestProcessdata = this.props.getLatestProcessdata();
     const minSizefactor = 3;
     const sizefactorW = (window.innerWidth - 100) / 110;
     const sizefactorH = (window.innerHeight - 182) / 70;
@@ -44,7 +57,7 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
   render() {
     return (
       <div>
-        <HeatCycleGraphic sizefactor={this.state.sizefactor} fontsize={12}/>
+        <HeatCycleGraphic processData={this.state.processdata} sizefactor={this.state.sizefactor}/>
       </div>
     );
   }
@@ -54,7 +67,11 @@ function mapStateToProps(state) {
   return {};
 }
 
+const mapDispatchToProps = {getLatestProcessdata};
+type DispatchProps = typeof mapDispatchToProps;
+
+
 export default connect(
   mapStateToProps,
+  mapDispatchToProps
 )(ControlPanel);
-
