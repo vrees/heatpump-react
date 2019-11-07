@@ -77,6 +77,15 @@ A gradle wrapper is provided, optionally you can use your system gradle by repla
     ../gradlew publishToMavenLocal -Ptarget=JAVA   (gradle publishToMavenLocal -Ptarget=JAVA)
     ../gradlew publishToMavenLocal -Ptarget=PLATFORM
 
+## Useful Commands
+
+####listen EADDRINUSE
+
+```
+lsof -i tcp:9060
+kill -9 xxx
+```
+
 ## Links
 
 **JHister:** https://www.jhipster.tech
