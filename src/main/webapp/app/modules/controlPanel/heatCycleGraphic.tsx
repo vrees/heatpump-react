@@ -4,8 +4,6 @@ import React, {Component} from 'react';
 interface IGraphicProps {
   sizefactor: number;
   fontsize: number;
-  width: number;
-  height: number;
 }
 
 class HeatCycleGraphic extends Component<IGraphicProps> {
@@ -22,7 +20,7 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
   }
 
   private paint() {
-    const {sizefactor, fontsize, width, height} = this.props;
+    const {sizefactor, fontsize} = this.props;
     const canvas = this.canvasRef.current;
     const context = canvas.getContext('2d');
 
@@ -290,10 +288,7 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     ctx.fillText("Verfluessiger", 86 * sizefactor, 53 * sizefactor);
   }
 
-
-
   render() {
-    const {width, height} = this.props;
     return (
       <canvas ref={this.canvasRef}
       />

@@ -44,7 +44,7 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
   render() {
     return (
       <div>
-        <HeatCycleGraphic width={200} height={200} sizefactor={this.state.sizefactor} fontsize={12}/>
+        <HeatCycleGraphic sizefactor={this.state.sizefactor} fontsize={12}/>
       </div>
     );
   }
