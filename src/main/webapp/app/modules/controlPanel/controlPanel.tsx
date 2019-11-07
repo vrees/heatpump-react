@@ -2,19 +2,19 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {findDOMNode} from 'react-dom';
 import {Home} from "app/modules/home/home";
-import HeatCycleGraphic from "app/modules/dashboard/heatCycleGraphic";
+import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
 import {Processdata} from "app/entities/processdata/processdata";
 
 
-interface IDashboardProps {
+interface IControlPanelProps {
   processdata: Processdata;
 }
 
-interface IDashboardState {
+interface IControlPanelState {
   sizefactor: number;
 }
 
-export class Dashboard extends Component<IDashboardProps, IDashboardState> {
+export class ControlPanel extends Component<IControlPanelProps, IControlPanelState> {
 
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ export class Dashboard extends Component<IDashboardProps, IDashboardState> {
   update = () => {
     const minSizefactor = 3;
     const sizefactorW = (window.innerWidth - 100) / 110;
-    const sizefactorH = (window.innerHeight - 160) / 70;
+    const sizefactorH = (window.innerHeight - 182) / 70;
     const factor = Number((sizefactorW < sizefactorH ? sizefactorW : sizefactorH).toFixed(1));
 
     this.setState({
@@ -56,5 +56,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-)(Dashboard);
+)(ControlPanel);
 

@@ -29,11 +29,11 @@ export const Home = props => (
   </NavItem>
 );
 
-export const Dashboard = props => (
+export const ControlPanel = props => (
   <NavItem>
-    <NavLink tag={Link} to="/dashboard" className="d-flex align-items-center">
+    <NavLink tag={Link} to="/controlpanel" className="d-flex align-items-center">
       <FontAwesomeIcon icon="home" />
-      <span>Dashboard</span>
+      <span>ControlPanel</span>
     </NavLink>
   </NavItem>
 );
