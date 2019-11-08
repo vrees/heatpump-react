@@ -1,11 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
-import {IPaginationBaseState} from "react-jhipster";
 import {getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
 import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
-import {ProcessdataDetail} from "app/entities/processdata/processdata-detail";
 
 export interface IControlPanelProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 

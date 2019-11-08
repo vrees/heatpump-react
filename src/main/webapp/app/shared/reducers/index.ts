@@ -12,9 +12,7 @@ import password, { PasswordState } from 'app/modules/account/password/password.r
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
 // prettier-ignore
-import processdata, {
-  ProcessdataState
-} from 'app/entities/processdata/processdata.reducer';
+import processdata, {ProcessdataState} from 'app/entities/processdata/processdata.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {

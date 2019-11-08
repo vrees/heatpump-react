@@ -31,6 +31,7 @@ describe('Entities reducer tests', () => {
     errorMessage: null,
     entities: [] as ReadonlyArray<IProcessdata>,
     entity: defaultValue,
+    latestEntity: defaultValue,
     totalItems: 0,
     updating: false,
     updateSuccess: false
@@ -45,6 +46,7 @@ describe('Entities reducer tests', () => {
     });
     expect(isEmpty(state.entities));
     expect(isEmpty(state.entity));
+    expect(isEmpty(state.latestEntity));
   }
 
   function testMultipleTypes(types, payload, testFunction) {
