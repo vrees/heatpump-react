@@ -24,11 +24,11 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
 
   componentDidMount() {
     /* eslint-disable no-console */
-    console.log("this.props", this.props);
+    console.log("ControlPanel componentDidMount called");
     /* eslint-enable no-console */
     this.props.getLatestProcessdata();
+    this.update
   }
-
 
   update = () => {
     const minSizefactor = 3;
@@ -51,11 +51,6 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
 }
 
 const mapStateToProps = ({processdata}: IRootState) => {
-
-  /* eslint-disable no-console */
-  console.log("ControlPanel mapStateToProps called");
-  /* eslint-enable no-console */
-
   return {processdataEntity: processdata.latestEntity};
 };
 

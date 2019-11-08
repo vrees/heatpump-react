@@ -104,7 +104,7 @@ public class ProcessdataResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the processdata, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/processdata/{id}")
-    public ResponseEntity<Processdata> getProcessdata(@PathVariable String id) {
+    public ResponseEntity<Processdata> getLatestProcessdata(@PathVariable String id) {
         log.debug("REST request to get Processdata : {}", id);
         Optional<Processdata> processdata = processdataRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(processdata);
@@ -123,8 +123,9 @@ public class ProcessdataResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 
+
     @GetMapping("/processdata/latest")
-    public ResponseEntity<Processdata> getProcessdata() {
+    public ResponseEntity<Processdata> getLatestProcessdata() {
         log.debug("REST request to get latest Processdata");
         Optional<Processdata> processdata = processdataRepository.findTopByOrderByTimestampDesc();
         return ResponseUtil.wrapOrNotFound(processdata);
