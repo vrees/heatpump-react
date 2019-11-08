@@ -1,49 +1,38 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-import {findDOMNode} from 'react-dom';
-import {Home} from "app/modules/home/home";
 import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
-import {IProcessdata} from "app/shared/model/processdata.model";
-import moment from "moment";
 import {IPaginationBaseState} from "react-jhipster";
-import {getEntity, getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
+import {getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
 import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
 import {ProcessdataDetail} from "app/entities/processdata/processdata-detail";
 
-
-export type IControlPanelProps = DispatchProps;
-
-export type IProcessdataState = IPaginationBaseState;
+export interface IControlPanelProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
 interface IControlPanelState {
   sizefactor: number;
-  processdata: IProcessdata;
 }
 
-export class ControlPanel extends Component<IControlPanelProps, IControlPanelState> {
-
+export class ControlPanel extends React.Component<IControlPanelProps, IControlPanelState> {
   constructor(props) {
     super(props);
 
     this.state = {
       sizefactor: 8,
-      processdata: null,
     }
 
     window.addEventListener("resize", this.update);
   }
 
   componentDidMount() {
-    this.update();
+    /* eslint-disable no-console */
+    console.log("this.props", this.props);
+    /* eslint-enable no-console */
+    this.props.getLatestProcessdata();
   }
 
 
   update = () => {
-    /* eslint-disable no-console */
-    console.log("tpeof  this.props.getLatestProcessdata", typeof this.props.getLatestProcessdata);
-    /* eslint-enable no-console */
-    const latestProcessdata = this.props.getLatestProcessdata();
     const minSizefactor = 3;
     const sizefactorW = (window.innerWidth - 100) / 110;
     const sizefactorH = (window.innerHeight - 182) / 70;
@@ -57,21 +46,31 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
   render() {
     return (
       <div>
-        <HeatCycleGraphic processData={this.state.processdata} sizefactor={this.state.sizefactor}/>
+        <HeatCycleGraphic processData={this.props.processdataEntity} sizefactor={this.state.sizefactor}/>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {};
-}
+const mapStateToProps = ({processdata}: IRootState) => {
 
-const mapDispatchToProps = {getLatestProcessdata};
+  /* eslint-disable no-console */
+  console.log("ControlPanel mapStateToProps called");
+  /* eslint-enable no-console */
+
+  return {processdataEntity: processdata.latestEntity};
+};
+
+const mapDispatchToProps = {
+  getLatestProcessdata
+};
+
+type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
-
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ControlPanel);
+
+

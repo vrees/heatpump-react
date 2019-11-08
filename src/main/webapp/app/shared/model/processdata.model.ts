@@ -37,5 +37,7 @@ export const defaultValue: Readonly<IProcessdata> = {
   operatingStateWaterPump: false,
   operatingStateCompressor: false,
   warningLowPressure: false,
-  warningHighPressure: false
+  warningHighPressure: false,
+
+  temperatureEvaporatingIn: 4.3
 };

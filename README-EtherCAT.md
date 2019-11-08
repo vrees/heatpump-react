@@ -101,5 +101,6 @@ https://dzone.com/articles/techniques-for-animating-on-the-canvas-in-react
 **React Snipplets:**
 https://github.com/jinsihou19/ReactSnippets/blob/master/README.md
 
-**React Tutorial:**
+**React / Redux Tutorial:**
 https://reactjs.org/tutorial/tutorial.html
+https://react-redux.js.org/introduction/quick-start

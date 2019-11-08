@@ -22,6 +22,7 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IProcessdata>,
   entity: defaultValue,
+  latestEntity: defaultValue,
   updating: false,
   totalItems: 0,
   updateSuccess: false
@@ -72,11 +73,16 @@ export default (state: ProcessdataState = initialState, action): ProcessdataStat
         totalItems: parseInt(action.payload.headers['x-total-count'], 10)
       };
     case SUCCESS(ACTION_TYPES.FETCH_PROCESSDATA):
-    case SUCCESS(ACTION_TYPES.FETCH_LATEST_PROCESSDATA):
       return {
         ...state,
         loading: false,
         entity: action.payload.data
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_LATEST_PROCESSDATA):
+      return {
+        ...state,
+        loading: false,
+        latestEntity: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.CREATE_PROCESSDATA):
     case SUCCESS(ACTION_TYPES.UPDATE_PROCESSDATA):
