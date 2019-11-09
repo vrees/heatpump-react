@@ -22,6 +22,20 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
     window.addEventListener("resize", this.update);
   }
 
+/*  static getDerivedStateFromProps(props, state) {
+    /!* eslint-disable no-console *!/
+    console.log("ControlPanel getDerivedStateFromProps called: ", props.sizefactor);
+    /!* eslint-enable no-console *!/
+
+    if (props.sizefactor !== state.sizefactor) {
+      return {
+        sizefactor: props.sizefactor
+      };
+    }
+    return null;
+  }*/
+
+
   componentDidMount() {
     /* eslint-disable no-console */
     console.log("ControlPanel componentDidMount called");
@@ -35,10 +49,12 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
     const sizefactorW = (window.innerWidth - 100) / 110;
     const sizefactorH = (window.innerHeight - 182) / 70;
     const factor = Number((sizefactorW < sizefactorH ? sizefactorW : sizefactorH).toFixed(1));
+    const newSizeFactor = factor < minSizefactor ? minSizefactor : factor;
 
     this.setState({
-      sizefactor: factor < minSizefactor ? minSizefactor : factor
+      sizefactor: newSizeFactor
     });
+//    const updateSizefactor1 = this.props.updateSizefactor(sizefactor);
   };
 
   render() {
@@ -51,7 +67,9 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
 }
 
 const mapStateToProps = ({processdata}: IRootState) => {
-  return {processdataEntity: processdata.latestEntity};
+  return {
+    processdataEntity: processdata.latestEntity
+  };
 };
 
 const mapDispatchToProps = {
