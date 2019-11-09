@@ -9,6 +9,7 @@ import PasswordResetInit from 'app/modules/account/password-reset/init/password-
 import PasswordResetFinish from 'app/modules/account/password-reset/finish/password-reset-finish';
 import Logout from 'app/modules/login/logout';
 import Home from 'app/modules/home/home';
+import DataView from 'app/modules/dataview/data-view';
 import ControlPanel from "app/modules/controlPanel/controlPanel";
 import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
@@ -39,6 +40,7 @@ const Routes = () => (
       <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
       <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]}/>
       <ErrorBoundaryRoute path="/" exact component={Home}/>
+      <ErrorBoundaryRoute path="/dataview" component={DataView}/>
       <ErrorBoundaryRoute path="/controlpanel" component={ControlPanel}/>
       <ErrorBoundaryRoute component={PageNotFound}/>
     </Switch>

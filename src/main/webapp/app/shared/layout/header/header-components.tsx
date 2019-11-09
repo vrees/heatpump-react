@@ -37,3 +37,12 @@ export const ControlPanel = props => (
     </NavLink>
   </NavItem>
 );
+
+export const DataView = props => (
+  <NavItem>
+    <NavLink tag={Link} to="/dataview" className="d-flex align-items-center">
+      <FontAwesomeIcon icon="home" />
+      <span>DataView</span>
+    </NavLink>
+  </NavItem>
+);

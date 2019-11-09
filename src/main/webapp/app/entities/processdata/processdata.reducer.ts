@@ -159,7 +159,7 @@ export const deleteEntity: ICrudDeleteAction<IProcessdata> = id => async dispatc
 export const getLatestProcessdata: IGetLatestProcessdataAction<IProcessdata> = () => {
   const requestUrl = `${apiUrl}/latest`;
   return {
-    type: ACTION_TYPES.FETCH_PROCESSDATA,
+    type: ACTION_TYPES.FETCH_LATEST_PROCESSDATA,
     payload: axios.get<IProcessdata>(requestUrl)
   };
 };

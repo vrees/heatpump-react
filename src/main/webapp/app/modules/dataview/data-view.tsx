@@ -6,16 +6,16 @@ import {ICrudGetAction, TextFormat} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import {IRootState} from 'app/shared/reducers';
-import {getEntity} from './processdata.reducer';
+import {getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
 import {IProcessdata} from 'app/shared/model/processdata.model';
 import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
 
-export interface IProcessdataDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+export interface IDataViewProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
 
-export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> {
+export class DataView extends React.Component<IDataViewProps> {
   componentDidMount() {
-    this.props.getEntity(this.props.match.params.id);
+    this.props.getLatestProcessdata();
   }
 
   render() {
@@ -181,10 +181,15 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
 }
 
 const mapStateToProps = ({processdata}: IRootState) => {
-  return {processdataEntity: processdata.entity};
+
+  /* eslint-disable no-console */
+  console.log("DataView mapStateToProps called");
+  /* eslint-enable no-console */
+
+  return {processdataEntity: processdata.latestEntity};
 };
 
-const mapDispatchToProps = {getEntity};
+const mapDispatchToProps = {getLatestProcessdata};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
@@ -192,4 +197,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProcessdataDetail);
+)(DataView);
