@@ -13,13 +13,7 @@ import processdata from 'app/entities/processdata/processdata';
 let stompClient = null;
 
 let subscriber = null;
-let connection: Promise<any>;
-let connectedPromise: any = null;
-let listener: Observable<any>;
 let listenerObserver: any;
-let alreadyConnectedOnce = false;
-
-const createConnection = (): Promise<any> => new Promise((resolve, reject) => (connectedPromise = resolve));
 
 const createListener = (): Observable<any> =>
   new Observable(observer => {
@@ -27,37 +21,28 @@ const createListener = (): Observable<any> =>
   });
 
 const sendActivity = () => {
-  connection.then(() => {
-    stompClient.send(
-      '/topic/activity', // destination
-      JSON.stringify({ page: window.location.hash }), // body
-      {} // header
-    );
-  });
+  stompClient.send(
+    '/topic/activity', // destination
+    JSON.stringify({ page: window.location.hash }), // body
+    {} // header
+  );
 };
 
 const subscribe = () => {
-  connection.then(() => {
-    subscriber = stompClient.subscribe('/topic/processdata', data => {
-      console.log('data:', data);
-      // listenerObserver.next(JSON.parse(data.body));
+  subscriber = stompClient.subscribe('/topic/processdata', data => {
+    const pd = JSON.parse(data.body);
+    console.log('pd:', pd);
 
+    if (pd.id !== null) {
       store.dispatch({
         type: PD_ACTIONS.WEBSOCKET_RECEIVE_PROCESSDATA,
-        payload: JSON.parse(data.body)
+        payload: pd
       });
-    });
+    }
   });
 };
 
 export const websocketConnect = () => {
-  if (connectedPromise !== null || alreadyConnectedOnce) {
-    // the connection is already being established
-    return;
-  }
-  connection = createConnection();
-  listener = createListener();
-
   // building absolute path so that websocket doesn't fail when deploying with a context path
   const loc = window.location;
   const baseHref = document
@@ -74,17 +59,10 @@ export const websocketConnect = () => {
   const socket = new SockJS(url);
   stompClient = Stomp.over(socket);
 
-  stompClient.connect(headers, () => {
-    connectedPromise('success');
-    connectedPromise = null;
+  stompClient.connect(headers, frame => {
+    console.log('Connected: ' + frame);
     subscribe();
     sendActivity();
-    if (!alreadyConnectedOnce) {
-      window.onhashchange = () => {
-        sendActivity();
-      };
-      alreadyConnectedOnce = true;
-    }
   });
 };
 
@@ -94,19 +72,9 @@ export const websocketDisconnect = () => {
     stompClient = null;
   }
   window.onhashchange = () => {};
-  alreadyConnectedOnce = false;
 };
 
-const receive = () => listener;
-
-const unsubscribe = () => {
-  if (subscriber !== null) {
-    subscriber.unsubscribe();
-  }
-  listener = createListener();
-};
-
-export default store => next => action => {
+export default () => next => action => {
   // console.log("store-next-action:", action);
   //
   // if (action.type === SUCCESS(AUTH_ACTIONS.GET_SESSION)) {

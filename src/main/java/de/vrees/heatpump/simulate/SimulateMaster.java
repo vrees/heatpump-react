@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static de.vrees.heatpump.simulate.ProcessdataConstants.SIMULATION_DATA;
 
@@ -36,7 +37,7 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
 
     private long counter = 0;
 
-    @Scheduled(fixedRate = 100)
+    @Scheduled(fixedRate = 10)
     public void scheduleTask() {
         counter++;
         SimulationDataDef definition = next();
@@ -51,10 +52,10 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
         }
     }
 
-
     private Processdata modifyNexProcesdata(Processdata processdata) {
         processdata.setTimestamp(Instant.now());
-        processdata.setTemperatureFlow(processdata.getTemperatureFlow() + 0.1f);
+        processdata.setId(processdata.getTimestamp().toString());
+        processdata.setTemperatureFlow(processdata.getTemperatureFlow() + random());
         return processdata;
     }
 
@@ -78,6 +79,9 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
             }
             return next();
         }
+    }
 
+    private int random() {
+        return ThreadLocalRandom.current().nextInt(0, 50);
     }
 }

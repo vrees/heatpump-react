@@ -107,7 +107,7 @@ export default (state: ProcessdataState = initialState, action): ProcessdataStat
     case ACTION_TYPES.WEBSOCKET_RECEIVE_PROCESSDATA:
       return {
         ...state,
-        latestEntity: action.payload.data
+        latestEntity: action.payload
       };
     default:
       return state;

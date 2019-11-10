@@ -38,10 +38,9 @@ public class WebsocketService implements ApplicationListener<SessionDisconnectEv
         return activityDTO;
     }
 
-    @SendTo("/topic/processdata")
-    public Processdata sendProcessdata(@Payload Processdata processdata) {
+    public void sendProcessdata(@Payload Processdata processdata) {
         log.debug("Sending processdata {}", processdata.getTimestamp());
-        return processdata;
+        messagingTemplate.convertAndSend("/topic/processdata", processdata);
     }
 
 
