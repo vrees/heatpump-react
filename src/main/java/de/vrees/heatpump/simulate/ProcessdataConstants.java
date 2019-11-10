@@ -14,13 +14,13 @@ public class ProcessdataConstants {
 
     public static final List<SimulationDataDef> SIMULATION_DATA = initializeSimulationData();
 
-
     private static List<SimulationDataDef> initializeSimulationData() {
-        ArrayList list = new ArrayList();
-        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 20, Lists.newArrayList(Events.SWITCH_ON), null));
-        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 100, Lists.newArrayList(Events.HEAT_REQUEST), null));
-        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 70, Lists.newArrayList(Events.TEMPERATURE_REACHED), null));
-        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 10, Lists.newArrayList(Events.COOLDED_DOWN), null));
+        ArrayList<SimulationDataDef> list = new ArrayList();
+        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 20, Lists.newArrayList(Events.SWITCH_ON)));
+        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 100, Lists.newArrayList(Events.HEAT_REQUEST)));
+        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 70, Lists.newArrayList(Events.TEMPERATURE_REACHED)));
+        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 10, Lists.newArrayList(Events.COOLDED_DOWN)));
+
         return list;
     }
 

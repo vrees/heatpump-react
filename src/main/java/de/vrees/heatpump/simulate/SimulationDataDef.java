@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.function.BiFunction;
 
 @AllArgsConstructor
 @Data
@@ -19,7 +18,4 @@ public class SimulationDataDef {
     private int numberOfRepetitions;
 
     private List<Events> eventsToSend;
-
-    private BiFunction processdataModificationFunction;
-
 }

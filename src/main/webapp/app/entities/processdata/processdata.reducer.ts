@@ -11,6 +11,7 @@ export const ACTION_TYPES = {
   FETCH_PROCESSDATA_LIST: 'processdata/FETCH_PROCESSDATA_LIST',
   FETCH_PROCESSDATA: 'processdata/FETCH_PROCESSDATA',
   FETCH_LATEST_PROCESSDATA: 'processdata/FETCH_LATEST_PROCESSDATA',
+  WEBSOCKET_RECEIVE_PROCESSDATA: 'processdata/WEBSOCKET_RECEIVE_PROCESSDATA',
   CREATE_PROCESSDATA: 'processdata/CREATE_PROCESSDATA',
   UPDATE_PROCESSDATA: 'processdata/UPDATE_PROCESSDATA',
   DELETE_PROCESSDATA: 'processdata/DELETE_PROCESSDATA',
@@ -102,6 +103,11 @@ export default (state: ProcessdataState = initialState, action): ProcessdataStat
     case ACTION_TYPES.RESET:
       return {
         ...initialState
+      };
+    case ACTION_TYPES.WEBSOCKET_RECEIVE_PROCESSDATA:
+      return {
+        ...state,
+        latestEntity: action.payload.data
       };
     default:
       return state;

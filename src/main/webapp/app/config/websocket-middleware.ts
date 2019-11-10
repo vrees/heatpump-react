@@ -3,10 +3,12 @@ import SockJS from 'sockjs-client';
 import Stomp from 'webstomp-client';
 import { Observable } from 'rxjs';
 import { Storage } from 'react-jhipster';
+import { store } from 'app/index';
 
-import { ACTION_TYPES as ADMIN_ACTIONS } from 'app/modules/administration/administration.reducer';
+import { ACTION_TYPES as PD_ACTIONS } from 'app/entities/processdata/processdata.reducer';
 import { ACTION_TYPES as AUTH_ACTIONS } from 'app/shared/reducers/authentication';
 import { SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import processdata from 'app/entities/processdata/processdata';
 
 let stompClient = null;
 
@@ -36,13 +38,19 @@ const sendActivity = () => {
 
 const subscribe = () => {
   connection.then(() => {
-    subscriber = stompClient.subscribe('/topic/tracker', data => {
-      listenerObserver.next(JSON.parse(data.body));
+    subscriber = stompClient.subscribe('/topic/processdata', data => {
+      console.log('data:', data);
+      // listenerObserver.next(JSON.parse(data.body));
+
+      store.dispatch({
+        type: PD_ACTIONS.WEBSOCKET_RECEIVE_PROCESSDATA,
+        payload: JSON.parse(data.body)
+      });
     });
   });
 };
 
-const connect = () => {
+export const websocketConnect = () => {
   if (connectedPromise !== null || alreadyConnectedOnce) {
     // the connection is already being established
     return;
@@ -80,7 +88,7 @@ const connect = () => {
   });
 };
 
-const disconnect = () => {
+export const websocketDisconnect = () => {
   if (stompClient !== null) {
     stompClient.disconnect();
     stompClient = null;
@@ -99,19 +107,21 @@ const unsubscribe = () => {
 };
 
 export default store => next => action => {
-  if (action.type === SUCCESS(AUTH_ACTIONS.GET_SESSION)) {
-    connect();
-    if (!alreadyConnectedOnce) {
-      receive().subscribe(activity => {
-        return store.dispatch({
-          type: ADMIN_ACTIONS.WEBSOCKET_ACTIVITY_MESSAGE,
-          payload: activity
-        });
-      });
-    }
-  } else if (action.type === FAILURE(AUTH_ACTIONS.GET_SESSION)) {
-    unsubscribe();
-    disconnect();
-  }
+  // console.log("store-next-action:", action);
+  //
+  // if (action.type === SUCCESS(AUTH_ACTIONS.GET_SESSION)) {
+  //   connect();
+  //   if (!alreadyConnectedOnce) {
+  //     receive().subscribe(processdata => {
+  //       return store.dispatch({
+  //         type: PD_ACTIONS.WEBSOCKET_RECEIVE_PROCESSDATA,
+  //         payload: processdata
+  //       });
+  //     });
+  //   }
+  // } else if (action.type === FAILURE(AUTH_ACTIONS.GET_SESSION)) {
+  //   unsubscribe();
+  //   disconnect();
+  // }
   return next(action);
 };

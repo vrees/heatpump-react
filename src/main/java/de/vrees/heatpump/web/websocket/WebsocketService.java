@@ -1,29 +1,29 @@
 package de.vrees.heatpump.web.websocket;
 
-import static de.vrees.heatpump.config.WebsocketConfiguration.IP_ADDRESS;
-
+import de.vrees.heatpump.domain.Processdata;
 import de.vrees.heatpump.web.websocket.dto.ActivityDTO;
-
-import java.security.Principal;
-import java.time.Instant;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
-import org.springframework.messaging.handler.annotation.*;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-@Controller
-public class ActivityService implements ApplicationListener<SessionDisconnectEvent> {
+import java.security.Principal;
+import java.time.Instant;
 
-    private static final Logger log = LoggerFactory.getLogger(ActivityService.class);
+import static de.vrees.heatpump.config.WebsocketConfiguration.IP_ADDRESS;
+
+@Controller
+@Slf4j
+public class WebsocketService implements ApplicationListener<SessionDisconnectEvent> {
 
     private final SimpMessageSendingOperations messagingTemplate;
 
-    public ActivityService(SimpMessageSendingOperations messagingTemplate) {
+    public WebsocketService(SimpMessageSendingOperations messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
     }
 
@@ -37,6 +37,13 @@ public class ActivityService implements ApplicationListener<SessionDisconnectEve
         log.debug("Sending user tracking data {}", activityDTO);
         return activityDTO;
     }
+
+    @SendTo("/topic/processdata")
+    public Processdata sendProcessdata(@Payload Processdata processdata) {
+        log.debug("Sending processdata {}", processdata.getTimestamp());
+        return processdata;
+    }
+
 
     @Override
     public void onApplicationEvent(SessionDisconnectEvent event) {

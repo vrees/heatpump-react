@@ -13,7 +13,7 @@ import { loadIcons } from './config/icon-loader';
 
 const devTools = process.env.NODE_ENV === 'development' ? <DevTools /> : null;
 
-const store = initStore();
+export const store = initStore();
 
 const actions = bindActionCreators({ clearAuthentication }, store.dispatch);
 setupAxiosInterceptors(() => actions.clearAuthentication('login.error.unauthorized'));
