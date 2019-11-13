@@ -46,7 +46,7 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
             definition.getEventsToSend().forEach(e -> stateMachine.sendEvent(e));
         }
 
-        if (counter % 500 == 0) {
+        if (counter % 200 == 0) {
             Processdata nextVal = modifyNexProcesdata(processdataMapper.map(definition.getProcessdata()));
             websocketService.sendProcessdata(nextVal);
         }

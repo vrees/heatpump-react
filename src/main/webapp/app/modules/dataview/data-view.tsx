@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {websocketConnect, websocketDisconnect} from '../../config/websocket-middleware';
 import {Link, RouteComponentProps} from 'react-router-dom';
-import {Button, UncontrolledTooltip, Row, Col} from 'reactstrap';
+import {Button, UncontrolledTooltip, FormGroup, Row, Col, Label} from 'reactstrap';
 import {ICrudGetAction, TextFormat} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
@@ -31,17 +31,36 @@ export class DataView extends React.Component<IDataViewProps> {
     const {processdataEntity} = this.props;
     return (
       <div>
+
+        <p>
         <Button color="primary" onClick={this.handleConnect}>Connect</Button>
         <Button color="primary" onClick={this.handleDisconnect}>Disconnect</Button>
+        </p>
+
+        <h2>
+          Processdata [<b>{processdataEntity.id}</b>]
+        </h2>
+
+        <h4>
+          <Row>
+            <Label md={4}>Verdampfungstemperatur in °C</Label>
+            <Label md={2}>{processdataEntity.temperatureEvaporatingIn}</Label>
+            <Label md={4}>Verdampfungstemperatur out in °C</Label>
+            <Label md={2}>{processdataEntity.temperatureEvaporatingOut}</Label>
+          </Row>
+
+          <FormGroup row>
+            <Label md={4}>Vorlauf-Temperatur in °C</Label>
+            <Label md={2}>{processdataEntity.temperatureFlow}</Label>
+            <Label md={4}>Rücklauf-Temperatur in °C</Label>
+            <Label md={2}>{processdataEntity.temperatureReturn}</Label>
+          </FormGroup>
+        </h4>
+
 
         <Row>
           <Col md="8">
-            <h2>
-              Processdata [<b>{processdataEntity.id}</b>]
-            </h2>
             <dl className="jh-entity-details">
-
-
               <dt>
                 <span id="timestamp">Timestamp</span>
               </dt>
@@ -49,21 +68,20 @@ export class DataView extends React.Component<IDataViewProps> {
                 <TextFormat value={processdataEntity.timestamp} type="date" format={APP_DATE_FORMAT}/>
               </dd>
 
-
               <dt>
                 <span id="temperatureEvaporatingIn">Temperature Evaporating In</span>
                 <UncontrolledTooltip target="temperatureEvaporatingIn">Verdampfungstemperatur in
                   °C</UncontrolledTooltip>
               </dt>
               <dd>{processdataEntity.temperatureEvaporatingIn}</dd>
-
-
               <dt>
                 <span id="temperatureEvaporatingOut">Temperature Evaporating Out</span>
                 <UncontrolledTooltip target="temperatureEvaporatingOut">Verdampfungstemperatur out in
                   °C</UncontrolledTooltip>
               </dt>
               <dd>{processdataEntity.temperatureEvaporatingOut}</dd>
+
+
               <dt>
                 <span id="temperatureFlow">Temperature Flow</span>
                 <UncontrolledTooltip target="temperatureFlow">Vorlauf-Temperatur in °C</UncontrolledTooltip>
