@@ -104,3 +104,7 @@ https://github.com/jinsihou19/ReactSnippets/blob/master/README.md
 **React / Redux Tutorial:**
 https://reactjs.org/tutorial/tutorial.html
 https://react-redux.js.org/introduction/quick-start
+
+**reactstrap**
+https://reactstrap.github.io/components/alerts
+
