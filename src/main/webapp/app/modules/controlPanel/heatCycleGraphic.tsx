@@ -299,9 +299,10 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
   private drawValues(ctx, sizefactor, pd: IProcessdata) {
     const UNIT_GRAD_CELSIUS = ' °C';
     const UNIT_BAR = ' bar';
+    const UNIT_MILLIBAR = ' mbar';
 
     // Sizefactor ausgeben
-    ctx.font = '11pt Vardena';
+    ctx.font = '11pt Arial';
     ctx.fillStyle = "blue";
 
     ctx.fillText(pd.state, 64 * sizefactor, 30 * sizefactor);
@@ -311,12 +312,13 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     ctx.fillText(pd.temperatureEvaporatingOut + UNIT_GRAD_CELSIUS, 14 * sizefactor, 49 * sizefactor);
     ctx.fillText(pd.temperatureFlow + UNIT_GRAD_CELSIUS, 108 * sizefactor, 23 * sizefactor);
     ctx.fillText(pd.temperatureReturn + UNIT_GRAD_CELSIUS, 108 * sizefactor, 51 * sizefactor);
-    ctx.fillText(pd.temperatureOverheatedGas + UNIT_GRAD_CELSIUS, 40 * sizefactor, 8 * sizefactor);
-    ctx.fillText(pd.temperatureSwitchOnSensor + UNIT_GRAD_CELSIUS, 108 * sizefactor, 6 * sizefactor);
+    ctx.fillText(pd.temperatureOverheatedGas + UNIT_GRAD_CELSIUS, 44 * sizefactor, 8 * sizefactor);
+    ctx.fillText(pd.temperatureSwitchOnSensor + UNIT_GRAD_CELSIUS, 106.8 * sizefactor, 5.4 * sizefactor);
 
     ctx.fillStyle = "brown";
     ctx.fillText(pd.pressureLow + UNIT_BAR, 44 * sizefactor, 18 * sizefactor);
     ctx.fillText(pd.pressureHigh + UNIT_BAR, 80 * sizefactor, 18 * sizefactor);
+    ctx.fillText(pd.pressureDiffenceEvaporator + UNIT_MILLIBAR, 20 * sizefactor, 35 * sizefactor);
 
   }
 
