@@ -3,6 +3,7 @@ package de.vrees.heatpump.simulate;
 import com.google.common.collect.Lists;
 import de.vrees.heatpump.domain.Processdata;
 import de.vrees.heatpump.statemachine.Events;
+import de.vrees.heatpump.statemachine.States;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +27,15 @@ public class ProcessdataConstants {
 
     private static Processdata initializeDefault() {
         Processdata pd = new Processdata();
+
+        pd.setState(States.BACKLASH);
+
         pd.setTemperatureEvaporatingIn(6.4f);
         pd.setTemperatureEvaporatingOut(4.2f);
         pd.setTemperatureFlow(45.8f);
         pd.setTemperatureReturn(38.7f);
         pd.setTemperatureSwitchOnSensor(42.5f);
-        pd.setTemperatureOverheatedGas(6.1f);
+        pd.setTemperatureOverheatedGas(7.2f);
 
         pd.pressureHigh(11.2f);
         pd.pressureLow(3.4f);

@@ -33,8 +33,8 @@ export class DataView extends React.Component<IDataViewProps> {
       <div>
 
         <p>
-        <Button color="primary" onClick={this.handleConnect}>Connect</Button>
-        <Button color="primary" onClick={this.handleDisconnect}>Disconnect</Button>
+          <Button color="primary" onClick={this.handleConnect}>Connect</Button>
+          <Button color="primary" onClick={this.handleDisconnect}>Disconnect</Button>
         </p>
 
         <h2>
@@ -67,7 +67,11 @@ export class DataView extends React.Component<IDataViewProps> {
               <dd>
                 <TextFormat value={processdataEntity.timestamp} type="date" format={APP_DATE_FORMAT}/>
               </dd>
-
+              <dt>
+                <span id="state">State</span>
+                <UncontrolledTooltip target="state">Status der Statemachine = Betrriebszustand</UncontrolledTooltip>
+              </dt>
+              <dd>{processdataEntity.state}</dd>
               <dt>
                 <span id="temperatureEvaporatingIn">Temperature Evaporating In</span>
                 <UncontrolledTooltip target="temperatureEvaporatingIn">Verdampfungstemperatur in

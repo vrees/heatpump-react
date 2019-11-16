@@ -292,14 +292,31 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     ctx.fillText('Verdampfer', 30 * sizefactor, 53 * sizefactor);
     ctx.textAlign = 'right';
     ctx.fillText("Verfluessiger", 86 * sizefactor, 53 * sizefactor);
+    ctx.fillText('Bloiler', 107 * sizefactor, 2.8 * sizefactor);
+
   }
 
   private drawValues(ctx, sizefactor, pd: IProcessdata) {
-    // Sizefactor ausgeben
-    ctx.font = '10pt Vardena bold';
-    ctx.fillStyle = "blue";
-    ctx.fillText(pd.temperatureEvaporatingIn, 20 * sizefactor, 10 * sizefactor);
+    const UNIT_GRAD_CELSIUS = ' °C';
+    const UNIT_BAR = ' bar';
 
+    // Sizefactor ausgeben
+    ctx.font = '11pt Vardena';
+    ctx.fillStyle = "blue";
+
+    ctx.fillText(pd.state, 64 * sizefactor, 30 * sizefactor);
+
+    // Temperatures
+    ctx.fillText(pd.temperatureEvaporatingIn + UNIT_GRAD_CELSIUS, 14 * sizefactor, 23 * sizefactor);
+    ctx.fillText(pd.temperatureEvaporatingOut + UNIT_GRAD_CELSIUS, 14 * sizefactor, 49 * sizefactor);
+    ctx.fillText(pd.temperatureFlow + UNIT_GRAD_CELSIUS, 108 * sizefactor, 23 * sizefactor);
+    ctx.fillText(pd.temperatureReturn + UNIT_GRAD_CELSIUS, 108 * sizefactor, 51 * sizefactor);
+    ctx.fillText(pd.temperatureOverheatedGas + UNIT_GRAD_CELSIUS, 40 * sizefactor, 8 * sizefactor);
+    ctx.fillText(pd.temperatureSwitchOnSensor + UNIT_GRAD_CELSIUS, 108 * sizefactor, 6 * sizefactor);
+
+    ctx.fillStyle = "brown";
+    ctx.fillText(pd.pressureLow + UNIT_BAR, 44 * sizefactor, 18 * sizefactor);
+    ctx.fillText(pd.pressureHigh + UNIT_BAR, 80 * sizefactor, 18 * sizefactor);
 
   }
 
