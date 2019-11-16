@@ -90,7 +90,17 @@ entity Processdata {
 
         /** Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt) */
         warningHighPressure Boolean
+
+        /** Status der Statemachine = Betrriebszustand */
+        state States
+}
+
+enum States {
+    OFF, READY, RUNNING, BACKLASH, ERROR
+}
+
+enum Events {
+    SWITCH_ON,    SWITCH_OFF,    HEAT_REQUEST,    TEMPERATURE_REACHED,    COOLDED_DOWN
 }
 
 paginate Processdata with pagination
-
