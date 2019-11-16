@@ -55,7 +55,16 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
     private Processdata modifyNexProcesdata(Processdata processdata) {
         processdata.setTimestamp(Instant.now());
         processdata.setId(processdata.getTimestamp().toString());
-        processdata.setTemperatureFlow(processdata.getTemperatureFlow() + random());
+        processdata.setTemperatureFlow(random(37, 50, 10));
+        processdata.setTemperatureReturn(random(30, 45, 10));
+        processdata.setTemperatureEvaporatingIn(random(5, 7, 10));
+        processdata.setTemperatureEvaporatingOut(random(4, 5, 10));
+        processdata.setTemperatureOverheatedGas(random(7, 8, 10));
+        processdata.setTemperatureSwitchOnSensor(random(42, 44, 10));
+        processdata.setPressureLow(random(2, 4, 10));
+        processdata.setPressureHigh(random(8, 11, 10));
+        processdata.setPressureDiffenceEvaporator(random(10, 200, 10));
+
         return processdata;
     }
 
@@ -81,7 +90,13 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
         }
     }
 
-    private int random() {
-        return ThreadLocalRandom.current().nextInt(0, 50);
+    private float random(int min, int max, int scaleFactor) {
+        float val = ThreadLocalRandom.current().nextFloat();
+        return min + round(val * (max - min), scaleFactor);
+    }
+
+    public static float round(float number, int scaleFactor) {
+        float tmp = number * scaleFactor;
+        return ((float) ((int) ((tmp - (int) tmp) >= 0.5f ? tmp + 1 : tmp))) / scaleFactor;
     }
 }

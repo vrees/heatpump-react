@@ -41,6 +41,8 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     this.drawPumpe(context, sizefactor);
 
     this.drawValues(context, sizefactor, processData);
+
+
   }
 
 
@@ -320,12 +322,15 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     ctx.fillText(pd.pressureHigh + UNIT_BAR, 80 * sizefactor, 18 * sizefactor);
     ctx.fillText(pd.pressureDiffenceEvaporator + UNIT_MILLIBAR, 20 * sizefactor, 35 * sizefactor);
 
+
+    ctx.icon
   }
 
   render() {
     return (
-      <canvas ref={this.canvasRef}
-      />
+      <div>
+        <canvas ref={this.canvasRef}/>
+      </div>
     );
   }
 }
