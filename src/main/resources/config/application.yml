@@ -141,10 +141,10 @@ jhipster:
 
 application:
   limits:
-    highPressureMax: 15 # Maximaler Druck auf der Hochdruckseite [bar]
-    lowPressureMax: 6 # Maximaler Druck auf der Niederdruckseite [bar]
-    diffPressureWtMax: 100 # Maximaler Druckverlust des Verdampfer-Wärmetauschers [mbar]
-    evaporatingTemperatureMin: 3 # Minimale Temperatur am Austritt des Verdampfer-Wärmetausschers. Triplepunkt des Wassers. [�C]
+    pressureHighMax: 15 # Maximaler Druck auf der Hochdruckseite [bar]
+    pressureLowMax: 6 # Maximaler Druck auf der Niederdruckseite [bar]
+    pressureDiffenceEvaporatorMax: 100 # Maximaler Druckverlust des Verdampfer-Wärmetauschers [mbar]
+    evaporatingTemperatureOutMin: 3 # Minimale Temperatur am Austritt des Verdampfer-Wärmetausschers. Triplepunkt des Wassers. [�C]
 
   config:
     heatTemperaturSwitchOn: 42 # Einschalttemperatur bei deren Unterschreiten die Waermepumpe eingeschaltet wird

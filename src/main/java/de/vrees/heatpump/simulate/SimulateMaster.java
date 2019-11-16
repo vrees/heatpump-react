@@ -2,12 +2,16 @@ package de.vrees.heatpump.simulate;
 
 
 import de.vrees.heatpump.domain.Processdata;
+import de.vrees.heatpump.limitcheck.LimitCheckEnum;
+import de.vrees.heatpump.limitcheck.LimitChecker;
+import de.vrees.heatpump.statemachine.EventHeaderEnum;
 import de.vrees.heatpump.statemachine.Events;
 import de.vrees.heatpump.statemachine.States;
 import de.vrees.heatpump.web.websocket.WebsocketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.stereotype.Component;
@@ -27,29 +31,61 @@ import static de.vrees.heatpump.simulate.ProcessdataConstants.SIMULATION_DATA;
 public class SimulateMaster implements Iterator<SimulationDataDef> {
 
     private static final List<SimulationDataDef> simulationData = SIMULATION_DATA;
+    public static final String EXT_STATE_PROCESS_DATA = "PROCESS_DATA";
 
     private final StateMachine<States, Events> stateMachine;
     private final ProcessdataMapper processdataMapper;
     private final WebsocketService websocketService;
+    private final LimitChecker limitChecker;
 
     private int indexOfDefRecord = 0;
     private int indexInsideDefRecord = -1;
 
     private long counter = 0;
 
-    @Scheduled(fixedRate = 10)
+    @Scheduled(fixedRate = 100)
     public void scheduleTask() {
         counter++;
         SimulationDataDef definition = next();
+        Processdata processdata = modifyNexProcesdata(processdataMapper.map(definition.getProcessdata()));
+
+        storeProcessdataInStatemachine(processdata);
+        checkLimits(processdata);
+        processOutgoingValues(processdata);
+
 
         if (definition.getNumberOfRepetitions() == indexInsideDefRecord) {
             definition.getEventsToSend().forEach(e -> stateMachine.sendEvent(e));
         }
 
-        if (counter % 200 == 0) {
-            Processdata nextVal = modifyNexProcesdata(processdataMapper.map(definition.getProcessdata()));
-            websocketService.sendProcessdata(nextVal);
+        if (counter % 20 == 0) {
+            websocketService.sendProcessdata(processdata);
         }
+    }
+
+    private void processOutgoingValues(Processdata processdata) {
+        States state = stateMachine.getState().getId();
+
+        processdata.setState(state);
+
+    }
+
+    private void storeProcessdataInStatemachine(Processdata processdata) {
+        stateMachine.getExtendedState().getVariables().put(EXT_STATE_PROCESS_DATA, processdata);
+    }
+
+    private boolean checkLimits(Processdata processdata) {
+        List<LimitCheckEnum> failedChecks = limitChecker.validate(processdata);
+
+        if (failedChecks.size() > 0) {
+            stateMachine.sendEvent(
+                MessageBuilder
+                    .withPayload(Events.LIMIT_EXCEEDED)
+                    .setHeader(EventHeaderEnum.FAILED_CHECKS.name(), failedChecks).build()
+            );
+        }
+
+        return failedChecks.size() > 0;
     }
 
     private Processdata modifyNexProcesdata(Processdata processdata) {

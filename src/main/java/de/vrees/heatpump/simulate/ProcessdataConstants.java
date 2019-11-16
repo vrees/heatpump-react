@@ -21,6 +21,7 @@ public class ProcessdataConstants {
         list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 100, Lists.newArrayList(Events.HEAT_REQUEST)));
         list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 70, Lists.newArrayList(Events.TEMPERATURE_REACHED)));
         list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 10, Lists.newArrayList(Events.COOLDED_DOWN)));
+        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 15, Lists.newArrayList(Events.ACKNOWLEDGE)));
 
         return list;
     }

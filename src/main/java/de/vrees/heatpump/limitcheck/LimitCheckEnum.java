@@ -1,4 +1,4 @@
-package limitcheck;
+package de.vrees.heatpump.limitcheck;
 
 public enum LimitCheckEnum {
 
@@ -23,7 +23,9 @@ public enum LimitCheckEnum {
     // Prüfe, of Wasser Durchflussmenge ausreichend ist. Mindestens 2500 Liter/Stunde
     ENSURE_FLOW_VOLUMNE("Durchflussmenge zu gering."),
 
-    MOTOR_PROTECTION_SWITH("Motorschutzschalter ausgelöst");
+    MOTOR_PROTECTION_SWITH("Motorschutzschalter ausgelöst"),
+
+    ALARM_EXPANSION_VALVE("Expansionsventil ausgelöst");
 
 
     private String errorMessage;
