@@ -1,17 +1,16 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Link, RouteComponentProps} from 'react-router-dom';
-import {Button, UncontrolledTooltip, Row, Col} from 'reactstrap';
-import {ICrudGetAction, TextFormat} from 'react-jhipster';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { connect } from 'react-redux';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { Button, UncontrolledTooltip, Row, Col } from 'reactstrap';
+import { ICrudGetAction, TextFormat } from 'react-jhipster';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {IRootState} from 'app/shared/reducers';
-import {getEntity} from './processdata.reducer';
-import {IProcessdata} from 'app/shared/model/processdata.model';
-import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
+import { IRootState } from 'app/shared/reducers';
+import { getEntity } from './processdata.reducer';
+import { IProcessdata } from 'app/shared/model/processdata.model';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface IProcessdataDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
-}
+export interface IProcessdataDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> {
   componentDidMount() {
@@ -19,7 +18,7 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
   }
 
   render() {
-    const {processdataEntity} = this.props;
+    const { processdataEntity } = this.props;
     return (
       <Row>
         <Col md="8">
@@ -31,8 +30,13 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
               <span id="timestamp">Timestamp</span>
             </dt>
             <dd>
-              <TextFormat value={processdataEntity.timestamp} type="date" format={APP_DATE_FORMAT}/>
+              <TextFormat value={processdataEntity.timestamp} type="date" format={APP_DATE_FORMAT} />
             </dd>
+            <dt>
+              <span id="state">State</span>
+              <UncontrolledTooltip target="state">Status der Statemachine = Betrriebszustand</UncontrolledTooltip>
+            </dt>
+            <dd>{processdataEntity.state}</dd>
             <dt>
               <span id="temperatureEvaporatingIn">Temperature Evaporating In</span>
               <UncontrolledTooltip target="temperatureEvaporatingIn">Verdampfungstemperatur in °C</UncontrolledTooltip>
@@ -40,8 +44,7 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             <dd>{processdataEntity.temperatureEvaporatingIn}</dd>
             <dt>
               <span id="temperatureEvaporatingOut">Temperature Evaporating Out</span>
-              <UncontrolledTooltip target="temperatureEvaporatingOut">Verdampfungstemperatur out in
-                °C</UncontrolledTooltip>
+              <UncontrolledTooltip target="temperatureEvaporatingOut">Verdampfungstemperatur out in °C</UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.temperatureEvaporatingOut}</dd>
             <dt>
@@ -64,11 +67,9 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             <dt>
               <span id="temperatureOverheatedGas">Temperature Overheated Gas</span>
               <UncontrolledTooltip target="temperatureOverheatedGas">
-                SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also
-                auf der
+                SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also auf der
                 Niederdruck-Seite.\nWird zusammen mit dem Druck im Verdampfer zur Berechnung der Überhitzung
-                benötigt\nGesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels\nUeberhitzung
-                = Temperatur des
+                benötigt\nGesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels\nUeberhitzung = Temperatur des
                 ueberhitzten Gases - GesättigteVerdampfungstemperatur
               </UncontrolledTooltip>
             </dt>
@@ -102,8 +103,7 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             <dd>{processdataEntity.userConfirmation ? 'true' : 'false'}</dd>
             <dt>
               <span id="alarmExpansionValve">Alarm Expansion Valve</span>
-              <UncontrolledTooltip target="alarmExpansionValve">Alarm des Elektronischen Expansionsentils
-                EEV</UncontrolledTooltip>
+              <UncontrolledTooltip target="alarmExpansionValve">Alarm des Elektronischen Expansionsentils EEV</UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.alarmExpansionValve ? 'true' : 'false'}</dd>
             <dt>
@@ -115,8 +115,7 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             <dd>{processdataEntity.incidentFlow ? 'true' : 'false'}</dd>
             <dt>
               <span id="incidentCompressor">Incident Compressor</span>
-              <UncontrolledTooltip target="incidentCompressor">Stoerung Verdichter /
-                Motorschutzschalter</UncontrolledTooltip>
+              <UncontrolledTooltip target="incidentCompressor">Stoerung Verdichter / Motorschutzschalter</UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.incidentCompressor ? 'true' : 'false'}</dd>
             <dt>
@@ -146,8 +145,7 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             <dt>
               <span id="calculatedOverheatTemperature">Calculated Overheat Temperature</span>
               <UncontrolledTooltip target="calculatedOverheatTemperature">
-                Überhitzung: Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal
-                TemperaturKonstante des
+                Überhitzung: Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal TemperaturKonstante des
                 Kühlmittels
               </UncontrolledTooltip>
             </dt>
@@ -168,11 +166,11 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             <dd>{processdataEntity.warningHighPressure ? 'true' : 'false'}</dd>
           </dl>
           <Button tag={Link} to="/entity/processdata" replace color="info">
-            <FontAwesomeIcon icon="arrow-left"/> <span className="d-none d-md-inline">Back</span>
+            <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
           </Button>
           &nbsp;
           <Button tag={Link} to={`/entity/processdata/${processdataEntity.id}/edit`} replace color="primary">
-            <FontAwesomeIcon icon="pencil-alt"/> <span className="d-none d-md-inline">Edit</span>
+            <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
           </Button>
         </Col>
       </Row>
@@ -180,11 +178,11 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
   }
 }
 
-const mapStateToProps = ({processdata}: IRootState) => {
-  return {processdataEntity: processdata.entity};
-};
+const mapStateToProps = ({ processdata }: IRootState) => ({
+  processdataEntity: processdata.entity
+});
 
-const mapDispatchToProps = {getEntity};
+const mapDispatchToProps = { getEntity };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

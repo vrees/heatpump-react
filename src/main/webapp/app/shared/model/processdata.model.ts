@@ -1,8 +1,10 @@
 import { Moment } from 'moment';
+import { States } from 'app/shared/model/enumerations/states.model';
 
 export interface IProcessdata {
   id?: string;
   timestamp?: Moment;
+  state?: States;
   temperatureEvaporatingIn?: number;
   temperatureEvaporatingOut?: number;
   temperatureFlow?: number;
@@ -37,7 +39,5 @@ export const defaultValue: Readonly<IProcessdata> = {
   operatingStateWaterPump: false,
   operatingStateCompressor: false,
   warningLowPressure: false,
-  warningHighPressure: false,
-
-  temperatureEvaporatingIn: 4.3
+  warningHighPressure: false
 };

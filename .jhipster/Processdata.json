@@ -6,6 +6,12 @@
             "fieldType": "Instant"
         },
         {
+          "fieldName": "state",
+          "javadoc": "Status der Statemachine = Betriebszustand",
+          "fieldType": "States",
+          "fieldValues": "OFF,READY,RUNNING,BACKLASH,ERROR"
+        },
+        {
             "fieldName": "temperatureEvaporatingIn",
             "javadoc": "Verdampfungstemperatur in °C",
             "fieldType": "Float"

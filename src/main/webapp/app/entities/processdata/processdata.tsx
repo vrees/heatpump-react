@@ -68,6 +68,9 @@ export class Processdata extends React.Component<IProcessdataProps, IProcessdata
                   <th className="hand" onClick={this.sort('timestamp')}>
                     Timestamp <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={this.sort('state')}>
+                    State <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={this.sort('temperatureEvaporatingIn')}>
                     Temperature Evaporating In <FontAwesomeIcon icon="sort" />
                   </th>
@@ -145,6 +148,7 @@ export class Processdata extends React.Component<IProcessdataProps, IProcessdata
                     <td>
                       <TextFormat type="date" value={processdata.timestamp} format={APP_DATE_FORMAT} />
                     </td>
+                    <td>{processdata.state}</td>
                     <td>{processdata.temperatureEvaporatingIn}</td>
                     <td>{processdata.temperatureEvaporatingOut}</td>
                     <td>{processdata.temperatureFlow}</td>

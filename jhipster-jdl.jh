@@ -3,6 +3,8 @@ entity Processdata {
 		// aktueller Zeitstempel
         timestamp Instant
 
+        /** Status der Statemachine = Betriebszustand */
+        state States
 
 		//***** Temperatures ********************/
 
@@ -90,9 +92,6 @@ entity Processdata {
 
         /** Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt) */
         warningHighPressure Boolean
-
-        /** Status der Statemachine = Betrriebszustand */
-        state States
 }
 
 enum States {

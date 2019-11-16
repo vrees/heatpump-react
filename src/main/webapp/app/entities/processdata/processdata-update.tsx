@@ -99,6 +99,25 @@ export class ProcessdataUpdate extends React.Component<IProcessdataUpdateProps, 
                   />
                 </AvGroup>
                 <AvGroup>
+                  <Label id="stateLabel" for="processdata-state">
+                    State
+                  </Label>
+                  <AvInput
+                    id="processdata-state"
+                    type="select"
+                    className="form-control"
+                    name="state"
+                    value={(!isNew && processdataEntity.state) || 'OFF'}
+                  >
+                    <option value="OFF">OFF</option>
+                    <option value="READY">READY</option>
+                    <option value="RUNNING">RUNNING</option>
+                    <option value="BACKLASH">BACKLASH</option>
+                    <option value="ERROR">ERROR</option>
+                  </AvInput>
+                  <UncontrolledTooltip target="stateLabel">Status der Statemachine = Betrriebszustand</UncontrolledTooltip>
+                </AvGroup>
+                <AvGroup>
                   <Label id="temperatureEvaporatingInLabel" for="processdata-temperatureEvaporatingIn">
                     Temperature Evaporating In
                   </Label>

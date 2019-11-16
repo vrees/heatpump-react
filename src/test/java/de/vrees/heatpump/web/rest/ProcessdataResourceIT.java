@@ -3,8 +3,8 @@ package de.vrees.heatpump.web.rest;
 import de.vrees.heatpump.HeatpumpApp;
 import de.vrees.heatpump.domain.Processdata;
 import de.vrees.heatpump.repository.ProcessdataRepository;
+import de.vrees.heatpump.statemachine.States;
 import de.vrees.heatpump.web.rest.errors.ExceptionTranslator;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Validator;
 
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -27,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 /**
  * Integration tests for the {@link ProcessdataResource} REST controller.
@@ -100,6 +100,9 @@ public class ProcessdataResourceIT {
     private static final Boolean DEFAULT_WARNING_HIGH_PRESSURE = false;
     private static final Boolean UPDATED_WARNING_HIGH_PRESSURE = true;
 
+    private static final States DEFAULT_STATE = States.OFF;
+    private static final States UPDATED_STATE = States.READY;
+
     @Autowired
     private ProcessdataRepository processdataRepository;
 
@@ -160,7 +163,8 @@ public class ProcessdataResourceIT {
             .operatingStateCompressor(DEFAULT_OPERATING_STATE_COMPRESSOR)
             .calculatedOverheatTemperature(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE)
             .warningLowPressure(DEFAULT_WARNING_LOW_PRESSURE)
-            .warningHighPressure(DEFAULT_WARNING_HIGH_PRESSURE);
+            .warningHighPressure(DEFAULT_WARNING_HIGH_PRESSURE)
+            .state(DEFAULT_STATE);
         return processdata;
     }
     /**
@@ -192,7 +196,8 @@ public class ProcessdataResourceIT {
             .operatingStateCompressor(UPDATED_OPERATING_STATE_COMPRESSOR)
             .calculatedOverheatTemperature(UPDATED_CALCULATED_OVERHEAT_TEMPERATURE)
             .warningLowPressure(UPDATED_WARNING_LOW_PRESSURE)
-            .warningHighPressure(UPDATED_WARNING_HIGH_PRESSURE);
+            .warningHighPressure(UPDATED_WARNING_HIGH_PRESSURE)
+            .state(UPDATED_STATE);
         return processdata;
     }
 
@@ -238,6 +243,7 @@ public class ProcessdataResourceIT {
         assertThat(testProcessdata.getCalculatedOverheatTemperature()).isEqualTo(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE);
         assertThat(testProcessdata.isWarningLowPressure()).isEqualTo(DEFAULT_WARNING_LOW_PRESSURE);
         assertThat(testProcessdata.isWarningHighPressure()).isEqualTo(DEFAULT_WARNING_HIGH_PRESSURE);
+        assertThat(testProcessdata.getState()).isEqualTo(DEFAULT_STATE);
     }
 
     @Test
@@ -290,9 +296,10 @@ public class ProcessdataResourceIT {
             .andExpect(jsonPath("$.[*].operatingStateCompressor").value(hasItem(DEFAULT_OPERATING_STATE_COMPRESSOR.booleanValue())))
             .andExpect(jsonPath("$.[*].calculatedOverheatTemperature").value(hasItem(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE.doubleValue())))
             .andExpect(jsonPath("$.[*].warningLowPressure").value(hasItem(DEFAULT_WARNING_LOW_PRESSURE.booleanValue())))
-            .andExpect(jsonPath("$.[*].warningHighPressure").value(hasItem(DEFAULT_WARNING_HIGH_PRESSURE.booleanValue())));
+            .andExpect(jsonPath("$.[*].warningHighPressure").value(hasItem(DEFAULT_WARNING_HIGH_PRESSURE.booleanValue())))
+            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())));
     }
-    
+
     @Test
     public void getProcessdata() throws Exception {
         // Initialize the database
@@ -324,7 +331,8 @@ public class ProcessdataResourceIT {
             .andExpect(jsonPath("$.operatingStateCompressor").value(DEFAULT_OPERATING_STATE_COMPRESSOR.booleanValue()))
             .andExpect(jsonPath("$.calculatedOverheatTemperature").value(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE.doubleValue()))
             .andExpect(jsonPath("$.warningLowPressure").value(DEFAULT_WARNING_LOW_PRESSURE.booleanValue()))
-            .andExpect(jsonPath("$.warningHighPressure").value(DEFAULT_WARNING_HIGH_PRESSURE.booleanValue()));
+            .andExpect(jsonPath("$.warningHighPressure").value(DEFAULT_WARNING_HIGH_PRESSURE.booleanValue()))
+            .andExpect(jsonPath("$.state").value(DEFAULT_STATE.toString()));
     }
 
     @Test
@@ -365,7 +373,8 @@ public class ProcessdataResourceIT {
             .operatingStateCompressor(UPDATED_OPERATING_STATE_COMPRESSOR)
             .calculatedOverheatTemperature(UPDATED_CALCULATED_OVERHEAT_TEMPERATURE)
             .warningLowPressure(UPDATED_WARNING_LOW_PRESSURE)
-            .warningHighPressure(UPDATED_WARNING_HIGH_PRESSURE);
+            .warningHighPressure(UPDATED_WARNING_HIGH_PRESSURE)
+            .state(UPDATED_STATE);
 
         restProcessdataMockMvc.perform(put("/api/processdata")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -398,6 +407,7 @@ public class ProcessdataResourceIT {
         assertThat(testProcessdata.getCalculatedOverheatTemperature()).isEqualTo(UPDATED_CALCULATED_OVERHEAT_TEMPERATURE);
         assertThat(testProcessdata.isWarningLowPressure()).isEqualTo(UPDATED_WARNING_LOW_PRESSURE);
         assertThat(testProcessdata.isWarningHighPressure()).isEqualTo(UPDATED_WARNING_HIGH_PRESSURE);
+        assertThat(testProcessdata.getState()).isEqualTo(UPDATED_STATE);
     }
 
     @Test

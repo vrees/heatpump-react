@@ -1,8 +1,10 @@
 package de.vrees.heatpump.domain;
+
+import de.vrees.heatpump.statemachine.States;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -167,6 +169,13 @@ public class Processdata implements Serializable {
     @ApiModelProperty(value = "Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)")
     @Field("warning_high_pressure")
     private Boolean warningHighPressure;
+
+    /**
+     * Status der Statemachine = Betrriebszustand
+     */
+    @ApiModelProperty(value = "Status der Statemachine = Betrriebszustand")
+    @Field("state")
+    private States state;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -462,6 +471,19 @@ public class Processdata implements Serializable {
     public void setWarningHighPressure(Boolean warningHighPressure) {
         this.warningHighPressure = warningHighPressure;
     }
+
+    public States getState() {
+        return state;
+    }
+
+    public Processdata state(States state) {
+        this.state = state;
+        return this;
+    }
+
+    public void setState(States state) {
+        this.state = state;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -485,6 +507,7 @@ public class Processdata implements Serializable {
         return "Processdata{" +
             "id=" + getId() +
             ", timestamp='" + getTimestamp() + "'" +
+            ", state='" + getState() + "'" +
             ", temperatureEvaporatingIn=" + getTemperatureEvaporatingIn() +
             ", temperatureEvaporatingOut=" + getTemperatureEvaporatingOut() +
             ", temperatureFlow=" + getTemperatureFlow() +
