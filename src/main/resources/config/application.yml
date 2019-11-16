@@ -139,4 +139,16 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+application:
+  limits:
+    highPressureMax: 15 # Maximaler Druck auf der Hochdruckseite [bar]
+    lowPressureMax: 6 # Maximaler Druck auf der Niederdruckseite [bar]
+    diffPressureWtMax: 100 # Maximaler Druckverlust des Verdampfer-Wärmetauschers [mbar]
+    evaporatingTemperatureMin: 3 # Minimale Temperatur am Austritt des Verdampfer-Wärmetausschers. Triplepunkt des Wassers. [�C]
+
+  config:
+    heatTemperaturSwitchOn: 42 # Einschalttemperatur bei deren Unterschreiten die Waermepumpe eingeschaltet wird
+    heatTemperaturSwitchOff: 50 # Einschalttemperatur bei deren Ueberschreiten die Waermepume ausgeschaltet wird
+    minIdleSec: 20 # Minimale Auschalt-Dauer (verhindert haeufiges Einschalten) [Sekunden]
+    lowPressureIgnoreTimeSec: 20 # Nach dem Einschalten sollen Niederdruck-Warnungen für eine gewisse Zeit ignoriert werden
+

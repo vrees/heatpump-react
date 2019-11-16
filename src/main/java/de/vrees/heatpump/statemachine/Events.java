@@ -5,5 +5,6 @@ public enum Events {
     SWITCH_OFF,
     HEAT_REQUEST,
     TEMPERATURE_REACHED,
-    COOLDED_DOWN
+    COOLDED_DOWN,
+    LIMIT_EXCEEDED
 }
