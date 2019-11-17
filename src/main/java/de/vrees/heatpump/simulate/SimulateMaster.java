@@ -66,6 +66,9 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
     private void processOutgoingValues(Processdata processdata) {
         States state = stateMachine.getState().getId();
 
+        processdata.setOperatingStateCompressor(stateMachine.getExtendedState().get(ExtendedStateKeys.COMPRESSOR_STATE, Boolean.class));
+        processdata.setOperatingStateWaterPump(stateMachine.getExtendedState().get(ExtendedStateKeys.WATERPUMP_STATE, Boolean.class));
+
         processdata.setState(state);
 
     }

@@ -56,7 +56,6 @@ public class LimitChecker {
         if (pd.isAlarmExpansionValve())
             failedChecks.add(ALARM_EXPANSION_VALVE);
 
-//        return failedChecks;
-        return new ArrayList<>();
+        return failedChecks;
     }
 }

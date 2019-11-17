@@ -11,6 +11,6 @@ public class SwitchAllOnAction implements Action<States, Events> {
     @Override
     public void execute(StateContext<States, Events> context) {
         context.getExtendedState().getVariables().put(ExtendedStateKeys.COMPRESSOR_STATE, true);
-        context.getExtendedState().getVariables().put(ExtendedStateKeys.PUMP_STATE, true);
+        context.getExtendedState().getVariables().put(ExtendedStateKeys.WATERPUMP_STATE, true);
     }
 }
