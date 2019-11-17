@@ -2,9 +2,13 @@ package de.vrees.heatpump.config;
 
 import de.vrees.heatpump.statemachine.Events;
 import de.vrees.heatpump.statemachine.States;
+import de.vrees.heatpump.statemachine.actions.SwitchAllOffAction;
+import de.vrees.heatpump.statemachine.actions.SwitchAllOnAction;
+import de.vrees.heatpump.statemachine.actions.SwitchCompressorOffAction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.statemachine.action.Action;
 import org.springframework.statemachine.config.EnableStateMachine;
 import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
@@ -13,8 +17,6 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 import org.springframework.statemachine.listener.StateMachineListener;
 import org.springframework.statemachine.listener.StateMachineListenerAdapter;
 import org.springframework.statemachine.state.State;
-
-import java.util.EnumSet;
 
 @Configuration
 @EnableStateMachine
@@ -36,8 +38,11 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
         throws Exception {
         states
             .withStates()
-            .initial(States.OFF)
-            .states(EnumSet.allOf(States.class));
+            .initial(States.OFF, switchAllOffAction())
+            .state(States.READY, switchAllOffAction())
+            .state(States.RUNNING, switchAllOnAction())
+            .state(States.BACKLASH, switchCompressorOffAction())
+            .state(States.ERROR, switchAllOffAction());
     }
 
     @Override
@@ -78,5 +83,20 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
                 log.info("Statemachine: State changed from {} to {}", from != null ? from.getId() : ".", to.getId());
             }
         };
+    }
+
+    @Bean
+    public Action<States, Events> switchAllOffAction() {
+        return new SwitchAllOffAction();
+    }
+
+    @Bean
+    public Action<States, Events> switchCompressorOffAction() {
+        return new SwitchCompressorOffAction();
+    }
+
+    @Bean
+    public Action<States, Events> switchAllOnAction() {
+        return new SwitchAllOnAction();
     }
 }

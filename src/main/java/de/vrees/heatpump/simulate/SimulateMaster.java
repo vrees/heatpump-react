@@ -6,6 +6,7 @@ import de.vrees.heatpump.limitcheck.LimitCheckEnum;
 import de.vrees.heatpump.limitcheck.LimitChecker;
 import de.vrees.heatpump.statemachine.EventHeaderEnum;
 import de.vrees.heatpump.statemachine.Events;
+import de.vrees.heatpump.statemachine.ExtendedStateKeys;
 import de.vrees.heatpump.statemachine.States;
 import de.vrees.heatpump.web.websocket.WebsocketService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,6 @@ import static de.vrees.heatpump.simulate.ProcessdataConstants.SIMULATION_DATA;
 public class SimulateMaster implements Iterator<SimulationDataDef> {
 
     private static final List<SimulationDataDef> simulationData = SIMULATION_DATA;
-    public static final String EXT_STATE_PROCESS_DATA = "PROCESS_DATA";
 
     private final StateMachine<States, Events> stateMachine;
     private final ProcessdataMapper processdataMapper;
@@ -71,7 +71,7 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
     }
 
     private void storeProcessdataInStatemachine(Processdata processdata) {
-        stateMachine.getExtendedState().getVariables().put(EXT_STATE_PROCESS_DATA, processdata);
+        stateMachine.getExtendedState().getVariables().put(ExtendedStateKeys.PROCESS_DATA, processdata);
     }
 
     private boolean checkLimits(Processdata processdata) {
