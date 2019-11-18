@@ -294,7 +294,7 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     ctx.fillText('Verdampfer', 30 * sizefactor, 53 * sizefactor);
     ctx.textAlign = 'right';
     ctx.fillText("Verfluessiger", 86 * sizefactor, 53 * sizefactor);
-    ctx.fillText('Bloiler', 107 * sizefactor, 2.8 * sizefactor);
+    ctx.fillText('Boiler', 105 * sizefactor, 62 * sizefactor);
 
   }
 
@@ -317,7 +317,8 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     ctx.fillText(pd.temperatureFlow + UNIT_GRAD_CELSIUS, 100 * sizefactor, 23.5 * sizefactor);
     ctx.fillText(pd.temperatureReturn + UNIT_GRAD_CELSIUS, 100 * sizefactor, 47.5 * sizefactor);
     ctx.fillText(pd.temperatureOverheatedGas + UNIT_GRAD_CELSIUS, 44 * sizefactor, 8 * sizefactor);
-    ctx.fillText(pd.temperatureSwitchOnSensor + UNIT_GRAD_CELSIUS, 106.8 * sizefactor, 5.4 * sizefactor);
+    ctx.fillText(pd.temperatureSwitchOnSensor + UNIT_GRAD_CELSIUS, 105 * sizefactor, 64
+      * sizefactor);
 
     ctx.fillStyle = "brown";
     ctx.fillText(pd.pressureLow + UNIT_BAR, 43 * sizefactor, 18 * sizefactor);

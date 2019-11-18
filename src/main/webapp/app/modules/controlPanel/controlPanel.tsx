@@ -4,9 +4,11 @@ import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
 import {getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
 import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
-import {Row, Col, Container} from 'reactstrap';
+import {Row, Col, CustomInput} from 'reactstrap';
+import {websocketConnect, websocketDisconnect} from "app/config/websocket-middleware";
 
-export interface IControlPanelProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
+export interface IControlPanelProps extends StateProps, DispatchProps, RouteComponentProps<{}> {
+}
 
 interface IControlPanelState {
   sizefactor: number;
@@ -48,20 +50,32 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
     });
   };
 
+  handleConnection = (event) => {
+    /* eslint-disable no-console */
+    console.log("event: ", event.target.value);
+    /* eslint-enable no-console */
+
+    if (event.target.value === 'on')
+      websocketConnect();
+    else
+      websocketDisconnect();
+  };
+
   render() {
     return (
-      <Container>
-        <Row>
-          <Col md={9}>
-            <div>
-              <HeatCycleGraphic processData={this.props.processdataEntity} sizefactor={this.state.sizefactor}/>
-            </div>
-          </Col>
-          <Col md={3}>
-xbvgxsdgh
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col lg={10}>
+          <div>
+            <HeatCycleGraphic processData={this.props.processdataEntity} sizefactor={this.state.sizefactor}/>
+          </div>
+        </Col>
+        <Col lg={2}>
+          <Row>
+            <CustomInput type="switch" id="websocketConnet" name="websocketConnet" label="Auto-Update"
+                         onClick={this.handleConnection}/>
+          </Row>
+        </Col>
+      </Row>
     );
   }
 }

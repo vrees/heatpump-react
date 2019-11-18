@@ -81,9 +81,22 @@ A gradle wrapper is provided, optionally you can use your system gradle by repla
 
 ####listen EADDRINUSE
 
+Linux:
+
 ```
 lsof -i tcp:9060
 kill -9 xxx
+```
+
+Windows:
+
+```
+netstat -a -o -n
+taskkill /F /PID (yourprocessID)
+
+In windows 10, open task manager and go to Details tab.
+There you will find node.exe running.
+End that task and your port will be released.
 ```
 
 ## Links
@@ -107,4 +120,3 @@ https://react-redux.js.org/introduction/quick-start
 
 **reactstrap**
 https://reactstrap.github.io/components/alerts
-
