@@ -4,6 +4,7 @@ import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
 import {getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
 import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
+import {Row, Col, Container} from 'reactstrap';
 
 export interface IControlPanelProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
@@ -49,9 +50,18 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
 
   render() {
     return (
-      <div>
-        <HeatCycleGraphic processData={this.props.processdataEntity} sizefactor={this.state.sizefactor}/>
-      </div>
+      <Container>
+        <Row>
+          <Col md={9}>
+            <div>
+              <HeatCycleGraphic processData={this.props.processdataEntity} sizefactor={this.state.sizefactor}/>
+            </div>
+          </Col>
+          <Col md={3}>
+xbvgxsdgh
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
