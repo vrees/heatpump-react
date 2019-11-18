@@ -4,7 +4,7 @@ import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
 import {getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
 import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
-import {Row, Col, CustomInput} from 'reactstrap';
+import {Row, Col, CustomInput, Alert} from 'reactstrap';
 import {websocketConnect, websocketDisconnect} from "app/config/websocket-middleware";
 
 export interface IControlPanelProps extends StateProps, DispatchProps, RouteComponentProps<{}> {
@@ -62,11 +62,13 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
   };
 
   render() {
+    const processData = this.props.processdataEntity;
+
     return (
       <Row>
         <Col lg={10}>
           <div>
-            <HeatCycleGraphic processData={this.props.processdataEntity} sizefactor={this.state.sizefactor}/>
+            <HeatCycleGraphic processData={processData} sizefactor={this.state.sizefactor}/>
           </div>
         </Col>
         <Col lg={2}>
@@ -74,6 +76,16 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
             <CustomInput type="switch" id="websocketConnet" name="websocketConnet" label="Auto-Update"
                          onClick={this.handleConnection}/>
           </Row>
+
+{/*
+          if (typeof processData.messages !== undefined) {
+          processData.messages.map((message, i) => (
+            <Alert color="danger" key={i}>
+              {{message}}
+            </Alert>
+          ))}
+*/}
+
         </Col>
       </Row>
     );

@@ -1,6 +1,6 @@
 package de.vrees.heatpump.limitcheck;
 
-import static de.vrees.heatpump.limitcheck.WarnLevel.*;
+import static de.vrees.heatpump.limitcheck.FailureLevel.*;
 
 public enum LimitCheckEnum {
 
@@ -32,9 +32,9 @@ public enum LimitCheckEnum {
 
     private String errorMessage;
 
-    private WarnLevel warnLevel;
+    private FailureLevel warnLevel;
 
-    LimitCheckEnum(WarnLevel warnLevel, String errorMessage) {
+    LimitCheckEnum(FailureLevel warnLevel, String errorMessage) {
         this.warnLevel = warnLevel;
         this.errorMessage = errorMessage;
     }
@@ -43,7 +43,7 @@ public enum LimitCheckEnum {
         return errorMessage;
     }
 
-    public WarnLevel getWarnLevel() {
+    public FailureLevel getWarnLevel() {
         return warnLevel;
     }
 }

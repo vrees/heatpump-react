@@ -2,7 +2,9 @@ package de.vrees.heatpump.simulate;
 
 
 import de.vrees.heatpump.domain.Processdata;
-import de.vrees.heatpump.limitcheck.LimitCheckEnum;
+import de.vrees.heatpump.limitcheck.FailureLevel;
+import de.vrees.heatpump.limitcheck.FailureMessage;
+import de.vrees.heatpump.limitcheck.LimitCheckResult;
 import de.vrees.heatpump.limitcheck.LimitChecker;
 import de.vrees.heatpump.statemachine.EventHeaderEnum;
 import de.vrees.heatpump.statemachine.Events;
@@ -69,6 +71,9 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
         processdata.setOperatingStateCompressor(stateMachine.getExtendedState().get(ExtendedStateKeys.COMPRESSOR_STATE, Boolean.class));
         processdata.setOperatingStateWaterPump(stateMachine.getExtendedState().get(ExtendedStateKeys.WATERPUMP_STATE, Boolean.class));
 
+        processdata.getMessages().add(new FailureMessage(FailureLevel.ERROR, "Thermostat: Niederdruck zu niedrig.", "22.3"));
+        processdata.getMessages().add(new FailureMessage(FailureLevel.WARNING, "Durchflussmenge zu gering.", null));
+
         processdata.setState(state);
 
     }
@@ -78,7 +83,7 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
     }
 
     private boolean checkLimits(Processdata processdata) {
-        List<LimitCheckEnum> failedChecks = limitChecker.validate(processdata);
+        List<LimitCheckResult> failedChecks = limitChecker.validate(processdata);
 
         if (failedChecks.size() > 0) {
             stateMachine.sendEvent(

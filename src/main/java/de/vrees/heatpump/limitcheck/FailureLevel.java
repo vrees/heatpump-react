@@ -1,5 +1,5 @@
 package de.vrees.heatpump.limitcheck;
 
-public enum WarnLevel {
+public enum FailureLevel {
     ERROR, WARNING, INFO;
 }

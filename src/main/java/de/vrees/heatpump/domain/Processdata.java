@@ -1,5 +1,6 @@
 package de.vrees.heatpump.domain;
 
+import de.vrees.heatpump.limitcheck.FailureMessage;
 import de.vrees.heatpump.statemachine.States;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
@@ -8,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Processdata.
@@ -171,11 +174,21 @@ public class Processdata implements Serializable {
     private Boolean warningHighPressure;
 
     /**
-     * Status der Statemachine = Betrriebszustand
+     * Status der Statemachine = Betriebszustand
      */
     @ApiModelProperty(value = "Status der Statemachine = Betrriebszustand")
     @Field("state")
     private States state;
+
+    @ApiModelProperty(value = "Fehlermeldungen")
+    @Field("messages")
+    private List<FailureMessage> messages = new ArrayList();
+
+
+    @ApiModelProperty(value = "Anzahl Sekunden bis zum nächst möglichen Einschalten")
+    @Field("wait_counter")
+    private Integer waitCounter;
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -486,6 +499,23 @@ public class Processdata implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+
+    public List<FailureMessage> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<FailureMessage> messages) {
+        this.messages = messages;
+    }
+
+    public Integer getWaitCounter() {
+        return waitCounter;
+    }
+
+    public void setWaitCounter(Integer waitCounter) {
+        this.waitCounter = waitCounter;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -529,6 +559,8 @@ public class Processdata implements Serializable {
             ", calculatedOverheatTemperature=" + getCalculatedOverheatTemperature() +
             ", warningLowPressure='" + isWarningLowPressure() + "'" +
             ", warningHighPressure='" + isWarningHighPressure() + "'" +
+            ", messages.size='" + getMessages().size() + "'" +
+            ", waitCounter='" + getWaitCounter() + "'" +
             "}";
     }
 }
