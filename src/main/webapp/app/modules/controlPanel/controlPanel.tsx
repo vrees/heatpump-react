@@ -66,26 +66,22 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
 
     return (
       <Row>
-        <Col lg={10}>
+        <Col lg={9}>
           <div>
             <HeatCycleGraphic processData={processData} sizefactor={this.state.sizefactor}/>
           </div>
         </Col>
-        <Col lg={2}>
+        <Col lg={3}>
           <Row>
             <CustomInput type="switch" id="websocketConnet" name="websocketConnet" label="Auto-Update"
                          onClick={this.handleConnection}/>
           </Row>
-
-{/*
-          if (typeof processData.messages !== undefined) {
-          processData.messages.map((message, i) => (
+          { processData.messages !== undefined  &&
+           processData.messages.map((message, i) => (
             <Alert color="danger" key={i}>
-              {{message}}
+              {message.msg}
             </Alert>
           ))}
-*/}
-
         </Col>
       </Row>
     );
