@@ -4,7 +4,7 @@ import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
 import {getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
 import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
-import {Row, Col, CustomInput, Alert, Card, CardBody, Collapse} from 'reactstrap';
+import {Row, Col, CustomInput, Alert, Card, CardBody, Collapse, Badge} from 'reactstrap';
 import {websocketConnect, websocketDisconnect} from "app/config/websocket-middleware";
 
 export interface IControlPanelProps extends StateProps, DispatchProps, RouteComponentProps<{}> {
@@ -73,8 +73,13 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
         </Col>
         <Col lg={3}>
           <Row>
-            <CustomInput class={"md-20"} type="switch" id="websocketConnet" name="websocketConnet" label="Auto-Update"
-                         onClick={this.handleConnection}/>
+            <Col lg={6}>
+              <h2><Badge color="danger">{processData.state}</Badge></h2>
+            </Col>
+            <Col lg={6}>
+              <CustomInput class={"md-20"} type="switch" id="websocketConnet" name="websocketConnet" label="Auto-Update"
+                           onClick={this.handleConnection}/>
+            </Col>
           </Row>
           <Collapse isOpen={processData.messages !== undefined && processData.messages.length > 0}>
             <Card>
