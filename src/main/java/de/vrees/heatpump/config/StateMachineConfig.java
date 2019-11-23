@@ -1,10 +1,12 @@
 package de.vrees.heatpump.config;
 
 import de.vrees.heatpump.statemachine.Events;
+import de.vrees.heatpump.statemachine.StateMachineEventListener;
 import de.vrees.heatpump.statemachine.States;
 import de.vrees.heatpump.statemachine.actions.SwitchAllOffAction;
 import de.vrees.heatpump.statemachine.actions.SwitchAllOnAction;
 import de.vrees.heatpump.statemachine.actions.SwitchCompressorOffAction;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +17,14 @@ import org.springframework.statemachine.config.builders.StateMachineConfiguratio
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 import org.springframework.statemachine.listener.StateMachineListener;
-import org.springframework.statemachine.listener.StateMachineListenerAdapter;
-import org.springframework.statemachine.state.State;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableStateMachine
 @Slf4j
 public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States, Events> {
 
+    private final StateMachineEventListener eventListener;
 
     @Override
     public void configure(StateMachineConfigurationConfigurer<States, Events> config)
@@ -77,12 +79,7 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
 
     @Bean
     public StateMachineListener<States, Events> listener() {
-        return new StateMachineListenerAdapter<States, Events>() {
-            @Override
-            public void stateChanged(State<States, Events> from, State<States, Events> to) {
-                log.info("Statemachine: State changed from {} to {}", from != null ? from.getId() : ".", to.getId());
-            }
-        };
+        return eventListener;
     }
 
     @Bean
