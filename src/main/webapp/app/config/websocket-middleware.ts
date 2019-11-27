@@ -64,6 +64,8 @@ export const websocketConnect = () => {
     subscribe();
     sendActivity();
   });
+
+  stompClient.debug = () => {};
 };
 
 export const websocketDisconnect = () => {

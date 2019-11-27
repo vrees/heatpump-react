@@ -1,5 +1,5 @@
-import { Moment } from 'moment';
-import { States } from 'app/shared/model/enumerations/states.model';
+import {Moment} from 'moment';
+import {States} from 'app/shared/model/enumerations/states.model';
 import {IFailureMessage} from "app/shared/model/failureMessage.model";
 
 export interface IProcessdata {
@@ -42,5 +42,6 @@ export const defaultValue: Readonly<IProcessdata> = {
   operatingStateWaterPump: false,
   operatingStateCompressor: false,
   warningLowPressure: false,
-  warningHighPressure: false
+  warningHighPressure: false,
+  state: States.UNDEFINED
 };

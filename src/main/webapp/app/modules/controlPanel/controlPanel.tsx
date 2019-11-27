@@ -6,6 +6,7 @@ import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
 import {Row, Col, CustomInput, Alert, Card, CardBody, Collapse, Badge} from 'reactstrap';
 import {websocketConnect, websocketDisconnect} from "app/config/websocket-middleware";
+import {StateInfo, States} from "app/shared/model/enumerations/states.model";
 
 export interface IControlPanelProps extends StateProps, DispatchProps, RouteComponentProps<{}> {
 }
@@ -63,6 +64,14 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
 
   render() {
     const processData = this.props.processdataEntity;
+    let {state = States.UNDEFINED} = processData;
+    state = state ==null ? States.UNDEFINED : state;
+
+    const {color} = StateInfo.get(state);
+
+    /* eslint-disable no-console */
+    console.log("color: ", color);
+    /* eslint-enable no-console */
 
     return (
       <Row>
@@ -74,7 +83,7 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
         <Col lg={3}>
           <Row>
             <Col lg={6}>
-              <h2><Badge color="danger">{processData.state}</Badge></h2>
+              <h2><Badge color={color}>{processData.state}</Badge></h2>
             </Col>
             <Col lg={6}>
               <CustomInput class={"md-20"} type="switch" id="websocketConnet" name="websocketConnet" label="Auto-Update"
