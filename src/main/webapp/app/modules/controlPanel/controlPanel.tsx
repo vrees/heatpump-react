@@ -4,9 +4,12 @@ import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
 import {getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
 import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
-import {Row, Col, CustomInput, Alert, Card, CardBody, Collapse, Badge} from 'reactstrap';
+import {Row, Col, CustomInput, Alert, Card, CardBody, Collapse, Badge, Button} from 'reactstrap';
 import {websocketConnect, websocketDisconnect} from "app/config/websocket-middleware";
 import {StateInfo, States} from "app/shared/model/enumerations/states.model";
+import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {ActionButton} from "app/shared/model/enumerations/actionButton.model";
 
 export interface IControlPanelProps extends StateProps, DispatchProps, RouteComponentProps<{}> {
 }
@@ -65,13 +68,9 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
   render() {
     const processData = this.props.processdataEntity;
     let {state = States.UNDEFINED} = processData;
-    state = state ==null ? States.UNDEFINED : state;
+    state = state == null ? States.UNDEFINED : state;
 
-    const {color} = StateInfo.get(state);
-
-    /* eslint-disable no-console */
-    console.log("color: ", color);
-    /* eslint-enable no-console */
+    const {color, buttons} = StateInfo.get(state);
 
     return (
       <Row>
@@ -81,13 +80,22 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
           </div>
         </Col>
         <Col lg={3}>
-          <Row>
+          <Row mb={20}>
             <Col lg={6}>
-              <h2><Badge color={color}>{processData.state}</Badge></h2>
+              <h1><Badge color={color}>{processData.state}</Badge></h1>
             </Col>
             <Col lg={6}>
               <CustomInput class={"md-20"} type="switch" id="websocketConnet" name="websocketConnet" label="Auto-Update"
                            onClick={this.handleConnection}/>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={12}>
+                <Button id="switch-on" color="primary" disabled={!buttons.includes(ActionButton.SWITCH_ON)}>einschalten</Button>
+                &nbsp;
+                <Button id="switch-off" color="dark" disabled={!buttons.includes(ActionButton.SWITCH_OFF)}>ausschalten</Button>
+                &nbsp;
+                <Button id="ackknowledge" color="success" disabled={!buttons.includes(ActionButton.ACKNOWLEDGE)}>quittieren</Button>
             </Col>
           </Row>
           <Collapse isOpen={processData.messages !== undefined && processData.messages.length > 0}>

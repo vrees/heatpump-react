@@ -16,10 +16,6 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    /* eslint-disable no-console */
-    console.log("HeatCycleGraphic componentDidMount called");
-    /* eslint-enable no-console */
-
     this.paint();
   }
 
