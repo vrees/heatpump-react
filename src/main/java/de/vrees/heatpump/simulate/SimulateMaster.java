@@ -47,10 +47,9 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
         SimulationDataDef definition = next();
         Processdata processdata = modifyNexProcesdata(processdataMapper.map(definition.getProcessdata()));
 
-        storeProcessdataInStatemachine(processdata);
         List<LimitCheckResult> faildedChecks = checkLimits(processdata);
         processOutgoingValues(processdata, faildedChecks);
-
+        storeProcessdataInStatemachine(processdata);
 
         if (definition.getNumberOfRepetitions() == indexInsideDefRecord) {
             definition.getEventsToSend().forEach(e -> stateMachine.sendEvent(e));

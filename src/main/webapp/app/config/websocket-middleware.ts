@@ -76,22 +76,10 @@ export const websocketDisconnect = () => {
   window.onhashchange = () => {};
 };
 
+export const websocketIsConnected = (): boolean => {
+  return stompClient !== null;
+};
+
 export default () => next => action => {
-  // console.log("store-next-action:", action);
-  //
-  // if (action.type === SUCCESS(AUTH_ACTIONS.GET_SESSION)) {
-  //   connect();
-  //   if (!alreadyConnectedOnce) {
-  //     receive().subscribe(processdata => {
-  //       return store.dispatch({
-  //         type: PD_ACTIONS.WEBSOCKET_RECEIVE_PROCESSDATA,
-  //         payload: processdata
-  //       });
-  //     });
-  //   }
-  // } else if (action.type === FAILURE(AUTH_ACTIONS.GET_SESSION)) {
-  //   unsubscribe();
-  //   disconnect();
-  // }
   return next(action);
 };

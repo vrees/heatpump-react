@@ -5,7 +5,7 @@ import {getLatestProcessdata, sendEvent} from '../../entities/processdata/proces
 import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
 import {Row, Col, Input, CustomInput, Alert, Card, CardBody, Collapse, Badge, Button} from 'reactstrap';
-import {websocketConnect, websocketDisconnect} from "app/config/websocket-middleware";
+import {websocketConnect, websocketDisconnect, websocketIsConnected} from "app/config/websocket-middleware";
 import {StateInfo, States} from "app/shared/model/enumerations/states.model";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -25,6 +25,8 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
     this.state = {
       sizefactor: 8,
     }
+
+    // this.handleRefresh = this.handleRefresh.bind(this)
 
     window.addEventListener("resize", this.update);
   }
@@ -59,17 +61,27 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
     console.log("event: ", event.target.value);
     /* eslint-enable no-console */
 
-    if (event.target.value === 'on')
-      websocketConnect();
-    else
+    if (websocketIsConnected())
       websocketDisconnect();
+    else
+      websocketConnect();
   };
 
   sendStateEvent = (eventName: string) => (event: any) => {
-    /* eslint-disable no-console */
-    console.log("sendEvent: ", eventName);
     this.props.sendEvent(eventName)
+
+    if (!websocketIsConnected()) {
+      this.handleRefresh();
+    }
+    return;
+  }
+
+  handleRefresh = () => {
+    /* eslint-disable no-console */
+    console.log("refreshing ...");
     /* eslint-enable no-console */
+
+    this.props.getLatestProcessdata();
   }
 
   render() {
@@ -97,6 +109,9 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
               <CustomInput type="switch" id="websocketConnet" name="websocketConnet"
                            label="Auto-Update"
                            onClick={this.handleConnection}/>
+            </Col>
+            <Col lg={6}>
+              <button onClick={this.handleRefresh}>refresh</button>
             </Col>
           </Row>
           <Row className="mt-3">

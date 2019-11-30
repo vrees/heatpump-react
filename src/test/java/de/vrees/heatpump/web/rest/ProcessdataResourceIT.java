@@ -3,6 +3,7 @@ package de.vrees.heatpump.web.rest;
 import de.vrees.heatpump.HeatpumpApp;
 import de.vrees.heatpump.domain.Processdata;
 import de.vrees.heatpump.repository.ProcessdataRepository;
+import de.vrees.heatpump.statemachine.Events;
 import de.vrees.heatpump.statemachine.States;
 import de.vrees.heatpump.web.rest.errors.ExceptionTranslator;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.statemachine.StateMachine;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Validator;
@@ -107,6 +109,9 @@ public class ProcessdataResourceIT {
     private ProcessdataRepository processdataRepository;
 
     @Autowired
+    private StateMachine<States, Events> stateMachine;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -125,7 +130,7 @@ public class ProcessdataResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProcessdataResource processdataResource = new ProcessdataResource(processdataRepository);
+        final ProcessdataResource processdataResource = new ProcessdataResource(processdataRepository, stateMachine);
         this.restProcessdataMockMvc = MockMvcBuilders.standaloneSetup(processdataResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

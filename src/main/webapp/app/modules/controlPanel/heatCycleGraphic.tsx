@@ -29,6 +29,11 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     const {sizefactor, processData} = this.props;
     this.initpaint(this.mycanvas, sizefactor);
     this.drawValues(this.mycontext, sizefactor, processData);
+
+    /* eslint-disable no-console */
+    console.log("HeatCycleGraphic componentDidUpdate: ");
+    /* eslint-enable no-console */
+
   }
 
   private initpaint(canvas: HTMLCanvasElement, sizefactor: number) {

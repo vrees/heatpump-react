@@ -2,17 +2,20 @@ package de.vrees.heatpump.web.rest;
 
 import de.vrees.heatpump.domain.Processdata;
 import de.vrees.heatpump.repository.ProcessdataRepository;
+import de.vrees.heatpump.statemachine.Events;
+import de.vrees.heatpump.statemachine.ExtendedStateKeys;
+import de.vrees.heatpump.statemachine.States;
 import de.vrees.heatpump.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.statemachine.StateMachine;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,9 +29,8 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class ProcessdataResource {
-
-    private final Logger log = LoggerFactory.getLogger(ProcessdataResource.class);
 
     private static final String ENTITY_NAME = "processdata";
 
@@ -37,8 +39,12 @@ public class ProcessdataResource {
 
     private final ProcessdataRepository processdataRepository;
 
-    public ProcessdataResource(ProcessdataRepository processdataRepository) {
+    private final StateMachine<States, Events> stateMachine;
+
+
+    public ProcessdataResource(ProcessdataRepository processdataRepository, StateMachine<States, Events> stateMachine) {
         this.processdataRepository = processdataRepository;
+        this.stateMachine = stateMachine;
     }
 
     /**
@@ -126,8 +132,12 @@ public class ProcessdataResource {
 
     @GetMapping("/processdata/latest")
     public ResponseEntity<Processdata> getLatestProcessdata() {
-        log.debug("REST request to get latest Processdata");
-        Optional<Processdata> processdata = processdataRepository.findTopByOrderByTimestampDesc();
-        return ResponseUtil.wrapOrNotFound(processdata);
+
+//        Optional<Processdata> processdata = processdataRepository.findTopByOrderByTimestampDesc();
+//        return ResponseUtil.wrapOrNotFound(processdata);
+
+        Processdata processdata = stateMachine.getExtendedState().get(ExtendedStateKeys.PROCESS_DATA, Processdata.class);
+        log.debug("REST request to get latest Processdata: {}", processdata);
+        return ResponseEntity.ok().body(processdata);
     }
 }
