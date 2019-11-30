@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
-import {getLatestProcessdata} from '../../entities/processdata/processdata.reducer';
+import {getLatestProcessdata, sendEvent} from '../../entities/processdata/processdata.reducer';
 import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
-import {Row, Col, CustomInput, Alert, Card, CardBody, Collapse, Badge, Button} from 'reactstrap';
+import {Row, Col, Input, CustomInput, Alert, Card, CardBody, Collapse, Badge, Button} from 'reactstrap';
 import {websocketConnect, websocketDisconnect} from "app/config/websocket-middleware";
 import {StateInfo, States} from "app/shared/model/enumerations/states.model";
 import {Link} from "react-router-dom";
@@ -65,6 +65,13 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
       websocketDisconnect();
   };
 
+  sendStateEvent = (eventName: string) => (event: any) => {
+    /* eslint-disable no-console */
+    console.log("sendEvent: ", eventName);
+    this.props.sendEvent(eventName)
+    /* eslint-enable no-console */
+  }
+
   render() {
     const processData = this.props.processdataEntity;
     let {state = States.UNDEFINED} = processData;
@@ -80,27 +87,27 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
           </div>
         </Col>
         <Col lg={3}>
-          <Row mb={20}>
+          <Row className="mt-3">
             <Col lg={6}>
               <h1><Badge color={color}>{label}</Badge></h1>
             </Col>
           </Row>
-          <Row className="mt-2">
+          <Row className="mt-3">
             <Col lg={6}>
-              <CustomInput class={"md-20"} type="switch" id="websocketConnet" name="websocketConnet"
+              <CustomInput type="switch" id="websocketConnet" name="websocketConnet"
                            label="Auto-Update"
                            onClick={this.handleConnection}/>
             </Col>
           </Row>
           <Row className="mt-3">
             <Col lg={12}>
-              <Button id="switch-on" color="primary"
+              <Button id="switch-on" color="primary" onClick={this.sendStateEvent("SWITCH_ON")}
                       disabled={!buttons.includes(ActionButton.SWITCH_ON)}>einschalten</Button>
               &nbsp;
-              <Button id="switch-off" color="dark"
+              <Button id="switch-off" color="dark" onClick={this.sendStateEvent("SWITCH_OFF")}
                       disabled={!buttons.includes(ActionButton.SWITCH_OFF)}>ausschalten</Button>
               &nbsp;
-              <Button id="ackknowledge" color="success"
+              <Button id="ackknowledge" color="success" onClick={this.sendStateEvent("ACKNOWLEDGE")}
                       disabled={!buttons.includes(ActionButton.ACKNOWLEDGE)}>quittieren</Button>
             </Col>
           </Row>
@@ -131,7 +138,7 @@ const mapStateToProps = ({processdata}: IRootState) => {
 };
 
 const mapDispatchToProps = {
-  getLatestProcessdata
+  getLatestProcessdata, sendEvent
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

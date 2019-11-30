@@ -15,7 +15,8 @@ export const ACTION_TYPES = {
   CREATE_PROCESSDATA: 'processdata/CREATE_PROCESSDATA',
   UPDATE_PROCESSDATA: 'processdata/UPDATE_PROCESSDATA',
   DELETE_PROCESSDATA: 'processdata/DELETE_PROCESSDATA',
-  RESET: 'processdata/RESET'
+  RESET: 'processdata/RESET',
+  SEND_EVENT: 'SEND_EVENT'
 };
 
 const initialState = {
@@ -115,6 +116,7 @@ export default (state: ProcessdataState = initialState, action): ProcessdataStat
 };
 
 const apiUrl = 'api/processdata';
+const apiEventUrl = 'api/event';
 
 // Actions
 
@@ -167,6 +169,15 @@ export const getLatestProcessdata: IGetLatestProcessdataAction<IProcessdata> = (
   return {
     type: ACTION_TYPES.FETCH_LATEST_PROCESSDATA,
     payload: axios.get<IProcessdata>(requestUrl)
+  };
+};
+
+export const sendEvent = (event: string) => {
+  const requestUrl = `${apiEventUrl}/event`;
+
+  return {
+    type: ACTION_TYPES.SEND_EVENT,
+    payload: axios.put(requestUrl)
   };
 };
 
