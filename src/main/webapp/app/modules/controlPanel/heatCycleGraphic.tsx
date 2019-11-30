@@ -8,37 +8,41 @@ interface IGraphicProps {
 
 class HeatCycleGraphic extends Component<IGraphicProps> {
   private canvasRef: React.RefObject<HTMLCanvasElement>;
+  private mycontext;
+  private mycanvas;
 
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
-    this.paint = this.paint.bind(this);
+    this.initpaint = this.initpaint.bind(this);
+  }
+
+  componentDidMount(): void {
+    const {sizefactor, processData} = this.props;
+    this.mycanvas = this.canvasRef.current;
+    this.mycontext = this.mycanvas.getContext('2d');
+
+    this.initpaint(this.mycanvas, sizefactor);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.paint();
+    const {sizefactor, processData} = this.props;
+    this.initpaint(this.mycanvas, sizefactor);
+    this.drawValues(this.mycontext, sizefactor, processData);
   }
 
-  private paint() {
-    const {sizefactor, processData} = this.props;
-    const canvas = this.canvasRef.current;
-    const context = canvas.getContext('2d');
-
+  private initpaint(canvas: HTMLCanvasElement, sizefactor: number) {
     canvas.width = 110 * sizefactor;
     canvas.height = 70 * sizefactor;
 
-    this.drawKompressor(context, sizefactor);
-    this.drawExpansionsventil(context, sizefactor);
-    this.drawVerdampfer(context, sizefactor);
-    this.drawVerfluessiger(context, sizefactor);
-    this.drawKuehlmittelKreis(context, sizefactor);
-    this.drawLabels(context, sizefactor);
-    this.drawPfeile(context, sizefactor);
-    this.drawPumpe(context, sizefactor);
-
-    this.drawValues(context, sizefactor, processData);
-
-
+    this.drawKompressor(this.mycontext, sizefactor);
+    this.drawExpansionsventil(this.mycontext, sizefactor);
+    this.drawVerdampfer(this.mycontext, sizefactor);
+    this.drawVerfluessiger(this.mycontext, sizefactor);
+    this.drawKuehlmittelKreis(this.mycontext, sizefactor);
+    this.drawLabels(this.mycontext, sizefactor);
+    this.drawPfeile(this.mycontext, sizefactor);
+    this.drawPumpe(this.mycontext, sizefactor);
   }
 
 
