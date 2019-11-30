@@ -70,7 +70,7 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
     let {state = States.UNDEFINED} = processData;
     state = state == null ? States.UNDEFINED : state;
 
-    const {color, buttons} = StateInfo.get(state);
+    const {color, buttons, label} = StateInfo.get(state);
 
     return (
       <Row>
@@ -82,34 +82,42 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
         <Col lg={3}>
           <Row mb={20}>
             <Col lg={6}>
-              <h1><Badge color={color}>{processData.state}</Badge></h1>
+              <h1><Badge color={color}>{label}</Badge></h1>
             </Col>
+          </Row>
+          <Row className="mt-2">
             <Col lg={6}>
-              <CustomInput class={"md-20"} type="switch" id="websocketConnet" name="websocketConnet" label="Auto-Update"
+              <CustomInput class={"md-20"} type="switch" id="websocketConnet" name="websocketConnet"
+                           label="Auto-Update"
                            onClick={this.handleConnection}/>
             </Col>
           </Row>
-          <Row>
+          <Row className="mt-3">
             <Col lg={12}>
-                <Button id="switch-on" color="primary" disabled={!buttons.includes(ActionButton.SWITCH_ON)}>einschalten</Button>
-                &nbsp;
-                <Button id="switch-off" color="dark" disabled={!buttons.includes(ActionButton.SWITCH_OFF)}>ausschalten</Button>
-                &nbsp;
-                <Button id="ackknowledge" color="success" disabled={!buttons.includes(ActionButton.ACKNOWLEDGE)}>quittieren</Button>
+              <Button id="switch-on" color="primary"
+                      disabled={!buttons.includes(ActionButton.SWITCH_ON)}>einschalten</Button>
+              &nbsp;
+              <Button id="switch-off" color="dark"
+                      disabled={!buttons.includes(ActionButton.SWITCH_OFF)}>ausschalten</Button>
+              &nbsp;
+              <Button id="ackknowledge" color="success"
+                      disabled={!buttons.includes(ActionButton.ACKNOWLEDGE)}>quittieren</Button>
             </Col>
           </Row>
-          <Collapse isOpen={processData.messages !== undefined && processData.messages.length > 0}>
-            <Card>
-              <CardBody>
-                {processData.messages !== undefined &&
-                processData.messages.map((message, i) => (
-                  <Alert color="danger" key={i}>
-                    {message.msg}
-                  </Alert>
-                ))}
-              </CardBody>
-            </Card>
-          </Collapse>
+          <Row className="mt-3">
+            <Collapse isOpen={processData.messages !== undefined && processData.messages.length > 0}>
+              <Card>
+                <CardBody>
+                  {processData.messages !== undefined &&
+                  processData.messages.map((message, i) => (
+                    <Alert color="danger" key={i}>
+                      {message.msg}
+                    </Alert>
+                  ))}
+                </CardBody>
+              </Card>
+            </Collapse>
+          </Row>
         </Col>
       </Row>
     );
