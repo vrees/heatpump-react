@@ -14,7 +14,7 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
-    this.initpaint = this.initpaint.bind(this);
+    // this.initPaint = this.initPaint.bind(this);
   }
 
   componentDidMount(): void {
@@ -22,21 +22,16 @@ class HeatCycleGraphic extends Component<IGraphicProps> {
     this.mycanvas = this.canvasRef.current;
     this.mycontext = this.mycanvas.getContext('2d');
 
-    this.initpaint(this.mycanvas, sizefactor);
+    this.initPaint(this.mycanvas, sizefactor);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const {sizefactor, processData} = this.props;
-    this.initpaint(this.mycanvas, sizefactor);
+    this.initPaint(this.mycanvas, sizefactor);
     this.drawValues(this.mycontext, sizefactor, processData);
-
-    /* eslint-disable no-console */
-    console.log("HeatCycleGraphic componentDidUpdate: ");
-    /* eslint-enable no-console */
-
   }
 
-  private initpaint(canvas: HTMLCanvasElement, sizefactor: number) {
+  initPaint = (canvas: HTMLCanvasElement, sizefactor: number) => {
     canvas.width = 110 * sizefactor;
     canvas.height = 70 * sizefactor;
 

@@ -74,6 +74,10 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
             .and()
             .withExternal()
             .source(States.ERROR).target(States.OFF).event(Events.ACKNOWLEDGE)
+            .and()
+            .withExternal()
+            .source(States.ERROR).target(States.OFF).event(Events.SWITCH_OFF)
+
         ;
     }
 
