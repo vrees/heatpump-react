@@ -60,7 +60,7 @@ export const StateInfo = new Map<States, IStateProps>([
     States.ERROR,
     {
       label: 'Error',
-      buttons: [ActionButton.SWITCH_OFF],
+      buttons: [ActionButton.SWITCH_OFF, ActionButton.ACKNOWLEDGE],
       color: 'danger'
     }
   ]

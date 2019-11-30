@@ -173,11 +173,12 @@ export const getLatestProcessdata: IGetLatestProcessdataAction<IProcessdata> = (
 };
 
 export const sendEvent = (event: string) => {
-  const requestUrl = `${apiEventUrl}/event`;
+  const requestUrl = `${apiEventUrl}/${event}`;
+  const obj = {};
 
   return {
     type: ACTION_TYPES.SEND_EVENT,
-    payload: axios.put(requestUrl)
+    payload: axios.put(requestUrl, obj)
   };
 };
 
