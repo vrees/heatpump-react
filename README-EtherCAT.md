@@ -44,6 +44,9 @@ sudo setcap cap_net_raw,cap_net_admin=eip /home/vrees/.sdkman/candidates/java/cu
 
 echo '/home/vrees/.sdkman/candidates/java/11.0.2-open/lib/jli' | sudo tee -a /etc/ld.so.conf.d/java
 
+Remove:
+sudo setcap -r  /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
 ```
 
 https://github.com/ihmcrobotics/ihmc-ethercat-master/issues/5
@@ -55,6 +58,13 @@ vrees       soft    cpu     unlimited
 vrees       -       rtprio  100
 vrees       -       nice    40
 vrees       -       memlock unlimited
+```
+
+```
+cd /etc/ld.so.conf.d/
+sudo vi java.conf
+and add /home/vrees/.sdkman/candidates/java/11.0.5-open/lib/jli
+sudo ldconfig
 ```
 
 **! don't forget to restart**
