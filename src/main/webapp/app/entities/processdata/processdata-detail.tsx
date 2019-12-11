@@ -165,11 +165,11 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             </dt>
             <dd>{processdataEntity.warningHighPressure ? 'true' : 'false'}</dd>
           </dl>
-          <Button tag={Link} to="/entity/processdata" replace color="info">
+          <Button tag={Link} to="/processdata" replace color="info">
             <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
           </Button>
           &nbsp;
-          <Button tag={Link} to={`/entity/processdata/${processdataEntity.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/processdata/${processdataEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
           </Button>
         </Col>
