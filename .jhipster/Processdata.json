@@ -1,0 +1,131 @@
+{
+    "name": "Processdata",
+    "fields": [
+        {
+            "fieldName": "timestamp",
+            "fieldType": "Instant"
+        },
+        {
+          "fieldName": "state",
+          "javadoc": "Status der Statemachine = Betriebszustand",
+          "fieldType": "States",
+          "fieldValues": "OFF,READY,RUNNING,BACKLASH,ERROR"
+        },
+        {
+            "fieldName": "temperatureEvaporatingIn",
+            "javadoc": "Verdampfungstemperatur in °C",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "temperatureEvaporatingOut",
+            "javadoc": "Verdampfungstemperatur out in °C",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "temperatureFlow",
+            "javadoc": "Vorlauf-Temperatur in °C",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "temperatureReturn",
+            "javadoc": "Rücklauf-Temperatur in °C",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "temperatureSwitchOnSensor",
+            "javadoc": "SchaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur am Puffer oben in °C",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "temperatureOverheatedGas",
+            "javadoc": "SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also auf der Niederdruck-Seite.\\nWird zusammen mit dem Druck im Verdampfer zur Berechnung der Überhitzung benötigt\\nGesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels\\nUeberhitzung = Temperatur des ueberhitzten Gases - GesättigteVerdampfungstemperatur",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "pressureHigh",
+            "javadoc": "Hochdruck Kältekreis in bar",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "pressureLow",
+            "javadoc": "Niederdruck Kältekreis in bar",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "pressureDiffenceEvaporator",
+            "javadoc": "Druckdifferenz Verdampfer in mbar, minVal=0 maxVal=200",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "heatRequest",
+            "javadoc": "Wärme Anforderung",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "userConfirmation",
+            "javadoc": "Taster Ein-/Aus- Quittierung",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "alarmExpansionValve",
+            "javadoc": "Alarm des Elektronischen Expansionsentils EEV",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "incidentFlow",
+            "javadoc": "Stoerung Durchfluss - minimale Druchlussmenge im Verdampfer unterschritten",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "incidentCompressor",
+            "javadoc": "Stoerung Verdichter / Motorschutzschalter",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "incidentLowPressure",
+            "javadoc": "Stoerung Niederdruck: Ranco-Thermostat meldet zu niedrigen Niederdruck",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "incidentHighPressure",
+            "javadoc": "Stoerung Hochdruck Ranco-Thermostat meldet zu hohen Hochdruck",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "operatingStateWaterPump",
+            "javadoc": "Status Heizungspume: Ein/Aus",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "operatingStateCompressor",
+            "javadoc": "Status Verdichter: Ein/Aus",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "calculatedOverheatTemperature",
+            "javadoc": "Überhitzung:  Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal TemperaturKonstante des Kühlmittels",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "warningLowPressure",
+            "javadoc": "Warnung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "warningHighPressure",
+            "javadoc": "Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20191006162638",
+    "entityTableName": "processdata",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "readOnly": false
+}
