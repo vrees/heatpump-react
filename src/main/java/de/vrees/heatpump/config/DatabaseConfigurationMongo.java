@@ -1,6 +1,5 @@
 package de.vrees.heatpump.config;
 
-import io.github.jhipster.config.JHipsterConstants;
 import com.github.mongobee.Mongobee;
 import com.mongodb.MongoClient;
 import io.github.jhipster.domain.util.JSR310DateConverters.DateToZonedDateTimeConverter;
@@ -26,12 +25,13 @@ import java.util.List;
 
 @Configuration
 @EnableMongoRepositories("de.vrees.heatpump.repository")
-@Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
+//@Profile({"!" + JHipsterConstants.SPRING_PROFILE_CLOUD})
+@Profile({"!mariaDB"})
 @Import(value = MongoAutoConfiguration.class)
 @EnableMongoAuditing(auditorAwareRef = "springSecurityAuditorAware")
-public class DatabaseConfiguration {
+public class DatabaseConfigurationMongo {
 
-    private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
+    private final Logger log = LoggerFactory.getLogger(DatabaseConfigurationMongo.class);
 
     @Bean
     public ValidatingMongoEventListener validatingMongoEventListener() {
