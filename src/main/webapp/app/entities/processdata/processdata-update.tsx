@@ -59,7 +59,7 @@ export class ProcessdataUpdate extends React.Component<IProcessdataUpdateProps, 
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/processdata');
+    this.props.history.push('/processdata');
   };
 
   render() {
@@ -326,7 +326,7 @@ export class ProcessdataUpdate extends React.Component<IProcessdataUpdateProps, 
                     Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)
                   </UncontrolledTooltip>
                 </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/processdata" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/processdata" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;
                   <span className="d-none d-md-inline">Back</span>

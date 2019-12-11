@@ -1,7 +1,7 @@
 version: '2'
 services:
   heatpump-mongodb:
-    image: mongo:4.0.12
+    image: mongo:4.0.13
     ports:
       - '27017:27017'
     command: mongos --configdb heatpump-mongodb-config
@@ -11,6 +11,6 @@ services:
       dockerfile: mongodb/MongoDB.Dockerfile
     command: mongod --replSet rs1 --noprealloc --smallfiles
   heatpump-mongodb-config:
-    image: mongo:4.0.12
+    image: mongo:4.0.13
     container_name: heatpump-mongodb-config
     command: mongod --noprealloc --smallfiles --configsvr --dbpath /data/db
