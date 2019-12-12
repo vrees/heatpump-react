@@ -1,10 +1,10 @@
 package de.vrees.heatpump.config;
 
 import io.github.jhipster.config.JHipsterConstants;
+
 import org.springframework.boot.SpringApplication;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Utility class to load a Spring profile to be used as default
