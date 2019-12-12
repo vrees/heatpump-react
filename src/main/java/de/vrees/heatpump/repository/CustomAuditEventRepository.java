@@ -3,6 +3,7 @@ package de.vrees.heatpump.repository;
 import de.vrees.heatpump.config.Constants;
 import de.vrees.heatpump.config.audit.AuditEventConverter;
 import de.vrees.heatpump.domain.PersistentAuditEvent;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;
@@ -12,9 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * An implementation of Spring Boot's {@link AuditEventRepository}.
@@ -36,7 +35,7 @@ public class CustomAuditEventRepository implements AuditEventRepository {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     public CustomAuditEventRepository(PersistenceAuditEventRepository persistenceAuditEventRepository,
-                                      AuditEventConverter auditEventConverter) {
+            AuditEventConverter auditEventConverter) {
 
         this.persistenceAuditEventRepository = persistenceAuditEventRepository;
         this.auditEventConverter = auditEventConverter;
