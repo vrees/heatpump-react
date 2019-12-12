@@ -962,6 +962,15 @@
             </properties>
         </profile>
         <profile>
+            <id>simulate</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>dev,simulate</spring.profiles.active>
+            </properties>
+        </profile>
+        <profile>
             <id>prod</id>
             <dependencies>
                 <dependency>
