@@ -172,7 +172,7 @@ export const getLatestProcessdata: IGetLatestProcessdataAction<IProcessdata> = (
   };
 };
 
-export const sendEvent = (event: string) => {
+export const sendEvent = (event: number) => {
   const requestUrl = `${apiEventUrl}/${event}`;
   const obj = {};
 

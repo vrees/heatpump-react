@@ -1,18 +1,14 @@
 package de.vrees.heatpump.repository;
-
 import de.vrees.heatpump.domain.Processdata;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 
 /**
- * Spring Data MongoDB repository for the Processdata entity.
+ * Spring Data  repository for the Processdata entity.
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ProcessdataRepository extends MongoRepository<Processdata, String> {
+public interface ProcessdataRepository extends JpaRepository<Processdata, Long> {
 
-    Optional<Processdata> findTopByOrderByTimestampDesc();
 }

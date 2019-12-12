@@ -115,7 +115,7 @@ export class ProcessdataUpdate extends React.Component<IProcessdataUpdateProps, 
                     <option value="BACKLASH">BACKLASH</option>
                     <option value="ERROR">ERROR</option>
                   </AvInput>
-                  <UncontrolledTooltip target="stateLabel">Status der Statemachine = Betrriebszustand</UncontrolledTooltip>
+                  <UncontrolledTooltip target="stateLabel">Status der Statemachine = Betriebszustand</UncontrolledTooltip>
                 </AvGroup>
                 <AvGroup>
                   <Label id="temperatureEvaporatingInLabel" for="processdata-temperatureEvaporatingIn">

@@ -1,201 +1,201 @@
 package de.vrees.heatpump.domain;
-
-import de.vrees.heatpump.limitcheck.FailureMessage;
-import de.vrees.heatpump.statemachine.States;
+import de.vrees.heatpump.domain.enumeration.States;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A Processdata.
  */
-@Document(collection = "processdata")
+@Entity
+@Table(name = "processdata")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Processdata implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Field("timestamp")
+    @Column(name = "timestamp")
     private Instant timestamp;
 
     /**
      * Verdampfungstemperatur in °C
      */
     @ApiModelProperty(value = "Verdampfungstemperatur in °C")
-    @Field("temperature_evaporating_in")
+    @Column(name = "temperature_evaporating_in")
     private Float temperatureEvaporatingIn;
 
     /**
      * Verdampfungstemperatur out in °C
      */
     @ApiModelProperty(value = "Verdampfungstemperatur out in °C")
-    @Field("temperature_evaporating_out")
+    @Column(name = "temperature_evaporating_out")
     private Float temperatureEvaporatingOut;
 
     /**
      * Vorlauf-Temperatur in °C
      */
     @ApiModelProperty(value = "Vorlauf-Temperatur in °C")
-    @Field("temperature_flow")
+    @Column(name = "temperature_flow")
     private Float temperatureFlow;
 
     /**
      * Rücklauf-Temperatur in °C
      */
     @ApiModelProperty(value = "Rücklauf-Temperatur in °C")
-    @Field("temperature_return")
+    @Column(name = "temperature_return")
     private Float temperatureReturn;
 
     /**
      * SchaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur am Puffer oben in °C
      */
     @ApiModelProperty(value = "SchaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur am Puffer oben in °C")
-    @Field("temperature_switch_on_sensor")
+    @Column(name = "temperature_switch_on_sensor")
     private Float temperatureSwitchOnSensor;
 
     /**
      * SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also auf der Niederdruck-Seite.\nWird zusammen mit dem Druck im Verdampfer zur Berechnung der Überhitzung benötigt\nGesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels\nUeberhitzung = Temperatur des ueberhitzten Gases - GesättigteVerdampfungstemperatur
      */
     @ApiModelProperty(value = "SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also auf der Niederdruck-Seite.\nWird zusammen mit dem Druck im Verdampfer zur Berechnung der Überhitzung benötigt\nGesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels\nUeberhitzung = Temperatur des ueberhitzten Gases - GesättigteVerdampfungstemperatur")
-    @Field("temperature_overheated_gas")
+    @Column(name = "temperature_overheated_gas")
     private Float temperatureOverheatedGas;
 
     /**
      * Hochdruck Kältekreis in bar
      */
     @ApiModelProperty(value = "Hochdruck Kältekreis in bar")
-    @Field("pressure_high")
+    @Column(name = "pressure_high")
     private Float pressureHigh;
 
     /**
      * Niederdruck Kältekreis in bar
      */
     @ApiModelProperty(value = "Niederdruck Kältekreis in bar")
-    @Field("pressure_low")
+    @Column(name = "pressure_low")
     private Float pressureLow;
 
     /**
      * Druckdifferenz Verdampfer in mbar, minVal=0 maxVal=200
      */
     @ApiModelProperty(value = "Druckdifferenz Verdampfer in mbar, minVal=0 maxVal=200")
-    @Field("pressure_diffence_evaporator")
+    @Column(name = "pressure_diffence_evaporator")
     private Float pressureDiffenceEvaporator;
 
     /**
      * Wärme Anforderung
      */
     @ApiModelProperty(value = "Wärme Anforderung")
-    @Field("heat_request")
+    @Column(name = "heat_request")
     private Boolean heatRequest;
 
     /**
      * Taster Ein-/Aus- Quittierung
      */
     @ApiModelProperty(value = "Taster Ein-/Aus- Quittierung")
-    @Field("user_confirmation")
+    @Column(name = "user_confirmation")
     private Boolean userConfirmation;
 
     /**
      * Alarm des Elektronischen Expansionsentils EEV
      */
     @ApiModelProperty(value = "Alarm des Elektronischen Expansionsentils EEV")
-    @Field("alarm_expansion_valve")
+    @Column(name = "alarm_expansion_valve")
     private Boolean alarmExpansionValve;
 
     /**
      * Stoerung Durchfluss - minimale Druchlussmenge im Verdampfer unterschritten
      */
     @ApiModelProperty(value = "Stoerung Durchfluss - minimale Druchlussmenge im Verdampfer unterschritten")
-    @Field("incident_flow")
+    @Column(name = "incident_flow")
     private Boolean incidentFlow;
 
     /**
      * Stoerung Verdichter / Motorschutzschalter
      */
     @ApiModelProperty(value = "Stoerung Verdichter / Motorschutzschalter")
-    @Field("incident_compressor")
+    @Column(name = "incident_compressor")
     private Boolean incidentCompressor;
 
     /**
      * Stoerung Niederdruck: Ranco-Thermostat meldet zu niedrigen Niederdruck
      */
     @ApiModelProperty(value = "Stoerung Niederdruck: Ranco-Thermostat meldet zu niedrigen Niederdruck")
-    @Field("incident_low_pressure")
+    @Column(name = "incident_low_pressure")
     private Boolean incidentLowPressure;
 
     /**
      * Stoerung Hochdruck Ranco-Thermostat meldet zu hohen Hochdruck
      */
     @ApiModelProperty(value = "Stoerung Hochdruck Ranco-Thermostat meldet zu hohen Hochdruck")
-    @Field("incident_high_pressure")
+    @Column(name = "incident_high_pressure")
     private Boolean incidentHighPressure;
 
     /**
      * Status Heizungspume: Ein/Aus
      */
     @ApiModelProperty(value = "Status Heizungspume: Ein/Aus")
-    @Field("operating_state_water_pump")
+    @Column(name = "operating_state_water_pump")
     private Boolean operatingStateWaterPump;
 
     /**
      * Status Verdichter: Ein/Aus
      */
     @ApiModelProperty(value = "Status Verdichter: Ein/Aus")
-    @Field("operating_state_compressor")
+    @Column(name = "operating_state_compressor")
     private Boolean operatingStateCompressor;
 
     /**
      * Überhitzung:  Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal TemperaturKonstante des Kühlmittels
      */
     @ApiModelProperty(value = "Überhitzung:  Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal TemperaturKonstante des Kühlmittels")
-    @Field("calculated_overheat_temperature")
+    @Column(name = "calculated_overheat_temperature")
     private Float calculatedOverheatTemperature;
 
     /**
      * Warnung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)
      */
     @ApiModelProperty(value = "Warnung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)")
-    @Field("warning_low_pressure")
+    @Column(name = "warning_low_pressure")
     private Boolean warningLowPressure;
 
     /**
      * Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)
      */
     @ApiModelProperty(value = "Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)")
-    @Field("warning_high_pressure")
+    @Column(name = "warning_high_pressure")
     private Boolean warningHighPressure;
 
     /**
      * Status der Statemachine = Betriebszustand
      */
-    @ApiModelProperty(value = "Status der Statemachine = Betrriebszustand")
-    @Field("state")
+    @ApiModelProperty(value = "Status der Statemachine = Betriebszustand")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state")
     private States state;
 
-    @ApiModelProperty(value = "Fehlermeldungen")
-    @Field("messages")
-    private List<FailureMessage> messages = new ArrayList();
-
-
-    @ApiModelProperty(value = "Anzahl Sekunden bis zum nächst möglichen Einschalten")
-    @Field("wait_counter")
-    private Integer waitCounter;
+//    @ApiModelProperty(value = "Fehlermeldungen")
+//    @Field("messages")
+//    private List<FailureMessage> messages = new ArrayList();
+//
+//
+//    @ApiModelProperty(value = "Anzahl Sekunden bis zum nächst möglichen Einschalten")
+//    @Field("wait_counter")
+//    private Integer waitCounter;
 
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -210,6 +210,19 @@ public class Processdata implements Serializable {
 
     public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public States getState() {
+        return state;
+    }
+
+    public Processdata state(States state) {
+        this.state = state;
+        return this;
+    }
+
+    public void setState(States state) {
+        this.state = state;
     }
 
     public Float getTemperatureEvaporatingIn() {
@@ -484,37 +497,7 @@ public class Processdata implements Serializable {
     public void setWarningHighPressure(Boolean warningHighPressure) {
         this.warningHighPressure = warningHighPressure;
     }
-
-    public States getState() {
-        return state;
-    }
-
-    public Processdata state(States state) {
-        this.state = state;
-        return this;
-    }
-
-    public void setState(States state) {
-        this.state = state;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
-
-
-    public List<FailureMessage> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<FailureMessage> messages) {
-        this.messages = messages;
-    }
-
-    public Integer getWaitCounter() {
-        return waitCounter;
-    }
-
-    public void setWaitCounter(Integer waitCounter) {
-        this.waitCounter = waitCounter;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -559,8 +542,8 @@ public class Processdata implements Serializable {
             ", calculatedOverheatTemperature=" + getCalculatedOverheatTemperature() +
             ", warningLowPressure='" + isWarningLowPressure() + "'" +
             ", warningHighPressure='" + isWarningHighPressure() + "'" +
-            ", messages.size='" + getMessages().size() + "'" +
-            ", waitCounter='" + getWaitCounter() + "'" +
+//            ", messages.size='" + getMessages().size() + "'" +
+//            ", waitCounter='" + getWaitCounter() + "'" +
             "}";
     }
 }

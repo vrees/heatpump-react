@@ -34,7 +34,7 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             </dd>
             <dt>
               <span id="state">State</span>
-              <UncontrolledTooltip target="state">Status der Statemachine = Betrriebszustand</UncontrolledTooltip>
+              <UncontrolledTooltip target="state">Status der Statemachine = Betriebszustand</UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.state}</dd>
             <dt>

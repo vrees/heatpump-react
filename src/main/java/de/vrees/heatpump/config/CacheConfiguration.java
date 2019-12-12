@@ -43,6 +43,7 @@ public class CacheConfiguration {
             createCache(cm, de.vrees.heatpump.domain.User.class.getName());
             createCache(cm, de.vrees.heatpump.domain.Authority.class.getName());
             createCache(cm, de.vrees.heatpump.domain.User.class.getName() + ".authorities");
+            createCache(cm, de.vrees.heatpump.domain.Processdata.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,9 +1,9 @@
-import {Moment} from 'moment';
-import {States} from 'app/shared/model/enumerations/states.model';
-import {IFailureMessage} from "app/shared/model/failureMessage.model";
+import { Moment } from 'moment';
+import { States } from 'app/shared/model/enumerations/states.model';
+import { IFailureMessage } from 'app/shared/model/failureMessage.model';
 
 export interface IProcessdata {
-  id?: string;
+  id?: number;
   timestamp?: Moment;
   state?: States;
   temperatureEvaporatingIn?: number;
