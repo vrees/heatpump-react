@@ -57,10 +57,6 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
   };
 
   handleConnection = (event) => {
-    /* eslint-disable no-console */
-    console.log("event: ", event.target.value);
-    /* eslint-enable no-console */
-
     if (websocketIsConnected())
       websocketDisconnect();
     else
@@ -106,7 +102,7 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
           </Row>
           <Row className="mt-3">
             <Col lg={6}>
-              <CustomInput type="switch" id="websocketConnet" name="websocketConnet"
+              <CustomInput type="switch" id="websocketConnedt" name="websocketConnet"
                            label="Auto-Update"
                            onClick={this.handleConnection}/>
             </Col>

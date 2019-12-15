@@ -92,6 +92,9 @@ entity Processdata {
 
         /** Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt) */
         warningHighPressure Boolean
+
+        /** wait n-th loops -then transfer processdate to GUI */
+        waitCounter Integer
 }
 
 enum States {
@@ -99,7 +102,22 @@ enum States {
 }
 
 enum Events {
-    SWITCH_ON,    SWITCH_OFF,    HEAT_REQUEST,    TEMPERATURE_REACHED,    COOLDED_DOWN
+    SWITCH_ON, SWITCH_OFF, HEAT_REQUEST, TEMPERATURE_REACHED, COOLDED_DOWN
 }
+
+enum FailureLevel {
+    ERROR, WARNING, INFO
+}
+
+entity FailureMessage {
+    failureLevel FailureLevel
+    msg String
+    parameter String
+}
+
+relationship OneToMany {
+	Processdata{messages} to FailureMessage
+}
+
 
 paginate Processdata with pagination

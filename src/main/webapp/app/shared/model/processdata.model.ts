@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
+import { IFailureMessage } from 'app/shared/model/failure-message.model';
 import { States } from 'app/shared/model/enumerations/states.model';
-import { IFailureMessage } from 'app/shared/model/failureMessage.model';
 
 export interface IProcessdata {
   id?: number;
@@ -27,8 +27,8 @@ export interface IProcessdata {
   calculatedOverheatTemperature?: number;
   warningLowPressure?: boolean;
   warningHighPressure?: boolean;
-  messages?: IFailureMessage[];
   waitCounter?: number;
+  messages?: IFailureMessage[];
 }
 
 export const defaultValue: Readonly<IProcessdata> = {

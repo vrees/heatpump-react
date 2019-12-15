@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity FailureMessage.
+    -->
+    <changeSet id="20191215132357-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="processdata_id"
+                                 baseTableName="failure_message"
+                                 constraintName="fk_failure_message_processdata_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="processdata"/>
+
+    </changeSet>
+</databaseChangeLog>

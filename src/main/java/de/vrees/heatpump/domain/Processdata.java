@@ -8,6 +8,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Processdata.
@@ -25,6 +27,14 @@ public class Processdata implements Serializable {
 
     @Column(name = "timestamp")
     private Instant timestamp;
+
+    /**
+     * Status der Statemachine = Betriebszustand
+     */
+    @ApiModelProperty(value = "Status der Statemachine = Betriebszustand")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state")
+    private States state;
 
     /**
      * Verdampfungstemperatur in °C
@@ -174,22 +184,15 @@ public class Processdata implements Serializable {
     private Boolean warningHighPressure;
 
     /**
-     * Status der Statemachine = Betriebszustand
+     * wait n-th loops -then transfer processdate to GUI
      */
-    @ApiModelProperty(value = "Status der Statemachine = Betriebszustand")
-    @Enumerated(EnumType.STRING)
-    @Column(name = "state")
-    private States state;
+    @ApiModelProperty(value = "wait n-th loops -then transfer processdate to GUI")
+    @Column(name = "wait_counter")
+    private Integer waitCounter;
 
-//    @ApiModelProperty(value = "Fehlermeldungen")
-//    @Field("messages")
-//    private List<FailureMessage> messages = new ArrayList();
-//
-//
-//    @ApiModelProperty(value = "Anzahl Sekunden bis zum nächst möglichen Einschalten")
-//    @Field("wait_counter")
-//    private Integer waitCounter;
-
+    @OneToMany(mappedBy = "processdata")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<FailureMessage> messages = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -498,6 +501,44 @@ public class Processdata implements Serializable {
     public void setWarningHighPressure(Boolean warningHighPressure) {
         this.warningHighPressure = warningHighPressure;
     }
+
+    public Integer getWaitCounter() {
+        return waitCounter;
+    }
+
+    public Processdata waitCounter(Integer waitCounter) {
+        this.waitCounter = waitCounter;
+        return this;
+    }
+
+    public void setWaitCounter(Integer waitCounter) {
+        this.waitCounter = waitCounter;
+    }
+
+    public Set<FailureMessage> getMessages() {
+        return messages;
+    }
+
+    public Processdata messages(Set<FailureMessage> failureMessages) {
+        this.messages = failureMessages;
+        return this;
+    }
+
+    public Processdata addMessages(FailureMessage failureMessage) {
+        this.messages.add(failureMessage);
+        failureMessage.setProcessdata(this);
+        return this;
+    }
+
+    public Processdata removeMessages(FailureMessage failureMessage) {
+        this.messages.remove(failureMessage);
+        failureMessage.setProcessdata(null);
+        return this;
+    }
+
+    public void setMessages(Set<FailureMessage> failureMessages) {
+        this.messages = failureMessages;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -543,8 +584,7 @@ public class Processdata implements Serializable {
             ", calculatedOverheatTemperature=" + getCalculatedOverheatTemperature() +
             ", warningLowPressure='" + isWarningLowPressure() + "'" +
             ", warningHighPressure='" + isWarningHighPressure() + "'" +
-//            ", messages.size='" + getMessages().size() + "'" +
-//            ", waitCounter='" + getWaitCounter() + "'" +
+            ", waitCounter=" + getWaitCounter() +
             "}";
     }
 }

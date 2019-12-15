@@ -6,10 +6,10 @@
             "fieldType": "Instant"
         },
         {
-          "fieldName": "state",
-          "javadoc": "Status der Statemachine = Betriebszustand",
-          "fieldType": "States",
-          "fieldValues": "OFF,READY,RUNNING,BACKLASH,ERROR"
+            "fieldName": "state",
+            "javadoc": "Status der Statemachine = Betriebszustand",
+            "fieldType": "States",
+            "fieldValues": "OFF,READY,RUNNING,BACKLASH,ERROR"
         },
         {
             "fieldName": "temperatureEvaporatingIn",
@@ -115,9 +115,21 @@
             "fieldName": "warningHighPressure",
             "javadoc": "Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)",
             "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "waitCounter",
+            "javadoc": "wait n-th loops -then transfer processdate to GUI",
+            "fieldType": "Integer"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "failureMessage",
+            "otherEntityRelationshipName": "processdata",
+            "relationshipName": "messages"
+        }
+    ],
     "changelogDate": "20191006162638",
     "entityTableName": "processdata",
     "dto": "no",

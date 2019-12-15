@@ -85,6 +85,9 @@
             <column name="warning_high_pressure" type="boolean" remarks="Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)">
                 <constraints nullable="true" />
             </column>
+            <column name="wait_counter" type="integer" remarks="wait n-th loops -then transfer processdate to GUI">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="processdata" columnName="timestamp" columnDataType="datetime"/>
@@ -132,6 +135,7 @@
             <column name="calculated_overheat_temperature" type="numeric"/>
             <column name="warning_low_pressure" type="boolean"/>
             <column name="warning_high_pressure" type="boolean"/>
+            <column name="wait_counter" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

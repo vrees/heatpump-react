@@ -326,6 +326,13 @@ export class ProcessdataUpdate extends React.Component<IProcessdataUpdateProps, 
                     Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)
                   </UncontrolledTooltip>
                 </AvGroup>
+                <AvGroup>
+                  <Label id="waitCounterLabel" for="processdata-waitCounter">
+                    Wait Counter
+                  </Label>
+                  <AvField id="processdata-waitCounter" type="string" className="form-control" name="waitCounter" />
+                  <UncontrolledTooltip target="waitCounterLabel">wait n-th loops -then transfer processdate to GUI</UncontrolledTooltip>
+                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/processdata" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;

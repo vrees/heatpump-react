@@ -1,0 +1,37 @@
+{
+    "name": "FailureMessage",
+    "fields": [
+        {
+            "fieldName": "failureLevel",
+            "fieldType": "FailureLevel",
+            "fieldValues": "ERROR,WARNING,INFO"
+        },
+        {
+            "fieldName": "msg",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "parameter",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "processdata",
+            "otherEntityRelationshipName": "messages",
+            "relationshipName": "processdata",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20191215132357",
+    "entityTableName": "failure_message",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

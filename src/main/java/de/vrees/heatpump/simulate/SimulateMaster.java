@@ -1,8 +1,8 @@
 package de.vrees.heatpump.simulate;
 
 
+import de.vrees.heatpump.domain.FailureMessage;
 import de.vrees.heatpump.domain.Processdata;
-import de.vrees.heatpump.limitcheck.FailureMessage;
 import de.vrees.heatpump.limitcheck.LimitCheckResult;
 import de.vrees.heatpump.limitcheck.LimitChecker;
 import de.vrees.heatpump.statemachine.*;
