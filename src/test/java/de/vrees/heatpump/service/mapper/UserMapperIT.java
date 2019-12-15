@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserMapperIT {
 
     private static final String DEFAULT_LOGIN = "johndoe";
-    private static final String DEFAULT_ID = "id1";
+    private static final Long DEFAULT_ID = 1L;
 
     @Autowired
     private UserMapper userMapper;

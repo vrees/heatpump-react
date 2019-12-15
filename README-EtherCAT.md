@@ -46,6 +46,7 @@ echo '/home/vrees/.sdkman/candidates/java/11.0.2-open/lib/jli' | sudo tee -a /et
 
 Remove:
 sudo setcap -r  /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+sudo setcap -r  /home/vrees/.sdkman/candidates/java/current/bin/java
 
 ```
 

@@ -1,4 +1,4 @@
-# heatpump
+isdn# heatpump
 
 This application was generated using JHipster 6.5.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.5.1](https://www.jhipster.tech/documentation-archive/v6.5.1).
 
@@ -131,13 +131,13 @@ For more information, refer to the [Code quality page][].
 
 You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
 
-For example, to start a mongodb database in a docker container, run:
+For example, to start a mariadb database in a docker container, run:
 
-    docker-compose -f src/main/docker/mongodb.yml up -d
+    sudo docker-compose -f src/main/docker/mariadb.yml up -d
 
 To stop it and remove the container, run:
 
-    docker-compose -f src/main/docker/mongodb.yml down
+    sudo docker-compose -f src/main/docker/mariadb.yml down
 
 You can also fully dockerize your application and all the services that it depends on.
 To achieve this, first build a docker image of your app by running:
@@ -146,7 +146,7 @@ To achieve this, first build a docker image of your app by running:
 
 Then run:
 
-    docker-compose -f src/main/docker/app.yml up -d
+    sudo docker-compose -f src/main/docker/app.yml up -d
 
 For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
 

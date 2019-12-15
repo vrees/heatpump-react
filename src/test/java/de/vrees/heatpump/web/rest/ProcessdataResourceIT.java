@@ -17,8 +17,10 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.statemachine.StateMachine;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
+import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -38,6 +40,9 @@ public class ProcessdataResourceIT {
 
     private static final Instant DEFAULT_TIMESTAMP = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_TIMESTAMP = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final States DEFAULT_STATE = States.OFF;
+    private static final States UPDATED_STATE = States.READY;
 
     private static final Float DEFAULT_TEMPERATURE_EVAPORATING_IN = 1F;
     private static final Float UPDATED_TEMPERATURE_EVAPORATING_IN = 2F;
@@ -102,8 +107,8 @@ public class ProcessdataResourceIT {
     private static final Boolean DEFAULT_WARNING_HIGH_PRESSURE = false;
     private static final Boolean UPDATED_WARNING_HIGH_PRESSURE = true;
 
-    private static final States DEFAULT_STATE = States.OFF;
-    private static final States UPDATED_STATE = States.READY;
+    private static final Integer DEFAULT_WAIT_COUNTER = 1;
+    private static final Integer UPDATED_WAIT_COUNTER = 2;
 
     @Autowired
     private ProcessdataRepository processdataRepository;
@@ -119,6 +124,9 @@ public class ProcessdataResourceIT {
 
     @Autowired
     private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
+    private EntityManager em;
 
     @Autowired
     private Validator validator;
@@ -145,9 +153,10 @@ public class ProcessdataResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static Processdata createEntity() {
+    public static Processdata createEntity(EntityManager em) {
         Processdata processdata = new Processdata()
             .timestamp(DEFAULT_TIMESTAMP)
+            .state(DEFAULT_STATE)
             .temperatureEvaporatingIn(DEFAULT_TEMPERATURE_EVAPORATING_IN)
             .temperatureEvaporatingOut(DEFAULT_TEMPERATURE_EVAPORATING_OUT)
             .temperatureFlow(DEFAULT_TEMPERATURE_FLOW)
@@ -169,7 +178,7 @@ public class ProcessdataResourceIT {
             .calculatedOverheatTemperature(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE)
             .warningLowPressure(DEFAULT_WARNING_LOW_PRESSURE)
             .warningHighPressure(DEFAULT_WARNING_HIGH_PRESSURE)
-            .state(DEFAULT_STATE);
+            .waitCounter(DEFAULT_WAIT_COUNTER);
         return processdata;
     }
     /**
@@ -178,9 +187,10 @@ public class ProcessdataResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static Processdata createUpdatedEntity() {
+    public static Processdata createUpdatedEntity(EntityManager em) {
         Processdata processdata = new Processdata()
             .timestamp(UPDATED_TIMESTAMP)
+            .state(UPDATED_STATE)
             .temperatureEvaporatingIn(UPDATED_TEMPERATURE_EVAPORATING_IN)
             .temperatureEvaporatingOut(UPDATED_TEMPERATURE_EVAPORATING_OUT)
             .temperatureFlow(UPDATED_TEMPERATURE_FLOW)
@@ -202,17 +212,17 @@ public class ProcessdataResourceIT {
             .calculatedOverheatTemperature(UPDATED_CALCULATED_OVERHEAT_TEMPERATURE)
             .warningLowPressure(UPDATED_WARNING_LOW_PRESSURE)
             .warningHighPressure(UPDATED_WARNING_HIGH_PRESSURE)
-            .state(UPDATED_STATE);
+            .waitCounter(UPDATED_WAIT_COUNTER);
         return processdata;
     }
 
     @BeforeEach
     public void initTest() {
-        processdataRepository.deleteAll();
-        processdata = createEntity();
+        processdata = createEntity(em);
     }
 
     @Test
+    @Transactional
     public void createProcessdata() throws Exception {
         int databaseSizeBeforeCreate = processdataRepository.findAll().size();
 
@@ -227,6 +237,7 @@ public class ProcessdataResourceIT {
         assertThat(processdataList).hasSize(databaseSizeBeforeCreate + 1);
         Processdata testProcessdata = processdataList.get(processdataList.size() - 1);
         assertThat(testProcessdata.getTimestamp()).isEqualTo(DEFAULT_TIMESTAMP);
+        assertThat(testProcessdata.getState()).isEqualTo(DEFAULT_STATE);
         assertThat(testProcessdata.getTemperatureEvaporatingIn()).isEqualTo(DEFAULT_TEMPERATURE_EVAPORATING_IN);
         assertThat(testProcessdata.getTemperatureEvaporatingOut()).isEqualTo(DEFAULT_TEMPERATURE_EVAPORATING_OUT);
         assertThat(testProcessdata.getTemperatureFlow()).isEqualTo(DEFAULT_TEMPERATURE_FLOW);
@@ -248,15 +259,16 @@ public class ProcessdataResourceIT {
         assertThat(testProcessdata.getCalculatedOverheatTemperature()).isEqualTo(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE);
         assertThat(testProcessdata.isWarningLowPressure()).isEqualTo(DEFAULT_WARNING_LOW_PRESSURE);
         assertThat(testProcessdata.isWarningHighPressure()).isEqualTo(DEFAULT_WARNING_HIGH_PRESSURE);
-        assertThat(testProcessdata.getState()).isEqualTo(DEFAULT_STATE);
+        assertThat(testProcessdata.getWaitCounter()).isEqualTo(DEFAULT_WAIT_COUNTER);
     }
 
     @Test
+    @Transactional
     public void createProcessdataWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = processdataRepository.findAll().size();
 
         // Create the Processdata with an existing ID
-        processdata.setId("existing_id");
+        processdata.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restProcessdataMockMvc.perform(post("/api/processdata")
@@ -271,16 +283,18 @@ public class ProcessdataResourceIT {
 
 
     @Test
+    @Transactional
     public void getAllProcessdata() throws Exception {
         // Initialize the database
-        processdataRepository.save(processdata);
+        processdataRepository.saveAndFlush(processdata);
 
         // Get all the processdataList
         restProcessdataMockMvc.perform(get("/api/processdata?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(processdata.getId())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(processdata.getId().intValue())))
             .andExpect(jsonPath("$.[*].timestamp").value(hasItem(DEFAULT_TIMESTAMP.toString())))
+            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
             .andExpect(jsonPath("$.[*].temperatureEvaporatingIn").value(hasItem(DEFAULT_TEMPERATURE_EVAPORATING_IN.doubleValue())))
             .andExpect(jsonPath("$.[*].temperatureEvaporatingOut").value(hasItem(DEFAULT_TEMPERATURE_EVAPORATING_OUT.doubleValue())))
             .andExpect(jsonPath("$.[*].temperatureFlow").value(hasItem(DEFAULT_TEMPERATURE_FLOW.doubleValue())))
@@ -302,20 +316,22 @@ public class ProcessdataResourceIT {
             .andExpect(jsonPath("$.[*].calculatedOverheatTemperature").value(hasItem(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE.doubleValue())))
             .andExpect(jsonPath("$.[*].warningLowPressure").value(hasItem(DEFAULT_WARNING_LOW_PRESSURE.booleanValue())))
             .andExpect(jsonPath("$.[*].warningHighPressure").value(hasItem(DEFAULT_WARNING_HIGH_PRESSURE.booleanValue())))
-            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())));
+            .andExpect(jsonPath("$.[*].waitCounter").value(hasItem(DEFAULT_WAIT_COUNTER)));
     }
 
     @Test
+    @Transactional
     public void getProcessdata() throws Exception {
         // Initialize the database
-        processdataRepository.save(processdata);
+        processdataRepository.saveAndFlush(processdata);
 
         // Get the processdata
         restProcessdataMockMvc.perform(get("/api/processdata/{id}", processdata.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(processdata.getId()))
+            .andExpect(jsonPath("$.id").value(processdata.getId().intValue()))
             .andExpect(jsonPath("$.timestamp").value(DEFAULT_TIMESTAMP.toString()))
+            .andExpect(jsonPath("$.state").value(DEFAULT_STATE.toString()))
             .andExpect(jsonPath("$.temperatureEvaporatingIn").value(DEFAULT_TEMPERATURE_EVAPORATING_IN.doubleValue()))
             .andExpect(jsonPath("$.temperatureEvaporatingOut").value(DEFAULT_TEMPERATURE_EVAPORATING_OUT.doubleValue()))
             .andExpect(jsonPath("$.temperatureFlow").value(DEFAULT_TEMPERATURE_FLOW.doubleValue()))
@@ -337,10 +353,11 @@ public class ProcessdataResourceIT {
             .andExpect(jsonPath("$.calculatedOverheatTemperature").value(DEFAULT_CALCULATED_OVERHEAT_TEMPERATURE.doubleValue()))
             .andExpect(jsonPath("$.warningLowPressure").value(DEFAULT_WARNING_LOW_PRESSURE.booleanValue()))
             .andExpect(jsonPath("$.warningHighPressure").value(DEFAULT_WARNING_HIGH_PRESSURE.booleanValue()))
-            .andExpect(jsonPath("$.state").value(DEFAULT_STATE.toString()));
+            .andExpect(jsonPath("$.waitCounter").value(DEFAULT_WAIT_COUNTER));
     }
 
     @Test
+    @Transactional
     public void getNonExistingProcessdata() throws Exception {
         // Get the processdata
         restProcessdataMockMvc.perform(get("/api/processdata/{id}", Long.MAX_VALUE))
@@ -348,16 +365,20 @@ public class ProcessdataResourceIT {
     }
 
     @Test
+    @Transactional
     public void updateProcessdata() throws Exception {
         // Initialize the database
-        processdataRepository.save(processdata);
+        processdataRepository.saveAndFlush(processdata);
 
         int databaseSizeBeforeUpdate = processdataRepository.findAll().size();
 
         // Update the processdata
         Processdata updatedProcessdata = processdataRepository.findById(processdata.getId()).get();
+        // Disconnect from session so that the updates on updatedProcessdata are not directly saved in db
+        em.detach(updatedProcessdata);
         updatedProcessdata
             .timestamp(UPDATED_TIMESTAMP)
+            .state(UPDATED_STATE)
             .temperatureEvaporatingIn(UPDATED_TEMPERATURE_EVAPORATING_IN)
             .temperatureEvaporatingOut(UPDATED_TEMPERATURE_EVAPORATING_OUT)
             .temperatureFlow(UPDATED_TEMPERATURE_FLOW)
@@ -379,7 +400,7 @@ public class ProcessdataResourceIT {
             .calculatedOverheatTemperature(UPDATED_CALCULATED_OVERHEAT_TEMPERATURE)
             .warningLowPressure(UPDATED_WARNING_LOW_PRESSURE)
             .warningHighPressure(UPDATED_WARNING_HIGH_PRESSURE)
-            .state(UPDATED_STATE);
+            .waitCounter(UPDATED_WAIT_COUNTER);
 
         restProcessdataMockMvc.perform(put("/api/processdata")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -391,6 +412,7 @@ public class ProcessdataResourceIT {
         assertThat(processdataList).hasSize(databaseSizeBeforeUpdate);
         Processdata testProcessdata = processdataList.get(processdataList.size() - 1);
         assertThat(testProcessdata.getTimestamp()).isEqualTo(UPDATED_TIMESTAMP);
+        assertThat(testProcessdata.getState()).isEqualTo(UPDATED_STATE);
         assertThat(testProcessdata.getTemperatureEvaporatingIn()).isEqualTo(UPDATED_TEMPERATURE_EVAPORATING_IN);
         assertThat(testProcessdata.getTemperatureEvaporatingOut()).isEqualTo(UPDATED_TEMPERATURE_EVAPORATING_OUT);
         assertThat(testProcessdata.getTemperatureFlow()).isEqualTo(UPDATED_TEMPERATURE_FLOW);
@@ -412,10 +434,11 @@ public class ProcessdataResourceIT {
         assertThat(testProcessdata.getCalculatedOverheatTemperature()).isEqualTo(UPDATED_CALCULATED_OVERHEAT_TEMPERATURE);
         assertThat(testProcessdata.isWarningLowPressure()).isEqualTo(UPDATED_WARNING_LOW_PRESSURE);
         assertThat(testProcessdata.isWarningHighPressure()).isEqualTo(UPDATED_WARNING_HIGH_PRESSURE);
-        assertThat(testProcessdata.getState()).isEqualTo(UPDATED_STATE);
+        assertThat(testProcessdata.getWaitCounter()).isEqualTo(UPDATED_WAIT_COUNTER);
     }
 
     @Test
+    @Transactional
     public void updateNonExistingProcessdata() throws Exception {
         int databaseSizeBeforeUpdate = processdataRepository.findAll().size();
 
@@ -433,9 +456,10 @@ public class ProcessdataResourceIT {
     }
 
     @Test
+    @Transactional
     public void deleteProcessdata() throws Exception {
         // Initialize the database
-        processdataRepository.save(processdata);
+        processdataRepository.saveAndFlush(processdata);
 
         int databaseSizeBeforeDelete = processdataRepository.findAll().size();
 

@@ -6,7 +6,6 @@ import de.vrees.heatpump.statemachine.Events;
 import de.vrees.heatpump.statemachine.ExtendedStateKeys;
 import de.vrees.heatpump.statemachine.States;
 import de.vrees.heatpump.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -15,15 +14,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.statemachine.StateMachine;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +31,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 @Slf4j
+@Transactional
 public class ProcessdataResource {
 
     private static final String ENTITY_NAME = "processdata";
@@ -113,7 +112,7 @@ public class ProcessdataResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the processdata, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/processdata/{id}")
-    public ResponseEntity<Processdata> getProcessdata(@PathVariable String id) {
+    public ResponseEntity<Processdata> getProcessdata(@PathVariable Long id) {
         log.debug("REST request to get Processdata : {}", id);
         Optional<Processdata> processdata = processdataRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(processdata);
@@ -126,19 +125,15 @@ public class ProcessdataResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/processdata/{id}")
-    public ResponseEntity<Void> deleteProcessdata(@PathVariable String id) {
+    public ResponseEntity<Void> deleteProcessdata(@PathVariable Long id) {
         log.debug("REST request to delete Processdata : {}", id);
         processdataRepository.deleteById(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 
 
     @GetMapping("/processdata/latest")
     public ResponseEntity<Processdata> getLatestProcessdata() {
-
-//        Optional<Processdata> processdata = processdataRepository.findTopByOrderByTimestampDesc();
-//        return ResponseUtil.wrapOrNotFound(processdata);
-
         Processdata processdata = stateMachine.getExtendedState().get(ExtendedStateKeys.PROCESS_DATA, Processdata.class);
         log.debug("REST request to get latest Processdata: {}", processdata);
         return ResponseEntity.ok().body(processdata);

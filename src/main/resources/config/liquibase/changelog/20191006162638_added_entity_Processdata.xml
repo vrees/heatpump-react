@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+        <property name="autoIncrement" value="true"/>
+
+    <!--
+        Added the entity Processdata.
+    -->
+    <changeSet id="20191006162638-1" author="jhipster">
+        <createTable tableName="processdata">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="timestamp" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="state" type="varchar(255)" remarks="Status der Statemachine = Betriebszustand">
+                <constraints nullable="true" />
+            </column>
+            <column name="temperature_evaporating_in" type="${floatType}" remarks="Verdampfungstemperatur in °C">
+                <constraints nullable="true" />
+            </column>
+            <column name="temperature_evaporating_out" type="${floatType}" remarks="Verdampfungstemperatur out in °C">
+                <constraints nullable="true" />
+            </column>
+            <column name="temperature_flow" type="${floatType}" remarks="Vorlauf-Temperatur in °C">
+                <constraints nullable="true" />
+            </column>
+            <column name="temperature_return" type="${floatType}" remarks="Rücklauf-Temperatur in °C">
+                <constraints nullable="true" />
+            </column>
+            <column name="temperature_switch_on_sensor" type="${floatType}" remarks="SchaltFuehlerTemperatur: Ein-/Aus-SchaltFühler misst die Temperatur am Puffer oben in °C">
+                <constraints nullable="true" />
+            </column>
+            <column name="temperature_overheated_gas" type="${floatType}" remarks="SaugTemperatur: Kühlmittel-Temperatur am Ausgang des Verdampfers vor dem Eingang des Verdichters, also auf der Niederdruck-Seite.\nWird zusammen mit dem Druck im Verdampfer zur Berechnung der Überhitzung benötigt\nGesättigteVerdampfungstemperatur = Druck mal TemperaturKonstante des Kühlmittels\nUeberhitzung = Temperatur des ueberhitzten Gases - GesättigteVerdampfungstemperatur">
+                <constraints nullable="true" />
+            </column>
+            <column name="pressure_high" type="${floatType}" remarks="Hochdruck Kältekreis in bar">
+                <constraints nullable="true" />
+            </column>
+            <column name="pressure_low" type="${floatType}" remarks="Niederdruck Kältekreis in bar">
+                <constraints nullable="true" />
+            </column>
+            <column name="pressure_diffence_evaporator" type="${floatType}" remarks="Druckdifferenz Verdampfer in mbar, minVal=0 maxVal=200">
+                <constraints nullable="true" />
+            </column>
+            <column name="heat_request" type="boolean" remarks="Wärme Anforderung">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_confirmation" type="boolean" remarks="Taster Ein-/Aus- Quittierung">
+                <constraints nullable="true" />
+            </column>
+            <column name="alarm_expansion_valve" type="boolean" remarks="Alarm des Elektronischen Expansionsentils EEV">
+                <constraints nullable="true" />
+            </column>
+            <column name="incident_flow" type="boolean" remarks="Stoerung Durchfluss - minimale Druchlussmenge im Verdampfer unterschritten">
+                <constraints nullable="true" />
+            </column>
+            <column name="incident_compressor" type="boolean" remarks="Stoerung Verdichter / Motorschutzschalter">
+                <constraints nullable="true" />
+            </column>
+            <column name="incident_low_pressure" type="boolean" remarks="Stoerung Niederdruck: Ranco-Thermostat meldet zu niedrigen Niederdruck">
+                <constraints nullable="true" />
+            </column>
+            <column name="incident_high_pressure" type="boolean" remarks="Stoerung Hochdruck Ranco-Thermostat meldet zu hohen Hochdruck">
+                <constraints nullable="true" />
+            </column>
+            <column name="operating_state_water_pump" type="boolean" remarks="Status Heizungspume: Ein/Aus">
+                <constraints nullable="true" />
+            </column>
+            <column name="operating_state_compressor" type="boolean" remarks="Status Verdichter: Ein/Aus">
+                <constraints nullable="true" />
+            </column>
+            <column name="calculated_overheat_temperature" type="${floatType}" remarks="Überhitzung:  Berechnet aus Kühlmittel-Temperatur am Ausgang des Verdampfers und dem Druck mal TemperaturKonstante des Kühlmittels">
+                <constraints nullable="true" />
+            </column>
+            <column name="warning_low_pressure" type="boolean" remarks="Warnung Niederdruck (Soft-Wert falls gemessener Niederdruck unter konfigurierte Grenze fällt)">
+                <constraints nullable="true" />
+            </column>
+            <column name="warning_high_pressure" type="boolean" remarks="Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)">
+                <constraints nullable="true" />
+            </column>
+            <column name="wait_counter" type="integer" remarks="wait n-th loops -then transfer processdate to GUI">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="processdata" columnName="timestamp" columnDataType="datetime"/>
+    </changeSet>
+
+    <changeSet id="20191006162638-1-relations" author="jhipster">
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20191006162638-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/processdata.csv"
+                  separator=";"
+                  tableName="processdata">
+            <column name="id" type="numeric"/>
+            <column name="timestamp" type="datetime"/>
+            <column name="state" type="string"/>
+            <column name="temperature_evaporating_in" type="numeric"/>
+            <column name="temperature_evaporating_out" type="numeric"/>
+            <column name="temperature_flow" type="numeric"/>
+            <column name="temperature_return" type="numeric"/>
+            <column name="temperature_switch_on_sensor" type="numeric"/>
+            <column name="temperature_overheated_gas" type="numeric"/>
+            <column name="pressure_high" type="numeric"/>
+            <column name="pressure_low" type="numeric"/>
+            <column name="pressure_diffence_evaporator" type="numeric"/>
+            <column name="heat_request" type="boolean"/>
+            <column name="user_confirmation" type="boolean"/>
+            <column name="alarm_expansion_valve" type="boolean"/>
+            <column name="incident_flow" type="boolean"/>
+            <column name="incident_compressor" type="boolean"/>
+            <column name="incident_low_pressure" type="boolean"/>
+            <column name="incident_high_pressure" type="boolean"/>
+            <column name="operating_state_water_pump" type="boolean"/>
+            <column name="operating_state_compressor" type="boolean"/>
+            <column name="calculated_overheat_temperature" type="numeric"/>
+            <column name="warning_low_pressure" type="boolean"/>
+            <column name="warning_high_pressure" type="boolean"/>
+            <column name="wait_counter" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

@@ -12,7 +12,13 @@ import password, { PasswordState } from 'app/modules/account/password/password.r
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
 // prettier-ignore
-import processdata, {ProcessdataState} from 'app/entities/processdata/processdata.reducer';
+import failureMessage, {
+  FailureMessageState
+} from 'app/entities/failure-message/failure-message.reducer';
+// prettier-ignore
+import processdata, {
+  ProcessdataState
+} from 'app/entities/processdata/processdata.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -26,6 +32,7 @@ export interface IRootState {
   readonly password: PasswordState;
   readonly settings: SettingsState;
   readonly processdata: ProcessdataState;
+  readonly failureMessage: FailureMessageState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -41,6 +48,7 @@ const rootReducer = combineReducers<IRootState>({
   password,
   settings,
   processdata,
+  failureMessage,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

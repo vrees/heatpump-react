@@ -115,7 +115,7 @@ export class ProcessdataUpdate extends React.Component<IProcessdataUpdateProps, 
                     <option value="BACKLASH">BACKLASH</option>
                     <option value="ERROR">ERROR</option>
                   </AvInput>
-                  <UncontrolledTooltip target="stateLabel">Status der Statemachine = Betrriebszustand</UncontrolledTooltip>
+                  <UncontrolledTooltip target="stateLabel">Status der Statemachine = Betriebszustand</UncontrolledTooltip>
                 </AvGroup>
                 <AvGroup>
                   <Label id="temperatureEvaporatingInLabel" for="processdata-temperatureEvaporatingIn">
@@ -325,6 +325,13 @@ export class ProcessdataUpdate extends React.Component<IProcessdataUpdateProps, 
                   <UncontrolledTooltip target="warningHighPressureLabel">
                     Warnung Hochdruck (Soft-Wert falls gemessener Hochdruck über konfigurierte Grenze steigt)
                   </UncontrolledTooltip>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="waitCounterLabel" for="processdata-waitCounter">
+                    Wait Counter
+                  </Label>
+                  <AvField id="processdata-waitCounter" type="string" className="form-control" name="waitCounter" />
+                  <UncontrolledTooltip target="waitCounterLabel">wait n-th loops -then transfer processdate to GUI</UncontrolledTooltip>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/processdata" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />

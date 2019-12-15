@@ -1,6 +1,8 @@
 package de.vrees.heatpump.limitcheck;
 
-import static de.vrees.heatpump.limitcheck.FailureLevel.*;
+import de.vrees.heatpump.domain.enumeration.FailureLevel;
+
+import static de.vrees.heatpump.domain.enumeration.FailureLevel.*;
 
 public enum LimitCheckEnum {
 

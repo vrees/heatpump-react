@@ -134,6 +134,9 @@ export class Processdata extends React.Component<IProcessdataProps, IProcessdata
                   <th className="hand" onClick={this.sort('warningHighPressure')}>
                     Warning High Pressure <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={this.sort('waitCounter')}>
+                    Wait Counter <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -170,6 +173,7 @@ export class Processdata extends React.Component<IProcessdataProps, IProcessdata
                     <td>{processdata.calculatedOverheatTemperature}</td>
                     <td>{processdata.warningLowPressure ? 'true' : 'false'}</td>
                     <td>{processdata.warningHighPressure ? 'true' : 'false'}</td>
+                    <td>{processdata.waitCounter}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${processdata.id}`} color="info" size="sm">

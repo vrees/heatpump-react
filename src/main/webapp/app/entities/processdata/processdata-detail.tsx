@@ -34,7 +34,7 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
             </dd>
             <dt>
               <span id="state">State</span>
-              <UncontrolledTooltip target="state">Status der Statemachine = Betrriebszustand</UncontrolledTooltip>
+              <UncontrolledTooltip target="state">Status der Statemachine = Betriebszustand</UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.state}</dd>
             <dt>
@@ -164,6 +164,11 @@ export class ProcessdataDetail extends React.Component<IProcessdataDetailProps> 
               </UncontrolledTooltip>
             </dt>
             <dd>{processdataEntity.warningHighPressure ? 'true' : 'false'}</dd>
+            <dt>
+              <span id="waitCounter">Wait Counter</span>
+              <UncontrolledTooltip target="waitCounter">wait n-th loops -then transfer processdate to GUI</UncontrolledTooltip>
+            </dt>
+            <dd>{processdataEntity.waitCounter}</dd>
           </dl>
           <Button tag={Link} to="/processdata" replace color="info">
             <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

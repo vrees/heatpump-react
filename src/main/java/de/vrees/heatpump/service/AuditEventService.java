@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -21,6 +22,7 @@ import java.util.Optional;
  * This is the default implementation to support SpringBoot Actuator {@code AuditEventRepository}.
  */
 @Service
+@Transactional
 public class AuditEventService {
 
     private final Logger log = LoggerFactory.getLogger(AuditEventService.class);
@@ -65,7 +67,7 @@ public class AuditEventService {
             .map(auditEventConverter::convertToAuditEvent);
     }
 
-    public Optional<AuditEvent> find(String id) {
+    public Optional<AuditEvent> find(Long id) {
         return persistenceAuditEventRepository.findById(id)
             .map(auditEventConverter::convertToAuditEvent);
     }
