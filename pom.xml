@@ -19,7 +19,7 @@
             </releases>
             <id>ihmc</id>
             <name>ihmc</name>
-            <url>http://dl.bintray.com/ihmcrobotics/maven-release</url>
+            <url>https://dl.bintray.com/ihmcrobotics/maven-release</url>
             <layout>default</layout>
         </repository>
     </repositories>
