@@ -111,7 +111,7 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
 
     private Processdata modifyNexProcesdata(Processdata processdata) {
         processdata.setTimestamp(Instant.now());
-        processdata.setId(processdata.getTimestamp().toString());
+        processdata.setId(ThreadLocalRandom.current().nextLong());
         processdata.setTemperatureFlow(random(37, 45, 10));
         processdata.setTemperatureReturn(random(36, 42, 10));
         processdata.setTemperatureEvaporatingIn(random(5, 7, 10));

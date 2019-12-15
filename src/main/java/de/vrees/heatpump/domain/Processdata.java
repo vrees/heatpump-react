@@ -1,5 +1,6 @@
 package de.vrees.heatpump.domain;
-import de.vrees.heatpump.domain.enumeration.States;
+
+import de.vrees.heatpump.statemachine.States;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
