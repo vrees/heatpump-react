@@ -9,7 +9,7 @@ import java.util.StringJoiner;
 /**
  * EL3204 | 4-Kanal PD100
  * <p>
- * EL3204 | 4-Kanal-Eingangsklemme PT100 (RTD)
+ * https://www.beckhoff.de/default.asp?ethercat/el3204.htm
  */
 public class EL3204_1 extends Slave {
     static final long vendorID = 0x00000002L;
