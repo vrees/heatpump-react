@@ -1,0 +1,190 @@
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -javaagent:/home/vrees/dev/tools/idea-IU-191.7141.44/lib/idea_rt.jar=32837:/home/vrees/dev/tools/idea-IU-191.7141.44/bin -Dfile.encoding=UTF-8 -classpath /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/charsets.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/cldrdata.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/dnsns.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/icedtea-sound.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jaccess.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/java-atk-wrapper.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/localedata.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/nashorn.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunec.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunjce_provider.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunpkcs11.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/zipfs.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jsse.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/management-agent.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/resources.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar:/home/vrees/dev/git-repos/ihmc-ethercat-master/out/production/classes:/home/vrees/.gradle/caches/modules-2/files-2.1/us.ihmc/SOEM/1.3.3-ihmc2/1590e9d9a5bbf6e1a78d93358745ea2d6f392273/SOEM-1.3.3-ihmc2.jar:/home/vrees/.gradle/caches/modules-2/files-2.1/us.ihmc/SOEM-platform-linux/1.3.3-ihmc2/2629c87dc3a1132756a5c88fd5c9c6a5ed249428/SOEM-platform-linux-1.3.3-ihmc2.jar:/home/vrees/.gradle/caches/modules-2/files-2.1/us.ihmc/IHMCNativeLibraryLoader/1.0/6129ed3b1847099731d51ce1f06bc5587754e780/IHMCNativeLibraryLoader-1.0.jar:/home/vrees/.gradle/caches/modules-2/files-2.1/us.ihmc/ihmc-realtime/1.2.2/9b59a071e061d87dccd40b80edeb7db6ddc0f25d/ihmc-realtime-1.2.2.jar:/home/vrees/.gradle/caches/modules-2/files-2.1/com.neuronrobotics/nrjavaserial/3.10.2/84be812597e6e940751c02fb6946a7d39cb844be/nrjavaserial-3.10.2.jar:/home/vrees/.gradle/caches/modules-2/files-2.1/junit/junit/4.11/4e031bb61df09069aeb2bffb4019e7a5034a4ee0/junit-4.11.jar:/home/vrees/.gradle/caches/modules-2/files-2.1/us.ihmc/ihmc-native-library-loader/1.1/90e417a2aeccd082d3d2b1b30d0926a008ad3e27/ihmc-native-library-loader-1.1.jar:/home/vrees/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.8.1/6505a72a097d9270f7a9e7bf42c4238283247755/commons-lang3-3.8.1.jar:/home/vrees/.gradle/caches/modules-2/files-2.1/commons-net/commons-net/3.3/cd0d5510908225f76c5fe5a3f1df4fa44866f81e/commons-net-3.3.jar:/home/vrees/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar us.ihmc.etherCAT.master.SlaveInfo enp3s0 --pdo
+
+Found 7 slaves
+1 - 0:0 EK1100
+	Manufacturer: 0x00000002
+	Product code: 0x044c2c52
+	Revision: 1114112
+	Distributed Clocks: yes
+2 - 0:1 EL3122
+	Manufacturer: 0x00000002
+	Product code: 0x0c323052
+	Revision: 0
+	Distributed Clocks: no
+	SM(0) Address: 0x1800, length: 246	Flags: 65574	Type: Mailbox messages receive
+	SM(1) Address: 0x18f6, length: 246	Flags: 65570	Type: Mailbox messages transmit
+	SM(2) Address: 0x1000, length: 0	Flags: 65572	Type: Cyclic process data receive
+	SM(3) Address: 0x1100, length: 0	Flags: 65568	Type: Cyclic process data transmit
+		TxPDO 0x1a00	TxPDO 001 mapping
+			0x3101:0x01 UNSIGNED8	Status
+			0x3101:0x02 INTEGER16	Value
+		TxPDO 0x1a01	TxPDO 002 mapping
+			0x3102:0x01 UNSIGNED8	Status
+			0x3102:0x02 INTEGER16	Value
+3 - 0:2 EL2008
+	Manufacturer: 0x00000002
+	Product code: 0x07d83052
+	Revision: 1048576
+	Distributed Clocks: yes
+	SM(0) Address: 0x0f00, length: 0	Flags: 589892	Type: Unused
+4 - 0:3 EL3204
+	Manufacturer: 0x00000002
+	Product code: 0x0c843052
+	Revision: 1114112
+	Distributed Clocks: yes
+	SM(0) Address: 0x1000, length: 128	Flags: 65574	Type: Mailbox messages receive
+	SM(1) Address: 0x1080, length: 128	Flags: 65570	Type: Mailbox messages transmit
+	SM(2) Address: 0x1100, length: 0	Flags: 4	Type: Cyclic process data receive
+	SM(3) Address: 0x1180, length: 16	Flags: 65568	Type: Cyclic process data transmit
+		TxPDO 0x1a00	RTD TxPDO-Map Ch.1
+			0x6000:0x01 BOOLEAN	Underrange
+			0x6000:0x02 BOOLEAN	Overrange
+			0x6000:0x03 BIT2	Limit 1
+			0x6000:0x05 BIT2	Limit 2
+			0x6000:0x07 BOOLEAN	Error
+			0x0000:0x00 (7 bit)
+			0x1800:0x07 BOOLEAN	TxPDO State
+			0x1800:0x09 BOOLEAN	TxPDO Toggle
+			0x6000:0x11 INTEGER16	Value
+		TxPDO 0x1a01	RTD TxPDO-Map Ch.2
+			0x6010:0x01 BOOLEAN	Underrange
+			0x6010:0x02 BOOLEAN	Overrange
+			0x6010:0x03 BIT2	Limit 1
+			0x6010:0x05 BIT2	Limit 2
+			0x6010:0x07 BOOLEAN	Error
+			0x0000:0x00 (7 bit)
+			0x1801:0x07 BOOLEAN	TxPDO State
+			0x1801:0x09 BOOLEAN	TxPDO Toggle
+			0x6010:0x11 INTEGER16	Value
+		TxPDO 0x1a02	RTD TxPDO-Map Ch.3
+			0x6020:0x01 BOOLEAN	Underrange
+			0x6020:0x02 BOOLEAN	Overrange
+			0x6020:0x03 BIT2	Limit 1
+			0x6020:0x05 BIT2	Limit 2
+			0x6020:0x07 BOOLEAN	Error
+			0x0000:0x00 (7 bit)
+			0x1802:0x07 BOOLEAN	TxPDO State
+			0x1802:0x09 BOOLEAN	TxPDO Toggle
+			0x6020:0x11 INTEGER16	Value
+		TxPDO 0x1a03	RTD TxPDO-Map Ch.4
+			0x6030:0x01 BOOLEAN	Underrange
+			0x6030:0x02 BOOLEAN	Overrange
+			0x6030:0x03 BIT2	Limit 1
+			0x6030:0x05 BIT2	Limit 2
+			0x6030:0x07 BOOLEAN	Error
+			0x0000:0x00 (7 bit)
+			0x1803:0x07 BOOLEAN	TxPDO State
+			0x1803:0x09 BOOLEAN	TxPDO Toggle
+			0x6030:0x11 INTEGER16	Value
+5 - 0:4 EL3064
+	Manufacturer: 0x00000002
+	Product code: 0x0bf83052
+	Revision: 1048576
+	Distributed Clocks: yes
+	SM(0) Address: 0x1000, length: 128	Flags: 65574	Type: Mailbox messages receive
+	SM(1) Address: 0x1080, length: 128	Flags: 65570	Type: Mailbox messages transmit
+	SM(2) Address: 0x1100, length: 0	Flags: 4	Type: Cyclic process data receive
+	SM(3) Address: 0x1180, length: 16	Flags: 65568	Type: Cyclic process data transmit
+		TxPDO 0x1a00	AI TxPDO-Map Standard Ch.1
+			0x6000:0x01 BOOLEAN	Underrange
+			0x6000:0x02 BOOLEAN	Overrange
+			0x6000:0x03 BIT2	Limit 1
+			0x6000:0x05 BIT2	Limit 2
+			0x6000:0x07 BOOLEAN	Error
+			0x0000:0x00 (1 bit)
+			0x0000:0x00 (5 bit)
+			0x1800:0x07 BOOLEAN	TxPDO State
+			0x1800:0x09 BOOLEAN	TxPDO Toggle
+			0x0000:0x00 (1 bit)
+			0x6000:0x11 INTEGER16	Value
+		TxPDO 0x1a02	AI TxPDO-Map Standard Ch.2
+			0x6010:0x01 BOOLEAN	Underrange
+			0x6010:0x02 BOOLEAN	Overrange
+			0x6010:0x03 BIT2	Limit 1
+			0x6010:0x05 BIT2	Limit 2
+			0x6010:0x07 BOOLEAN	Error
+			0x0000:0x00 (1 bit)
+			0x0000:0x00 (5 bit)
+			0x1802:0x07 BOOLEAN	TxPDO State
+			0x1802:0x09 BOOLEAN	TxPDO Toggle
+			0x0000:0x00 (1 bit)
+			0x6010:0x11 INTEGER16	Value
+		TxPDO 0x1a04	AI TxPDO-Map Standard Ch.3
+			0x6020:0x01 BOOLEAN	Underrange
+			0x6020:0x02 BOOLEAN	Overrange
+			0x6020:0x03 BIT2	Limit 1
+			0x6020:0x05 BIT2	Limit 2
+			0x6020:0x07 BOOLEAN	Error
+			0x0000:0x00 (1 bit)
+			0x0000:0x00 (5 bit)
+			0x1804:0x07 BOOLEAN	TxPDO State
+			0x1804:0x09 BOOLEAN	TxPDO Toggle
+			0x0000:0x00 (1 bit)
+			0x6020:0x11 INTEGER16	Value
+		TxPDO 0x1a06	AI TxPDO-Map Standard Ch.4
+			0x6030:0x01 BOOLEAN	Underrange
+			0x6030:0x02 BOOLEAN	Overrange
+			0x6030:0x03 BIT2	Limit 1
+			0x6030:0x05 BIT2	Limit 2
+			0x6030:0x07 BOOLEAN	Error
+			0x0000:0x00 (1 bit)
+			0x0000:0x00 (5 bit)
+			0x1806:0x07 BOOLEAN	TxPDO State
+			0x1806:0x09 BOOLEAN	TxPDO Toggle
+			0x0000:0x00 (1 bit)
+			0x6030:0x11 INTEGER16	Value
+6 - 0:5 EL1008
+	Manufacturer: 0x00000002
+	Product code: 0x03f03052
+	Revision: 1048576
+	Distributed Clocks: yes
+	SM(0) Address: 0x1000, length: 0	Flags: 0	Type: Unused
+7 - 0:6 EL3204
+	Manufacturer: 0x00000002
+	Product code: 0x0c843052
+	Revision: 1114112
+	Distributed Clocks: yes
+	SM(0) Address: 0x1000, length: 128	Flags: 65574	Type: Mailbox messages receive
+	SM(1) Address: 0x1080, length: 128	Flags: 65570	Type: Mailbox messages transmit
+	SM(2) Address: 0x1100, length: 0	Flags: 4	Type: Cyclic process data receive
+	SM(3) Address: 0x1180, length: 16	Flags: 65568	Type: Cyclic process data transmit
+		TxPDO 0x1a00	RTD TxPDO-Map Ch.1
+			0x6000:0x01 BOOLEAN	Underrange
+			0x6000:0x02 BOOLEAN	Overrange
+			0x6000:0x03 BIT2	Limit 1
+			0x6000:0x05 BIT2	Limit 2
+			0x6000:0x07 BOOLEAN	Error
+			0x0000:0x00 (7 bit)
+			0x1800:0x07 BOOLEAN	TxPDO State
+			0x1800:0x09 BOOLEAN	TxPDO Toggle
+			0x6000:0x11 INTEGER16	Value
+		TxPDO 0x1a01	RTD TxPDO-Map Ch.2
+			0x6010:0x01 BOOLEAN	Underrange
+			0x6010:0x02 BOOLEAN	Overrange
+			0x6010:0x03 BIT2	Limit 1
+			0x6010:0x05 BIT2	Limit 2
+			0x6010:0x07 BOOLEAN	Error
+			0x0000:0x00 (7 bit)
+			0x1801:0x07 BOOLEAN	TxPDO State
+			0x1801:0x09 BOOLEAN	TxPDO Toggle
+			0x6010:0x11 INTEGER16	Value
+		TxPDO 0x1a02	RTD TxPDO-Map Ch.3
+			0x6020:0x01 BOOLEAN	Underrange
+			0x6020:0x02 BOOLEAN	Overrange
+			0x6020:0x03 BIT2	Limit 1
+			0x6020:0x05 BIT2	Limit 2
+			0x6020:0x07 BOOLEAN	Error
+			0x0000:0x00 (7 bit)
+			0x1802:0x07 BOOLEAN	TxPDO State
+			0x1802:0x09 BOOLEAN	TxPDO Toggle
+			0x6020:0x11 INTEGER16	Value
+		TxPDO 0x1a03	RTD TxPDO-Map Ch.4
+			0x6030:0x01 BOOLEAN	Underrange
+			0x6030:0x02 BOOLEAN	Overrange
+			0x6030:0x03 BIT2	Limit 1
+			0x6030:0x05 BIT2	Limit 2
+			0x6030:0x07 BOOLEAN	Error
+			0x0000:0x00 (7 bit)
+			0x1803:0x07 BOOLEAN	TxPDO State
+			0x1803:0x09 BOOLEAN	TxPDO Toggle
+			0x6030:0x11 INTEGER16	Value

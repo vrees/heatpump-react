@@ -1,0 +1,54 @@
+Found 7 slaves
+1 - 0:0 EK1100
+	Manufacturer: 0x00000002
+	Product code: 0x044c2c52
+	Revision: 1114112
+	Distributed Clocks: yes
+2 - 0:1 EL3122
+	Manufacturer: 0x00000002
+	Product code: 0x0c323052
+	Revision: 0
+	Distributed Clocks: no
+	SM(0) Address: 0x1800, length: 246	Flags: 65574	Type: Mailbox messages receive
+	SM(1) Address: 0x18f6, length: 246	Flags: 65570	Type: Mailbox messages transmit
+	SM(2) Address: 0x1000, length: 0	Flags: 65572	Type: Cyclic process data receive
+	SM(3) Address: 0x1100, length: 0	Flags: 65568	Type: Cyclic process data transmit
+3 - 0:2 EL2008
+	Manufacturer: 0x00000002
+	Product code: 0x07d83052
+	Revision: 1048576
+	Distributed Clocks: yes
+	SM(0) Address: 0x0f00, length: 0	Flags: 589892	Type: Unused
+4 - 0:3 EL3204
+	Manufacturer: 0x00000002
+	Product code: 0x0c843052
+	Revision: 1114112
+	Distributed Clocks: yes
+	SM(0) Address: 0x1000, length: 128	Flags: 65574	Type: Mailbox messages receive
+	SM(1) Address: 0x1080, length: 128	Flags: 65570	Type: Mailbox messages transmit
+	SM(2) Address: 0x1100, length: 0	Flags: 4	Type: Cyclic process data receive
+	SM(3) Address: 0x1180, length: 16	Flags: 65568	Type: Cyclic process data transmit
+5 - 0:4 EL3064
+	Manufacturer: 0x00000002
+	Product code: 0x0bf83052
+	Revision: 1048576
+	Distributed Clocks: yes
+	SM(0) Address: 0x1000, length: 128	Flags: 65574	Type: Mailbox messages receive
+	SM(1) Address: 0x1080, length: 128	Flags: 65570	Type: Mailbox messages transmit
+	SM(2) Address: 0x1100, length: 0	Flags: 4	Type: Cyclic process data receive
+	SM(3) Address: 0x1180, length: 16	Flags: 65568	Type: Cyclic process data transmit
+6 - 0:5 EL1008
+	Manufacturer: 0x00000002
+	Product code: 0x03f03052
+	Revision: 1048576
+	Distributed Clocks: yes
+	SM(0) Address: 0x1000, length: 0	Flags: 0	Type: Unused
+7 - 0:6 EL3204
+	Manufacturer: 0x00000002
+	Product code: 0x0c843052
+	Revision: 1114112
+	Distributed Clocks: yes
+	SM(0) Address: 0x1000, length: 128	Flags: 65574	Type: Mailbox messages receive
+	SM(1) Address: 0x1080, length: 128	Flags: 65570	Type: Mailbox messages transmit
+	SM(2) Address: 0x1100, length: 0	Flags: 4	Type: Cyclic process data receive
+	SM(3) Address: 0x1180, length: 16	Flags: 65568	Type: Cyclic process data transmit
