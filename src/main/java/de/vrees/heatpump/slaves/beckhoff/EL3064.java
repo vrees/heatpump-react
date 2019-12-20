@@ -20,15 +20,16 @@ public class EL3064 extends Slave {
             super(address);
         }
 
+
         Bool underrange = new Bool();
         Bool overrange = new Bool();
         Member limit1 = new Bit2();
         Member limit2 = new Bit2();
         Bool error = new Bool();
-        // newer versions do have more status infos
-//        Bit7 gap = new Bit7();
-//        Bool txPDOState = new Bool();
-//        Bool txPDOToggle = new Bool();
+        Bit6 gap = new Bit6();
+        Bool txPDOState = new Bool();
+        Bool txPDOToggle = new Bool();
+        Bool boolGap = new Bool();
         Signed16 value = new Signed16();
     }
 
