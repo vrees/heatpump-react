@@ -40,8 +40,8 @@ public class EL3204_2 extends Slave {
     public EL3204_2(int aliasAddress, int configAddress) {
         super(vendorID, productCode, aliasAddress, configAddress);
 
-        registerSyncManager(new SyncManager(2, true));
-        registerSyncManager(new SyncManager(3, true));
+        registerSyncManager(new SyncManager(2, false));
+        registerSyncManager(new SyncManager(3, false));
 
         sm(3).registerPDO(temperatureSwitchOnSensor);
         sm(3).registerPDO(temperatureOverheatedGas);

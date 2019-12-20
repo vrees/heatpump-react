@@ -3,6 +3,7 @@ package de.vrees.heatpump.master;
 
 import de.vrees.heatpump.slaves.beckhoff.*;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
@@ -16,6 +17,7 @@ import us.ihmc.realtime.PriorityParameters;
 @Component
 @Profile("!simulate")
 @Getter
+@Slf4j
 public class HeatpumpMaster extends EtherCATRealtimeThread implements ApplicationRunner {
 
     private final EK1100 ek1100 = new EK1100(0, 0); // Coupler
@@ -51,6 +53,9 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
 
         setRequireAllSlaves(false);
         enableTrace();
+
+        log.info("getJitterEstimate(): ", getJitterEstimate());
+        setMaximumExecutionJitter(100000);
     }
 
     @Override
