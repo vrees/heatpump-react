@@ -97,33 +97,21 @@ public class EL3122 extends Slave {
 
 /* Slaveinfo:
 
- Name:EL3122
- Output size: 0bits
- Input size: 48bits
- State: 4
- Delay: 0[ns]
- Has DC: 0
- Activeports:1.0.0.0
- Configured address: 1004
- Man: 00000002 ID: 0c323052 Rev: 00000000
- SM0 A:1800 L: 246 F:00010026 Type:1
- SM1 A:18f6 L: 246 F:00010022 Type:2
- SM2 A:1000 L:   0 F:00000024 Type:3
- SM3 A:1100 L:   6 F:00010020 Type:4
- FMMU0 Ls:00000002 Ll:   6 Lsb:0 Leb:7 Ps:1100 Psb:0 Ty:01 Act:01
- FMMUfunc 0:3 1:2 2:0 3:0
- MBX length wr: 246 rd: 246 MBX protocols : 0c
- CoE details: 0f FoE details: 01 EoE details: 00 SoE details: 00
- Ebus current: 180[mA]
- only LRD/LWR:0
-PDO mapping according to CoE :
-  SM2 outputs
-     addr b   index: sub bitl data_type    name
-  SM3 inputs
-     addr b   index: sub bitl data_type    name
-  [0x0002.0] 0x3101:0x01 0x08 UNSIGNED8    Status
-  [0x0003.0] 0x3101:0x02 0x10 INTEGER16    Value
-  [0x0005.0] 0x3102:0x01 0x08 UNSIGNED8    Status
+2 - 0:1 EL3122
+	Manufacturer: 0x00000002
+	Product code: 0x0c323052
+	Revision: 0
+	Distributed Clocks: no
+	SM(0) Address: 0x1800, length: 246	Flags: 65574	Type: Mailbox messages receive
+	SM(1) Address: 0x18f6, length: 246	Flags: 65570	Type: Mailbox messages transmit
+	SM(2) Address: 0x1000, length: 0	Flags: 65572	Type: Cyclic process data receive
+	SM(3) Address: 0x1100, length: 0	Flags: 65568	Type: Cyclic process data transmit
+		TxPDO 0x1a00	TxPDO 001 mapping
+			0x3101:0x01 UNSIGNED8	Status
+			0x3101:0x02 INTEGER16	Value
+		TxPDO 0x1a01	TxPDO 002 mapping
+			0x3102:0x01 UNSIGNED8	Status
+			0x3102:0x02 INTEGER16	Valueatus
   [0x0006.0] 0x3102:0x02 0x10 INTEGER16    Value
 
  */
