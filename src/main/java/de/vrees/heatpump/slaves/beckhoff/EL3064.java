@@ -26,17 +26,18 @@ public class EL3064 extends Slave {
         Member limit1 = new Bit2();
         Member limit2 = new Bit2();
         Bool error = new Bool();
-        Bit6 gap = new Bit6();
+        Bool gap1 = new Bool();
+        Bit5 gap2 = new Bit5();
         Bool txPDOState = new Bool();
         Bool txPDOToggle = new Bool();
-        Bool boolGap = new Bool();
+        Bool gap3 = new Bool();
         Signed16 value = new Signed16();
     }
 
     private final Input pressureDiffenceEvaporator = new Input(0x1a00);
-    private final Input reserve1 = new Input(0x1a01);
-    private final Input reserve2 = new Input(0x1a02);
-    private final Input reserve3 = new Input(0x1a03);
+    private final Input reserve1 = new Input(0x1a02);
+    private final Input reserve2 = new Input(0x1a04);
+    private final Input reserve3 = new Input(0x1a06);
 
 
     public EL3064(int aliasAddress, int configAddress) {
