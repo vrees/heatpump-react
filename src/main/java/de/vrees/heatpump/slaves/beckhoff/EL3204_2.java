@@ -47,6 +47,10 @@ public class EL3204_2 extends Slave {
         sm(3).registerPDO(temperatureOverheatedGas);
         sm(3).registerPDO(temperatureReserve1);
         sm(3).registerPDO(temperatureReserve2);
+
+        // Configure PT1000
+        writeSDO(32768, 25, (short) 2);
+        writeSDO(32784, 25, (short) 2);
     }
 
 
