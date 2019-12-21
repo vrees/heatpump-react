@@ -3,6 +3,7 @@ package de.vrees.heatpump.slaves.beckhoff;
 import us.ihmc.etherCAT.master.Slave;
 import us.ihmc.etherCAT.master.SyncManager;
 import us.ihmc.etherCAT.master.TxPDO;
+import us.ihmc.etherCAT.master.WriteSDO;
 
 import java.util.StringJoiner;
 
@@ -47,10 +48,15 @@ public class EL3204_2 extends Slave {
         sm(3).registerPDO(temperatureOverheatedGas);
         sm(3).registerPDO(temperatureReserve1);
         sm(3).registerPDO(temperatureReserve2);
+    }
 
+    @Override
+    protected void configure(boolean dcEnabled, long cycleTimeInNs) {
         // Configure PT1000
         writeSDO(32768, 25, (short) 2);
         writeSDO(32784, 25, (short) 2);
+        writeSDO(32800, 25, (short) 2);
+        writeSDO(32816, 25, (short) 2);
     }
 
 

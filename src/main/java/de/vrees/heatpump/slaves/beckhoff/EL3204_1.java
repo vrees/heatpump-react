@@ -48,6 +48,10 @@ public class EL3204_1 extends Slave {
         sm(3).registerPDO(temperatureEvaporatingOut);
         sm(3).registerPDO(temperatureReturn);
 
+    }
+
+    @Override
+    protected void configure(boolean dcEnabled, long cycleTimeInNs) {
         // Configure PT1000
         writeSDO(32768, 25, (short) 2);
         writeSDO(32784, 25, (short) 2);
