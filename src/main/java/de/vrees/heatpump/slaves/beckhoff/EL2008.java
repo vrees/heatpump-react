@@ -23,8 +23,8 @@ public class EL2008 extends Slave {
         Bool output = new Bool();
     }
 
-    private final Output out1 = new Output(0x1600);
-    private final Output out2 = new Output(0x1601);
+    private final Output operatingStateWaterPump = new Output(0x1600);
+    private final Output operatingStateCompressor = new Output(0x1601);
     private final Output out3 = new Output(0x1602);
     private final Output out4 = new Output(0x1603);
     private final Output out5 = new Output(0x1604);
@@ -37,8 +37,8 @@ public class EL2008 extends Slave {
 
         registerSyncManager(new SyncManager(0, false));
 
-        sm(0).registerPDO(out1);
-        sm(0).registerPDO(out2);
+        sm(0).registerPDO(operatingStateWaterPump);
+        sm(0).registerPDO(operatingStateCompressor);
         sm(0).registerPDO(out3);
         sm(0).registerPDO(out4);
         sm(0).registerPDO(out5);
@@ -47,12 +47,12 @@ public class EL2008 extends Slave {
         sm(0).registerPDO(out8);
     }
 
-    public void setOut1(boolean val) {
-        out1.output.set(val);
+    public void setOperatingStateWaterPump(boolean val) {
+        operatingStateWaterPump.output.set(val);
     }
 
-    public void setOut2(boolean val) {
-        out2.output.set(val);
+    public void setOperatingStateCompressor(boolean val) {
+        operatingStateCompressor.output.set(val);
     }
 
     public void setOut3(boolean val) {

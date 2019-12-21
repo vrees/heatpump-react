@@ -5,7 +5,7 @@ import de.vrees.heatpump.domain.FailureMessage;
 import de.vrees.heatpump.domain.Processdata;
 import de.vrees.heatpump.limitcheck.LimitCheckResult;
 import de.vrees.heatpump.limitcheck.LimitChecker;
-import de.vrees.heatpump.simulate.ProcessdataMapper;
+import de.vrees.heatpump.simulate.EcatToProcessdataMapper;
 import de.vrees.heatpump.slaves.beckhoff.*;
 import de.vrees.heatpump.statemachine.EventHeaderEnum;
 import de.vrees.heatpump.statemachine.Events;
@@ -53,7 +53,7 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
     private final EL3204_2 el3204_2 = new EL3204_2(0, 6); // EL3204 | PT100
 
     private final StateMachine<States, Events> stateMachine;
-    private final ProcessdataMapper processdataMapper;
+    private final EcatToProcessdataMapper mapper = new EcatToProcessdataMapper();
     private final WebsocketService websocketService;
     private final LimitChecker limitChecker;
 
@@ -61,12 +61,10 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
 
     private long countLoops = 0;
 
-    public HeatpumpMaster(StateMachine<States, Events> stateMachine, ProcessdataMapper processdataMapper,
-                          WebsocketService websocketService, LimitChecker limitChecker) {
+    public HeatpumpMaster(StateMachine<States, Events> stateMachine, WebsocketService websocketService, LimitChecker limitChecker) {
         super("enp3s0", PriorityParameters.MAXIMUM_PRIORITY, new MonotonicTime(0, 1000000), true, 100000);
 
         this.stateMachine = stateMachine;
-        this.processdataMapper = processdataMapper;
         this.websocketService = websocketService;
         this.limitChecker = limitChecker;
 
@@ -92,7 +90,7 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
 
     @Override
     protected void doControl() {
-        Processdata processdata = processdataMapper.map(el3122, el1008, el2008, el3204_1, eL3064, el1008, el3204_2);
+        Processdata processdata = mapper.map(el3122, el2008, el3204_1, eL3064, el1008, el3204_2);
 
         List<LimitCheckResult> faildedChecks = checkLimits(processdata);
         processOutgoingValues(processdata, faildedChecks);
@@ -154,11 +152,6 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
         System.out.println(el3122 + ": " + el3122.toProcessdataString());
         System.out.println(el3204_1 + ": " + el3204_1.toProcessdataString());
         System.out.println(eL3064 + ": " + eL3064.toProcessdataString());
-
-        el2008.setOut1(true);
-        el2008.setOut2(true);
-        el2008.setOut3(true);
-        el2008.setOut4(true);
     }
 
     @Override

@@ -50,54 +50,54 @@ public class EL1008 extends Slave {
     }
 
     // Ein/Aus-Quittierung - Button
-    public boolean getUserConfirmation() {
+    public boolean isUserConfirmation() {
         return userConfirmation.input.get();
     }
 
     // Wärme-Anforderung
-    public boolean getHeatRequest() {
+    public boolean isHeatRequest() {
         return heatRequest.input.get();
     }
 
-    public boolean getAlarmExpansionValve() {
+    public boolean isAlarmExpansionValve() {
         return alarmExpansionValve.input.get();
     }
 
     // Heizungspumpe ein/aus
-    public boolean getOperatingStateWaterPump() {
+    public boolean isOperatingStateWaterPump() {
         return operatingStateWaterPump.input.get();
     }
 
     // Störung Verdichter / Motorschutzschalter
-    public boolean getIncidentCompressor() {
+    public boolean isIncidentCompressor() {
         return incidentCompressor.input.get();
     }
 
     // Stoerung Durchfluss - minimale Druchlussmenge unterschritten
-    public boolean getIncidentFlow() {
+    public boolean isIncidentFlow() {
         return incidentFlow.input.get();
     }
 
     // Stoerung Hochdruck Ranco-Thermostat meldet zu hohen Hochdruck
-    public boolean getIncidentHighPressure() {
+    public boolean isIncidentHighPressure() {
         return incidentHighPressure.input.get();
     }
 
     // Stoerung Niederdruck: Ranco-Thermostat meldet zu niedrigen Niederdruck
-    public boolean getIncidentLowPressure() {
+    public boolean isIncidentLowPressure() {
         return incidentLowPressure.input.get();
     }
 
     public String toProcessdataString() {
         return new StringJoiner(", ", EL1008.class.getSimpleName() + "[", "]")
-                .add("userConfirmation=" + getUserConfirmation())
-                .add("heatRequest=" + getHeatRequest())
-                .add("alarmExpansionValve=" + getAlarmExpansionValve())
-                .add("operatingStateWaterPump=" + getOperatingStateWaterPump())
-                .add("incidentCompressor=" + getIncidentCompressor())
-                .add("incidentFlow=" + getIncidentFlow())
-                .add("incidentHighPressure=" + getIncidentHighPressure())
-                .add("incidentLowPressure=" + getIncidentLowPressure())
+                .add("userConfirmation=" + isUserConfirmation())
+                .add("heatRequest=" + isHeatRequest())
+                .add("alarmExpansionValve=" + isAlarmExpansionValve())
+                .add("operatingStateWaterPump=" + isOperatingStateWaterPump())
+                .add("incidentCompressor=" + isIncidentCompressor())
+                .add("incidentFlow=" + isIncidentFlow())
+                .add("incidentHighPressure=" + isIncidentHighPressure())
+                .add("incidentLowPressure=" + isIncidentLowPressure())
                 .toString();
     }
 

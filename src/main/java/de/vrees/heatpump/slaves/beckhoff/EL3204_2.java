@@ -3,7 +3,6 @@ package de.vrees.heatpump.slaves.beckhoff;
 import us.ihmc.etherCAT.master.Slave;
 import us.ihmc.etherCAT.master.SyncManager;
 import us.ihmc.etherCAT.master.TxPDO;
-import us.ihmc.etherCAT.master.WriteSDO;
 
 import java.util.StringJoiner;
 
@@ -60,7 +59,7 @@ public class EL3204_2 extends Slave {
     }
 
 
-    public int getTemperatureSwitchOnSensor() {
+    public float getTemperatureSwitchOnSensor() {
         return temperatureSwitchOnSensor.value.get();
     }
 
@@ -77,7 +76,7 @@ public class EL3204_2 extends Slave {
     }
 
 
-    public int getTemperatureOverheatedGas() {
+    public float getTemperatureOverheatedGas() {
         return temperatureOverheatedGas.value.get();
     }
 
@@ -94,7 +93,7 @@ public class EL3204_2 extends Slave {
     }
 
 
-    public int getTemperatureReserve1() {
+    public float getTemperatureReserve1() {
         return temperatureReserve1.value.get();
     }
 
@@ -111,7 +110,7 @@ public class EL3204_2 extends Slave {
     }
 
 
-    public int getTemperatureReserve2() {
+    public float getTemperatureReserve2() {
         return temperatureReserve2.value.get();
     }
 

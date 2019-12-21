@@ -36,8 +36,8 @@ public class EL3122 extends Slave {
         Signed16 value = new Signed16();
     }
 
-    private final Input highPressure = new Input(0x1a00);
-    private final Input lowPressure = new Input(0x1a01);
+    private final Input pressureHigh = new Input(0x1a00);
+    private final Input pressureLow = new Input(0x1a01);
 
     public EL3122(int aliasAddress, int configAddress) {
         super(vendorID, productCode, aliasAddress, configAddress);
@@ -45,52 +45,52 @@ public class EL3122 extends Slave {
         registerSyncManager(new SyncManager(2, true));
         registerSyncManager(new SyncManager(3, true));
 
-        sm(3).registerPDO(highPressure);
-        sm(3).registerPDO(lowPressure);
+        sm(3).registerPDO(pressureHigh);
+        sm(3).registerPDO(pressureLow);
     }
 
-    public int getHighPressure() {
-        return highPressure.value.get();
+    public float getPressureHigh() {
+        return pressureHigh.value.get();
     }
 
-    public boolean getHighPressureUnderrange() {
-        return highPressure.underrange.get();
+    public boolean getPressureHighUnderrange() {
+        return pressureHigh.underrange.get();
     }
 
-    public boolean getHighPressureOverrange() {
-        return highPressure.overrange.get();
+    public boolean getPressureHighOverrange() {
+        return pressureHigh.overrange.get();
     }
 
-    public boolean getHighPressureError() {
-        return highPressure.error.get();
+    public boolean getPressureHighError() {
+        return pressureHigh.error.get();
     }
 
-    public int getLowPressure() {
-        return lowPressure.value.get();
+    public float getPressureLow() {
+        return pressureLow.value.get();
     }
 
-    public boolean getLowPressureUnderrange() {
-        return lowPressure.underrange.get();
+    public boolean getPressureLowUnderrange() {
+        return pressureLow.underrange.get();
     }
 
-    public boolean getLowPressureOverrange() {
-        return lowPressure.overrange.get();
+    public boolean getPressureLowOverrange() {
+        return pressureLow.overrange.get();
     }
 
-    public boolean getLowPressureError() {
-        return lowPressure.error.get();
+    public boolean getPressureLowError() {
+        return pressureLow.error.get();
     }
 
     public String toProcessdataString() {
         return new StringJoiner(", ", EL3122.class.getSimpleName() + "[", "]")
-                .add("highPressure=" + getHighPressure())
-                .add("highPressureError=" + getHighPressureError())
-                .add("highPressureUnderrange=" + getHighPressureUnderrange())
-                .add("highPressure=Overrange" + getHighPressureOverrange())
-                .add("lowPressure=" + getLowPressure())
-                .add("lowPressureError=" + getLowPressureError())
-                .add("lowPressureUnderrange=" + getLowPressureUnderrange())
-                .add("lowPressure=Overrange" + getLowPressureOverrange())
+                .add("pressureHigh=" + getPressureHigh())
+                .add("pressureHighError=" + getPressureHighError())
+                .add("pressureHighUnderrange=" + getPressureHighUnderrange())
+                .add("pressureHigh=Overrange" + getPressureHighOverrange())
+                .add("pressureLow=" + getPressureLow())
+                .add("pressureLowError=" + getPressureLowError())
+                .add("pressureLowUnderrange=" + getPressureLowUnderrange())
+                .add("pressureLow=Overrange" + getPressureLowOverrange())
                 .toString();
     }
 

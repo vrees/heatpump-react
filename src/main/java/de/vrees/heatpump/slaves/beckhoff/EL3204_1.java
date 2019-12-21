@@ -60,7 +60,7 @@ public class EL3204_1 extends Slave {
     }
 
 
-    public int getTemperatureEvaporatingIn() {
+    public float getTemperatureEvaporatingIn() {
         return temperatureEvaporatingIn.value.get();
     }
 
@@ -77,7 +77,7 @@ public class EL3204_1 extends Slave {
     }
 
 
-    public int getTemperatureFlow() {
+    public float getTemperatureFlow() {
         return temperatureFlow.value.get();
     }
 
@@ -94,7 +94,7 @@ public class EL3204_1 extends Slave {
     }
 
 
-    public int getTemperatureEvaporatingOut() {
+    public float getTemperatureEvaporatingOut() {
         return temperatureEvaporatingOut.value.get();
     }
 
@@ -111,7 +111,7 @@ public class EL3204_1 extends Slave {
     }
 
 
-    public int getTemperatureReturn() {
+    public float getTemperatureReturn() {
         return temperatureReturn.value.get();
     }
 

@@ -53,7 +53,7 @@ public class EL3064 extends Slave {
     }
 
 
-    public int getPressureDiffenceEvaporator() {
+    public float getPressureDiffenceEvaporator() {
         return pressureDiffenceEvaporator.value.get();
     }
 
