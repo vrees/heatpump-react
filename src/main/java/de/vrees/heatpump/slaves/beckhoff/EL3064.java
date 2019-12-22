@@ -17,7 +17,7 @@ public class EL3064 extends Slave {
     static final long vendorID = 0x00000002L;
     static final long productCode = 0x0bf83052;
 
-    RawConverterAnalog16Bit converter = new RawConverterAnalog16Bit(new IoRange(0.0f, 10.0f));
+    RawConverterAnalog16Bit converter = new RawConverterAnalog16Bit(new IoRange(0.0f, 200.0f));
 
 
     public class Input extends TxPDO {
@@ -56,7 +56,6 @@ public class EL3064 extends Slave {
         sm(3).registerPDO(reserve2);
         sm(3).registerPDO(reserve3);
     }
-
 
     public float getPressureDiffenceEvaporator() {
         return converter.inputValueFromRaw(pressureDiffenceEvaporator.value.get());
