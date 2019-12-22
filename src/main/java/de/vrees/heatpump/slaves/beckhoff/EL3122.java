@@ -21,7 +21,7 @@ public class EL3122 extends Slave {
     static final long vendorID = 0x00000002L;
     static final long productCode = 0x0c323052L;
 
-    RawConverterAnalog16Bit converter = new RawConverterAnalog16Bit(new IoRange(0.0, 18.0));
+    RawConverterAnalog16Bit converter = new RawConverterAnalog16Bit(new IoRange(0.0f, 18.0f));
 
     public class Input extends TxPDO {
         protected Input(int address) {

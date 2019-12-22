@@ -109,7 +109,7 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
 //            log.debug("Data sent immediate. Reason={}", reason);
         }
 
-        if (countLoops % 200 == 0) {
+        if (countLoops % 20 == 0) {
             websocketService.sendProcessdata(processdata);
             logValues();
         }
@@ -151,7 +151,7 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
     private void logValues() {
         System.out.println("******************************************************************");
         System.out.println(el3122 + ": " + el3122.toProcessdataString());
-        System.out.println(el3204_1 + ": " + el3204_1.toProcessdataString());
+        System.out.println(el3204_2 + ": " + el3204_2.toProcessdataString());
         System.out.println(eL3064 + ": " + eL3064.toProcessdataString());
     }
 
