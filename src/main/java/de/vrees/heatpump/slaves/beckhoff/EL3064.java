@@ -58,7 +58,7 @@ public class EL3064 extends Slave {
     }
 
     public float getPressureDiffenceEvaporator() {
-        return converter.inputValueFromRaw(pressureDiffenceEvaporator.value.get());
+        return converter.toFloatRounded(pressureDiffenceEvaporator.value.get(), 10);
     }
 
     public boolean getPressureDiffenceEvaporatorUnderrange() {

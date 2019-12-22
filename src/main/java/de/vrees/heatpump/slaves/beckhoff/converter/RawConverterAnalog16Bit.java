@@ -15,8 +15,13 @@ public class RawConverterAnalog16Bit {
         this.range = range;
     }
 
-    public Float inputValueFromRaw(short rawVal) {
+    public Float toFloat(short rawVal) {
         return (range.getMax() - range.getMin()) * rawVal / HIGH_VAL + range.getMin();
+    }
+
+    public Float toFloatRounded(short rawVal, int scaleFactor) {
+        float val = (range.getMax() - range.getMin()) * rawVal / HIGH_VAL + range.getMin();
+        return round(val, scaleFactor);
     }
 
     public short outputToRaw(Float value) {
@@ -33,6 +38,11 @@ public class RawConverterAnalog16Bit {
         float rawVal = value / (range.getMax() - range.getMin()) * HIGH_VAL;
 
         return (short) rawVal;
+    }
+
+    public static float round(float number, int scaleFactor) {
+        float tmp = number * scaleFactor;
+        return ((float) ((int) ((tmp - (int) tmp) >= 0.5f ? tmp + 1 : tmp))) / scaleFactor;
     }
 
     @Override

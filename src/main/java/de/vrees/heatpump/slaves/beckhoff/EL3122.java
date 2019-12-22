@@ -12,9 +12,9 @@ import java.util.StringJoiner;
  * EL3122 | 2-Kanal-Analog-Eingangsklemme 4…20 mA, Differenzeingang, 16 Bit
  * EL3152 | 2-Kanal-Analog-Eingangsklemme 4…20 mA, single-ended, 16 Bit
  * EL3124 | 4-Kanal-Analog-Eingangsklemme 4…20 mA, Differenzeingang, 16 Bit
- *
+ * <p>
  * https://www.beckhoff.de/default.asp?ethercat/EL3122.htm
- *
+ * <p>
  * Measure High and Low Pressure in refrigerant circuit (Kältemittelkreislauf)
  */
 public class EL3122 extends Slave {
@@ -55,7 +55,7 @@ public class EL3122 extends Slave {
     }
 
     public float getPressureHigh() {
-        return converterHigh.inputValueFromRaw(pressureHigh.value.get());
+        return converterHigh.toFloatRounded(pressureHigh.value.get(), 10);
     }
 
     public boolean getPressureHighUnderrange() {
@@ -71,7 +71,7 @@ public class EL3122 extends Slave {
     }
 
     public float getPressureLow() {
-        return converterLow.inputValueFromRaw(pressureLow.value.get());
+        return converterLow.toFloatRounded(pressureLow.value.get(), 10);
     }
 
     public boolean getPressureLowUnderrange() {
@@ -88,15 +88,15 @@ public class EL3122 extends Slave {
 
     public String toProcessdataString() {
         return new StringJoiner(", ", EL3122.class.getSimpleName() + "[", "]")
-                .add("pressureHigh=" + getPressureHigh())
-                .add("pressureHighError=" + getPressureHighError())
-                .add("pressureHighUnderrange=" + getPressureHighUnderrange())
-                .add("pressureHigh=Overrange" + getPressureHighOverrange())
-                .add("pressureLow=" + getPressureLow())
-                .add("pressureLowError=" + getPressureLowError())
-                .add("pressureLowUnderrange=" + getPressureLowUnderrange())
-                .add("pressureLow=Overrange" + getPressureLowOverrange())
-                .toString();
+            .add("pressureHigh=" + getPressureHigh())
+            .add("pressureHighError=" + getPressureHighError())
+            .add("pressureHighUnderrange=" + getPressureHighUnderrange())
+            .add("pressureHigh=Overrange" + getPressureHighOverrange())
+            .add("pressureLow=" + getPressureLow())
+            .add("pressureLowError=" + getPressureLowError())
+            .add("pressureLowUnderrange=" + getPressureLowUnderrange())
+            .add("pressureLow=Overrange" + getPressureLowOverrange())
+            .toString();
     }
 
 
