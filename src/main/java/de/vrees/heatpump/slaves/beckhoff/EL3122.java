@@ -1,5 +1,7 @@
 package de.vrees.heatpump.slaves.beckhoff;
 
+import de.vrees.heatpump.slaves.beckhoff.converter.IoRange;
+import de.vrees.heatpump.slaves.beckhoff.converter.RawConverterAnalog16Bit;
 import us.ihmc.etherCAT.master.Slave;
 import us.ihmc.etherCAT.master.SyncManager;
 import us.ihmc.etherCAT.master.TxPDO;
@@ -11,13 +13,15 @@ import java.util.StringJoiner;
  * EL3152 | 2-Kanal-Analog-Eingangsklemme 4…20 mA, single-ended, 16 Bit
  * EL3124 | 4-Kanal-Analog-Eingangsklemme 4…20 mA, Differenzeingang, 16 Bit
  *
- * https://www.beckhoff.de/default.asp?ethercat/el3124.htm
+ * https://www.beckhoff.de/default.asp?ethercat/EL3122.htm
  *
  * Measure High and Low Pressure in refrigerant circuit (Kältemittelkreislauf)
  */
 public class EL3122 extends Slave {
     static final long vendorID = 0x00000002L;
     static final long productCode = 0x0c323052L;
+
+    RawConverterAnalog16Bit converter = new RawConverterAnalog16Bit(new IoRange(0.0, 18.0));
 
     public class Input extends TxPDO {
         protected Input(int address) {
@@ -50,7 +54,7 @@ public class EL3122 extends Slave {
     }
 
     public float getPressureHigh() {
-        return pressureHigh.value.get();
+        return converter.inputValueFromRaw(pressureHigh.value.get());
     }
 
     public boolean getPressureHighUnderrange() {
@@ -66,7 +70,7 @@ public class EL3122 extends Slave {
     }
 
     public float getPressureLow() {
-        return pressureLow.value.get();
+        return converter.inputValueFromRaw(pressureLow.value.get());
     }
 
     public boolean getPressureLowUnderrange() {
