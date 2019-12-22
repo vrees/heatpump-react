@@ -21,7 +21,8 @@ public class EL3122 extends Slave {
     static final long vendorID = 0x00000002L;
     static final long productCode = 0x0c323052L;
 
-    RawConverterAnalog16Bit converter = new RawConverterAnalog16Bit(new IoRange(0.0f, 18.0f));
+    RawConverterAnalog16Bit converterHigh = new RawConverterAnalog16Bit(new IoRange(0.0f, 18.0f));
+    RawConverterAnalog16Bit converterLow = new RawConverterAnalog16Bit(new IoRange(-0.5f, 7.0f));
 
     public class Input extends TxPDO {
         protected Input(int address) {
@@ -54,7 +55,7 @@ public class EL3122 extends Slave {
     }
 
     public float getPressureHigh() {
-        return converter.inputValueFromRaw(pressureHigh.value.get());
+        return converterHigh.inputValueFromRaw(pressureHigh.value.get());
     }
 
     public boolean getPressureHighUnderrange() {
@@ -70,7 +71,7 @@ public class EL3122 extends Slave {
     }
 
     public float getPressureLow() {
-        return converter.inputValueFromRaw(pressureLow.value.get());
+        return converterLow.inputValueFromRaw(pressureLow.value.get());
     }
 
     public boolean getPressureLowUnderrange() {
