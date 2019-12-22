@@ -11,11 +11,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 
 @Data
-@ConfigurationProperties(prefix = "application.limits", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "application.config", ignoreUnknownFields = false)
 public class ApplicationProperties {
-
-    private float pressureHighMax;  // Maximaler Druck auf der Hochdruckseite [bar]
-    private float pressureLowMax; // Maximaler Druck auf der Niederdruckseite [bar]
-    private float pressureDiffenceEvaporatorMax; // Maximaler Druckverlust des Verdampfer-Wärmetauschers [mbar]
-    private float evaporatingTemperatureOutMin; // Minimale Temperatur am Austritt des Verdampfer-Wärmetausschers. Triplepunkt des Wassers. [�C]
+    private float heatTemperaturSwitchOn; // Einschalttemperatur bei deren Unterschreiten die Waermepumpe eingeschaltet wird
+    private float heatTemperaturSwitchOff; // Einschalttemperatur bei deren Ueberschreiten die Waermepume ausgeschaltet wird
+    private long minIdleSec; // Minimale Auschalt-Dauer (verhindert haeufiges Einschalten) [Sekunden]
+    private int lowPressureIgnoreTimeSec; // Nach dem Einschalten sollen Niederdruck-Warnungen für eine gewisse Zeit ignoriert werden
 }

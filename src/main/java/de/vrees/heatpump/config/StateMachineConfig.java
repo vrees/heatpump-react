@@ -3,9 +3,11 @@ package de.vrees.heatpump.config;
 import de.vrees.heatpump.statemachine.Events;
 import de.vrees.heatpump.statemachine.StateMachineEventListener;
 import de.vrees.heatpump.statemachine.States;
+import de.vrees.heatpump.statemachine.actions.StoreSwitchOffTimeAction;
 import de.vrees.heatpump.statemachine.actions.SwitchAllOffAction;
 import de.vrees.heatpump.statemachine.actions.SwitchAllOnAction;
 import de.vrees.heatpump.statemachine.actions.SwitchCompressorOffAction;
+import de.vrees.heatpump.statemachine.guards.GuardSwitchOn;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +28,8 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
 
     private final StateMachineEventListener eventListener;
 
+//    private final GuardSwitchOn guardSwitchOn;
+
     @Override
     public void configure(StateMachineConfigurationConfigurer<States, Events> config)
         throws Exception {
@@ -42,9 +46,10 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
             .withStates()
             .initial(States.OFF, switchAllOffAction())
             .state(States.READY, switchAllOffAction())
-            .state(States.RUNNING, switchAllOnAction())
+            .state(States.RUNNING, switchAllOnAction(), storeSwitchOffTime())
             .state(States.BACKLASH, switchCompressorOffAction())
-            .state(States.ERROR, switchAllOffAction());
+            .state(States.ERROR, switchAllOffAction())
+        ;
     }
 
     @Override
@@ -55,29 +60,34 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
             .source(States.OFF).target(States.READY).event(Events.SWITCH_ON)
             .and()
             .withExternal()
-            .source(States.READY).target(States.RUNNING).event(Events.HEAT_REQUEST)
-            .and()
-            .withExternal()
-            .source(States.RUNNING).target(States.BACKLASH).event(Events.TEMPERATURE_REACHED)
-            .and()
-            .withExternal()
-            .source(States.BACKLASH).target(States.READY).event(Events.COOLDED_DOWN)
+            .source(States.READY).target(States.RUNNING).event(Events.HEAT_REQUEST).guard(guardSwitchOn())
             .and()
             .withExternal()
             .source(States.READY).target(States.OFF).event(Events.SWITCH_OFF)
             .and()
             .withExternal()
+            .source(States.RUNNING).target(States.BACKLASH).event(Events.TEMPERATURE_REACHED)
+            .and()
+            .withExternal()
+            .source(States.RUNNING).target(States.BACKLASH).event(Events.SWITCH_OFF)
+            .and()
+            .withExternal()
             .source(States.RUNNING).target(States.ERROR).event(Events.LIMIT_EXCEEDED)
             .and()
             .withExternal()
+            .source(States.BACKLASH).target(States.READY).event(Events.COOLDED_DOWN)
+            .and()
+            .withExternal()
             .source(States.BACKLASH).target(States.ERROR).event(Events.LIMIT_EXCEEDED)
+            .and()
+            .withExternal()
+            .source(States.RUNNING).target(States.BACKLASH).event(Events.SWITCH_OFF)
             .and()
             .withExternal()
             .source(States.ERROR).target(States.OFF).event(Events.ACKNOWLEDGE)
             .and()
             .withExternal()
             .source(States.ERROR).target(States.OFF).event(Events.SWITCH_OFF)
-
         ;
     }
 
@@ -99,5 +109,15 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
     @Bean
     public Action<States, Events> switchAllOnAction() {
         return new SwitchAllOnAction();
+    }
+
+    @Bean
+    public Action<States, Events> storeSwitchOffTime() {
+        return new StoreSwitchOffTimeAction();
+    }
+
+    @Bean
+    public GuardSwitchOn guardSwitchOn() {
+        return new GuardSwitchOn();
     }
 }

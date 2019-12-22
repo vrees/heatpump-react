@@ -1,6 +1,7 @@
 package de.vrees.heatpump;
 
 import de.vrees.heatpump.config.ApplicationProperties;
+import de.vrees.heatpump.config.LimitProperties;
 import de.vrees.heatpump.config.DefaultProfileUtil;
 import io.github.jhipster.config.JHipsterConstants;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +27,7 @@ import java.util.Collection;
 @EnableAutoConfiguration
 @ComponentScan
 @EnableScheduling
-@EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
+@EnableConfigurationProperties({LiquibaseProperties.class, LimitProperties.class, ApplicationProperties.class})
 public class HeatpumpApp implements InitializingBean {
 
     private static final Logger log = LoggerFactory.getLogger(HeatpumpApp.class);

@@ -1,6 +1,6 @@
 package de.vrees.heatpump.limitcheck;
 
-import de.vrees.heatpump.config.ApplicationProperties;
+import de.vrees.heatpump.config.LimitProperties;
 import de.vrees.heatpump.domain.Processdata;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import static de.vrees.heatpump.limitcheck.LimitCheckEnum.*;
 @Service
 public class LimitChecker {
 
-    private final ApplicationProperties props;
+    private final LimitProperties props;
 
 
     public List<LimitCheckResult> validate(Processdata pd) {
