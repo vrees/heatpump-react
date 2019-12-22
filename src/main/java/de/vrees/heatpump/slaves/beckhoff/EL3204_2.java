@@ -31,8 +31,8 @@ public class EL3204_2 extends Slave {
         Signed16 value = new Signed16();
     }
 
-    private final Input temperatureSwitchOnSensor = new Input(0x1a00);
-    private final Input temperatureOverheatedGas = new Input(0x1a01);
+    private final Input temperatureOverheatedGas = new Input(0x1a00);
+    private final Input temperatureSwitchOnSensor = new Input(0x1a01);
     private final Input temperatureReserve1 = new Input(0x1a02);
     private final Input temperatureReserve2 = new Input(0x1a03);
 
