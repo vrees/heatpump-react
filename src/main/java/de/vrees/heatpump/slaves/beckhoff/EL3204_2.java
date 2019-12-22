@@ -60,7 +60,7 @@ public class EL3204_2 extends Slave {
 
 
     public float getTemperatureSwitchOnSensor() {
-        return temperatureSwitchOnSensor.value.get();
+        return convert(temperatureSwitchOnSensor.value.get());
     }
 
     public boolean getTemperatureSwitchOnSensorUnderrange() {
@@ -77,7 +77,7 @@ public class EL3204_2 extends Slave {
 
 
     public float getTemperatureOverheatedGas() {
-        return temperatureOverheatedGas.value.get();
+        return convert(temperatureOverheatedGas.value.get());
     }
 
     public boolean getTemperatureOverheatedGasUnderrange() {
@@ -94,7 +94,7 @@ public class EL3204_2 extends Slave {
 
 
     public float getTemperatureReserve1() {
-        return temperatureReserve1.value.get();
+        return convert(temperatureReserve1.value.get());
     }
 
     public boolean getTemperatureReserve1Underrange() {
@@ -111,7 +111,7 @@ public class EL3204_2 extends Slave {
 
 
     public float getTemperatureReserve2() {
-        return temperatureReserve2.value.get();
+        return convert(temperatureReserve2.value.get());
     }
 
     public boolean getTemperatureReserve2Underrange() {
@@ -149,6 +149,10 @@ public class EL3204_2 extends Slave {
             .add("TemperatureReserve2=Overrange" + getTemperatureReserve2Overrange())
 
             .toString();
+    }
+
+    private float convert(short value) {
+        return Float.valueOf(value) / 10;
     }
 
 

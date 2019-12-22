@@ -61,7 +61,7 @@ public class EL3204_1 extends Slave {
 
 
     public float getTemperatureEvaporatingIn() {
-        return temperatureEvaporatingIn.value.get();
+        return convert(temperatureEvaporatingIn.value.get());
     }
 
     public boolean getTemperatureEvaporatingInUnderrange() {
@@ -78,7 +78,7 @@ public class EL3204_1 extends Slave {
 
 
     public float getTemperatureFlow() {
-        return temperatureFlow.value.get();
+        return convert(temperatureFlow.value.get());
     }
 
     public boolean getTemperatureFlowUnderrange() {
@@ -95,7 +95,7 @@ public class EL3204_1 extends Slave {
 
 
     public float getTemperatureEvaporatingOut() {
-        return temperatureEvaporatingOut.value.get();
+        return convert(temperatureEvaporatingOut.value.get());
     }
 
     public boolean getTemperatureEvaporatingOutUnderrange() {
@@ -112,7 +112,7 @@ public class EL3204_1 extends Slave {
 
 
     public float getTemperatureReturn() {
-        return temperatureReturn.value.get();
+        return convert(temperatureReturn.value.get());
     }
 
     public boolean getTemperatureReturnUnderrange() {
@@ -150,6 +150,10 @@ public class EL3204_1 extends Slave {
             .add("TemperatureReturn=Overrange" + getTemperatureReturnOverrange())
 
             .toString();
+    }
+
+    private float convert(short value) {
+        return Float.valueOf(value) / 10;
     }
 
 
