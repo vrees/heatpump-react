@@ -62,7 +62,7 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
     private long countLoops = 0;
 
     public HeatpumpMaster(StateMachine<States, Events> stateMachine, WebsocketService websocketService, LimitChecker limitChecker) {
-        super("enp3s0", PriorityParameters.MAXIMUM_PRIORITY, new MonotonicTime(0, 1000000), true, 100000);
+        super("enp3s0", PriorityParameters.MAXIMUM_PRIORITY, new MonotonicTime(0, 50_000_000), false, 100_000);
 
         this.stateMachine = stateMachine;
         this.websocketService = websocketService;
@@ -97,20 +97,21 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
         storeProcessdataInStatemachine(processdata);
 
         sendData(processdata);
-        logValues();
+
     }
 
     private void sendData(Processdata processdata) {
         String reason = stateMachine.getExtendedState().get(ExtendedStateKeys.IMMEDIATE_SEND_DATA, String.class);
 
         if (!StringUtils.isEmpty(reason)) {
-            stateMachine.getExtendedState().getVariables().remove(ExtendedStateKeys.IMMEDIATE_SEND_DATA);
-            countLoops = 0;
-            log.debug("Data sent immediate. Reason={}", reason);
+//            stateMachine.getExtendedState().getVariables().remove(ExtendedStateKeys.IMMEDIATE_SEND_DATA);
+//            countLoops = 0;
+//            log.debug("Data sent immediate. Reason={}", reason);
         }
 
-        if (countLoops % 20 == 0) {
+        if (countLoops % 200 == 0) {
             websocketService.sendProcessdata(processdata);
+            logValues();
         }
         countLoops++;
     }
