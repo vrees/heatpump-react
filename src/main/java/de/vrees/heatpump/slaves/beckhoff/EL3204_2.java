@@ -43,8 +43,8 @@ public class EL3204_2 extends Slave {
         registerSyncManager(new SyncManager(2, false));
         registerSyncManager(new SyncManager(3, false));
 
-        sm(3).registerPDO(temperatureSwitchOnSensor);
         sm(3).registerPDO(temperatureOverheatedGas);
+        sm(3).registerPDO(temperatureSwitchOnSensor);
         sm(3).registerPDO(temperatureReserve1);
         sm(3).registerPDO(temperatureReserve2);
     }
