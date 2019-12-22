@@ -11,9 +11,9 @@ public class EcatToProcessdataMapper {
 
     public Processdata map(EL3122 el3122, EL2008 el2008, EL3204_1 el3204_1, EL3064 eL3064, EL1008 el1008, EL3204_2 el3204_2) {
         Processdata processdata = new Processdata();
-//        processdata.setId(  );
 //        processdata.setState( in.getState() );
         processdata.setTimestamp(Instant.now());
+        processdata.setId(  processdata.getTimestamp().getEpochSecond());
         processdata.setTemperatureEvaporatingIn(el3204_1.getTemperatureEvaporatingIn());
         processdata.setTemperatureEvaporatingOut(el3204_1.getTemperatureEvaporatingOut());
         processdata.setTemperatureFlow(el3204_1.getTemperatureFlow());
