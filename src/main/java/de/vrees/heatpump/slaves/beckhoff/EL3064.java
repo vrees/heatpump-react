@@ -1,5 +1,7 @@
 package de.vrees.heatpump.slaves.beckhoff;
 
+import de.vrees.heatpump.slaves.beckhoff.converter.IoRange;
+import de.vrees.heatpump.slaves.beckhoff.converter.RawConverterAnalog16Bit;
 import us.ihmc.etherCAT.master.Slave;
 import us.ihmc.etherCAT.master.SyncManager;
 import us.ihmc.etherCAT.master.TxPDO;
@@ -14,6 +16,9 @@ import java.util.StringJoiner;
 public class EL3064 extends Slave {
     static final long vendorID = 0x00000002L;
     static final long productCode = 0x0bf83052;
+
+    RawConverterAnalog16Bit converter = new RawConverterAnalog16Bit(new IoRange(0.0f, 10.0f));
+
 
     public class Input extends TxPDO {
         protected Input(int address) {
@@ -54,7 +59,7 @@ public class EL3064 extends Slave {
 
 
     public float getPressureDiffenceEvaporator() {
-        return pressureDiffenceEvaporator.value.get();
+        return converter.inputValueFromRaw(pressureDiffenceEvaporator.value.get());
     }
 
     public boolean getPressureDiffenceEvaporatorUnderrange() {
