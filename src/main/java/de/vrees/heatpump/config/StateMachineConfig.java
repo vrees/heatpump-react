@@ -28,8 +28,6 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
 
     private final StateMachineEventListener eventListener;
 
-//    private final GuardSwitchOn guardSwitchOn;
-
     @Override
     public void configure(StateMachineConfigurationConfigurer<States, Events> config)
         throws Exception {

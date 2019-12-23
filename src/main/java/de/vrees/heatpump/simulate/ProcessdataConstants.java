@@ -14,6 +14,7 @@ public class ProcessdataConstants {
     public static final Processdata PD_DEFAULT = initializeDefault();
 
     public static final List<SimulationDataDef> SIMULATION_DATA = initializeSimulationData();
+    public static final List<SimulationDataDef> SIMULATION_DATA_SIMPLE = initializeSimulationDataSimple();
 
     private static List<SimulationDataDef> initializeSimulationData() {
         ArrayList<SimulationDataDef> list = new ArrayList();
@@ -24,6 +25,12 @@ public class ProcessdataConstants {
 //        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 15, Lists.newArrayList(Events.ACKNOWLEDGE)));
         list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 15, Lists.newArrayList()));
 
+        return list;
+    }
+
+    private static List<SimulationDataDef> initializeSimulationDataSimple() {
+        ArrayList<SimulationDataDef> list = new ArrayList();
+        list.add(new SimulationDataDef(ProcessdataConstants.PD_DEFAULT, 200, Lists.newArrayList()));
         return list;
     }
 

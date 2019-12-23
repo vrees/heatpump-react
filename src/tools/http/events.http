@@ -4,6 +4,12 @@ Content-Type: application/json
 {}
 
 ###
+PUT http://localhost:8080/api/event/SWITCH_OFF
+Content-Type: application/json
+
+{}
+
+###
 PUT http://localhost:8080/api/event/HEAT_REQUEST
 Content-Type: application/json
 

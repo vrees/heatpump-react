@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static de.vrees.heatpump.simulate.ProcessdataConstants.SIMULATION_DATA;
+import static de.vrees.heatpump.simulate.ProcessdataConstants.SIMULATION_DATA_SIMPLE;
 
 
 @Component
@@ -25,7 +25,7 @@ import static de.vrees.heatpump.simulate.ProcessdataConstants.SIMULATION_DATA;
 @Slf4j
 public class SimulateMaster implements Iterator<SimulationDataDef> {
 
-    private static final List<SimulationDataDef> simulationData = SIMULATION_DATA;
+    private static final List<SimulationDataDef> simulationData = SIMULATION_DATA_SIMPLE;
 
     private final de.vrees.heatpump.statemachine.StateMachineWrapper stateMachineWrapper;
     private final ProcessdataMapper processdataMapper;
@@ -41,10 +41,10 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
     public void scheduleTask() {
         SimulationDataDef definition = next();
         Processdata processdata = modifyNexProcesdata(processdataMapper.map(definition.getProcessdata()));
+        stateMachineWrapper.storeAndPreProcess(processdata);
 
         List<LimitCheckResult> faildedChecks = stateMachineWrapper.checkLimits(processdata);
         stateMachineWrapper.processOutgoingValues(processdata, faildedChecks);
-        stateMachineWrapper.storeProcessdataInStatemachine(processdata);
 
         if (definition.getNumberOfRepetitions() == indexInsideDefRecord) {
             definition.getEventsToSend().forEach(e -> stateMachineWrapper.sendEvent(e));
@@ -64,7 +64,7 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
         processdata.setTemperatureSwitchOnSensor(random(42, 44, 10));
         processdata.setPressureLow(random(3, 4, 10));
         processdata.setPressureHigh(random(8, 11, 10));
-        processdata.setPressureDiffenceEvaporator(random(10, 101, 10));
+        processdata.setPressureDiffenceEvaporator(random(10, 99, 10));
 
         return processdata;
     }

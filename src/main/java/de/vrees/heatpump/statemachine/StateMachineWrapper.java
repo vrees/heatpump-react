@@ -1,5 +1,6 @@
 package de.vrees.heatpump.statemachine;
 
+import de.vrees.heatpump.config.ApplicationProperties;
 import de.vrees.heatpump.domain.FailureMessage;
 import de.vrees.heatpump.domain.Processdata;
 import de.vrees.heatpump.limitcheck.LimitCheckResult;
@@ -12,6 +13,8 @@ import org.springframework.statemachine.StateMachine;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class StateMachineWrapper {
     private final StateMachine<States, Events> stateMachine;
     private final WebsocketService websocketService;
     private final LimitChecker limitChecker;
+    private final ApplicationProperties props;
 
     private long countLoops = 0;
 
@@ -60,8 +64,17 @@ public class StateMachineWrapper {
         log.debug(processdata.toString());
     }
 
-    public void storeProcessdataInStatemachine(Processdata processdata) {
+    public void storeAndPreProcess(Processdata processdata) {
         stateMachine.getExtendedState().getVariables().put(ExtendedStateKeys.PROCESS_DATA, processdata);
+
+        // calc WaitCounter
+        Instant timestamp = stateMachine.getExtendedState().get(ExtendedStateKeys.SWITCH_OFF_TIME, Instant.class);
+
+        if (timestamp == null) return;
+
+        long diff = Instant.now().getEpochSecond() -
+            timestamp.plus(Duration.ofSeconds(props.getMinIdleSec())).getEpochSecond();
+        processdata.setWaitCounter((int) diff);
     }
 
     public void processOutgoingValues(Processdata processdata, List<LimitCheckResult> faildedChecks) {

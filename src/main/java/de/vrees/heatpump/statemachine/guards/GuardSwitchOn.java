@@ -1,48 +1,46 @@
 package de.vrees.heatpump.statemachine.guards;
 
-import de.vrees.heatpump.config.ApplicationProperties;
 import de.vrees.heatpump.domain.Processdata;
 import de.vrees.heatpump.limitcheck.LimitCheckResult;
 import de.vrees.heatpump.limitcheck.LimitChecker;
 import de.vrees.heatpump.statemachine.Events;
 import de.vrees.heatpump.statemachine.ExtendedStateKeys;
 import de.vrees.heatpump.statemachine.States;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.guard.Guard;
-import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
+//@RequiredArgsConstructor
+//@Service
+@Slf4j
 public class GuardSwitchOn implements Guard<States, Events> {
 
-    private final LimitChecker limitChecker;
-
-    private final ApplicationProperties props;
+    @Autowired
+    private LimitChecker limitChecker;
 
     @Override
     public boolean evaluate(StateContext<States, Events> context) {
+        Processdata processdata = context.getExtendedState().get(ExtendedStateKeys.PROCESS_DATA, Processdata.class);
 
         // execute all checks
-        if (checkLimits(context).size() > 0) return false;
+        boolean limitChecks = checkLimits(processdata).size() == 0;
 
         // ensure minimal Switch off duration
-        return checkWaitCounter(context);
+        boolean waitCounter = checkWaitCounter(processdata);
+
+        log.debug("GuardSwitchOn - limitChecks: {}, waitCounter: {}", limitChecks, waitCounter);
+
+        return limitChecks && waitCounter;
     }
 
-    private List<LimitCheckResult> checkLimits(StateContext<States, Events> context) {
-        Processdata processdata = context.getExtendedState().get(ExtendedStateKeys.PROCESS_DATA, Processdata.class);
+    private List<LimitCheckResult> checkLimits(Processdata processdata) {
         return limitChecker.validate(processdata);
     }
 
-    private boolean checkWaitCounter(StateContext<States, Events> context) {
-        Instant timestamp = context.getExtendedState().get(ExtendedStateKeys.SWITCH_OFF_TIME, Instant.class);
-
-        return timestamp == null ||
-            Instant.now().compareTo(timestamp.plus(Duration.ofSeconds(props.getMinIdleSec()))) >= 0;
+    private boolean checkWaitCounter(Processdata processdata) {
+        return processdata.getWaitCounter() == null || processdata.getWaitCounter() > 0;
     }
 }

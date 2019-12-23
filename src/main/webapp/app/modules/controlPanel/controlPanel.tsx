@@ -4,11 +4,9 @@ import HeatCycleGraphic from "app/modules/controlPanel/heatCycleGraphic";
 import {getLatestProcessdata, sendEvent} from '../../entities/processdata/processdata.reducer';
 import {RouteComponentProps} from "react-router";
 import {IRootState} from "app/shared/reducers";
-import {Row, Col, Input, CustomInput, Alert, Card, CardBody, Collapse, Badge, Button} from 'reactstrap';
+import {Alert, Badge, Button, Card, CardBody, Col, Collapse, CustomInput, Row} from 'reactstrap';
 import {websocketConnect, websocketDisconnect, websocketIsConnected} from "app/config/websocket-middleware";
 import {StateInfo, States} from "app/shared/model/enumerations/states.model";
-import {Link} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {ActionButton} from "app/shared/model/enumerations/actionButton.model";
 
 export interface IControlPanelProps extends StateProps, DispatchProps, RouteComponentProps<{}> {
@@ -95,9 +93,16 @@ export class ControlPanel extends React.Component<IControlPanelProps, IControlPa
           </div>
         </Col>
         <Col lg={3}>
-          <Row className="mt-3">
+          <Row  className="mt-3">
             <Col lg={6}>
               <h1><Badge color={color}>{label}</Badge></h1>
+            </Col>
+            <Col className="vertical-center" lg={6}>
+              {processData.state === States.READY
+              && processData.waitCounter < 0
+              && (
+                <h3 >{Math.abs(processData.waitCounter)}</h3>
+              )}
             </Col>
           </Row>
           <Row className="mt-3">
