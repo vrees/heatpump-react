@@ -164,4 +164,5 @@ application:
     heatTemperaturSwitchOff: 50 # Einschalttemperatur bei deren Ueberschreiten die Waermepume ausgeschaltet wird
     minIdleSec: 30 # Minimale Auschalt-Dauer (verhindert haeufiges Einschalten) [Sekunden]
     lowPressureIgnoreTimeSec: 20 # Nach dem Einschalten sollen Niederdruck-Warnungen für eine gewisse Zeit ignoriert werden
+    temperatureDiffBacklashOff: 1.0 # Temperaturdifferenz zwischen Vorlauf und Rücklauf, bei dessen Unterschreiten die Wasserpumpe ausgeschaltet wird
 

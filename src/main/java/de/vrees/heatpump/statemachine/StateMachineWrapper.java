@@ -69,12 +69,33 @@ public class StateMachineWrapper {
 
         // calc WaitCounter
         Instant timestamp = stateMachine.getExtendedState().get(ExtendedStateKeys.SWITCH_OFF_TIME, Instant.class);
+        if (timestamp != null) {
+            long diff = Instant.now().getEpochSecond() -
+                timestamp.plus(Duration.ofSeconds(props.getMinIdleSec())).getEpochSecond();
+            processdata.setWaitCounter((int) diff);
+        }
 
-        if (timestamp == null) return;
+        generateEvents(processdata);
+    }
 
-        long diff = Instant.now().getEpochSecond() -
-            timestamp.plus(Duration.ofSeconds(props.getMinIdleSec())).getEpochSecond();
-        processdata.setWaitCounter((int) diff);
+    private void generateEvents(Processdata processdata) {
+        switch (processdata.getState()) {
+            case READY:
+                if (processdata.getTemperatureSwitchOnSensor() < props.getHeatTemperaturSwitchOn()) {
+                    stateMachine.sendEvent(Events.HEAT_REQUEST);
+                }
+                break;
+            case RUNNING:
+                if (processdata.getTemperatureFlow() > props.getHeatTemperaturSwitchOff()) {
+                    stateMachine.sendEvent(Events.SWITCH_OFF);
+                }
+                break;
+            case BACKLASH:
+                if ((processdata.getTemperatureFlow() - processdata.getTemperatureReturn()) < props.getTemperatureDiffBacklashOff()) {
+                    stateMachine.sendEvent(Events.COOLDED_DOWN);
+                }
+                break;
+        }
     }
 
     public void processOutgoingValues(Processdata processdata, List<LimitCheckResult> faildedChecks) {

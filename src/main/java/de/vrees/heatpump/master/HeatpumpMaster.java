@@ -78,7 +78,6 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
     protected void doControl() {
         Processdata processdata = mapper.map(el3122, el2008, el3204_1, eL3064, el1008, el3204_2);
         stateMachineWrapper.storeAndPreProcess(processdata);
-        stateMachineWrapper.storeAndPreProcess(processdata);
 
         List<LimitCheckResult> failedChecks = stateMachineWrapper.checkLimits(processdata);
         stateMachineWrapper.processOutgoingValues(processdata, failedChecks);
