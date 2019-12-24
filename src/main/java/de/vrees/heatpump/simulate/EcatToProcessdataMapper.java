@@ -8,7 +8,39 @@ import java.time.Instant;
 
 public class EcatToProcessdataMapper {
 
+    // Real Heatpump
+    public Processdata map(EL3152 el3152, EL2004 el2004, EL3204_1 el3204_1, EL3102 eL3102, EL1008 el1008, EL3204_2 el3204_2) {
+        Processdata processdata = new Processdata();
+//        processdata.setState( in.getState() );
+        processdata.setTimestamp(Instant.now());
+        processdata.setId(  processdata.getTimestamp().getEpochSecond());
+        processdata.setTemperatureEvaporatingIn(el3204_1.getTemperatureEvaporatingIn());
+        processdata.setTemperatureEvaporatingOut(el3204_1.getTemperatureEvaporatingOut());
+        processdata.setTemperatureFlow(el3204_1.getTemperatureFlow());
+        processdata.setTemperatureReturn(el3204_1.getTemperatureReturn());
+        processdata.setTemperatureSwitchOnSensor(el3204_2.getTemperatureSwitchOnSensor());
+        processdata.setTemperatureOverheatedGas(el3204_2.getTemperatureOverheatedGas());
+        processdata.setPressureHigh(el3152.getPressureHigh());
+        processdata.setPressureLow(el3152.getPressureLow());
+        processdata.setPressureDiffenceEvaporator(eL3102.getPressureDiffenceEvaporator());
+        processdata.setHeatRequest(el1008.isHeatRequest());
+        processdata.setUserConfirmation(el1008.isUserConfirmation());
+        processdata.setAlarmExpansionValve(el1008.isAlarmExpansionValve());
+        processdata.setIncidentFlow(el1008.isIncidentFlow());
+        processdata.setIncidentCompressor(el1008.isIncidentCompressor());
+        processdata.setIncidentLowPressure(el1008.isIncidentLowPressure());
+        processdata.setIncidentHighPressure(el1008.isIncidentHighPressure());
+//        processdata.setOperatingStateWaterPump(el2008.isOperatingStateWaterPump());
+//        processdata.setOperatingStateCompressor(el2008.isOperatingStateCompressor());
+//        processdata.setCalculatedOverheatTemperature(in.getCalculatedOverheatTemperature());
+//        processdata.setWarningLowPressure(in.isWarningLowPressure());
+//        processdata.setWarningHighPressure(in.isWarningHighPressure());
+//        processdata.setWaitCounter(in.getWaitCounter());
 
+        return processdata;
+    }
+
+    // Evaluation Unit
     public Processdata map(EL3122 el3122, EL2008 el2008, EL3204_1 el3204_1, EL3064 eL3064, EL1008 el1008, EL3204_2 el3204_2) {
         Processdata processdata = new Processdata();
 //        processdata.setState( in.getState() );
