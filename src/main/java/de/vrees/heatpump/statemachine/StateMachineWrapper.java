@@ -5,6 +5,7 @@ import de.vrees.heatpump.domain.FailureMessage;
 import de.vrees.heatpump.domain.Processdata;
 import de.vrees.heatpump.limitcheck.LimitCheckResult;
 import de.vrees.heatpump.limitcheck.LimitChecker;
+import de.vrees.heatpump.slaves.beckhoff.EL2008;
 import de.vrees.heatpump.web.websocket.WebsocketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -107,6 +108,12 @@ public class StateMachineWrapper {
 
         processdata.setState(state);
     }
+
+    public void writeOutgoingValuesToEcatBus(EL2008 el2008) {
+        el2008.setOperatingStateCompressor(stateMachine.getExtendedState().get(ExtendedStateKeys.COMPRESSOR_STATE, Boolean.class));
+        el2008.setOperatingStateWaterPump(stateMachine.getExtendedState().get(ExtendedStateKeys.WATERPUMP_STATE, Boolean.class));
+    }
+
 
     public boolean sendEvent(Events e) {
         return stateMachine.sendEvent(e);

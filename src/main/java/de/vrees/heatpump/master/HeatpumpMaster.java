@@ -80,8 +80,8 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
         stateMachineWrapper.storeAndPreProcess(processdata);
 
         List<LimitCheckResult> failedChecks = stateMachineWrapper.checkLimits(processdata);
+        stateMachineWrapper.writeOutgoingValuesToEcatBus(el2008);
         stateMachineWrapper.processOutgoingValues(processdata, failedChecks);
-
         stateMachineWrapper.sendData(processdata);
     }
 
