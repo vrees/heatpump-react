@@ -53,7 +53,7 @@ public class StateMachineWrapper {
             log.debug("Data sent immediate. Reason={}", reason);
         }
 
-        if (countLoops % 20 == 0) {
+        if (countLoops % 100 == 0) {
             websocketService.sendProcessdata(processdata);
             logValues(processdata);
         }

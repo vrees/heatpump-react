@@ -50,7 +50,7 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
 
 
     public HeatpumpMaster(StateMachineWrapper stateMachineWrapper, WebsocketService websocketService, LimitChecker limitChecker) {
-        super("enp3s0", PriorityParameters.MAXIMUM_PRIORITY, new MonotonicTime(0, 100_000_000), false, 100_000);
+        super("enp3s0", PriorityParameters.MAXIMUM_PRIORITY, new MonotonicTime(0, 20_000_000), false, 100_000);
 
         this.stateMachineWrapper = stateMachineWrapper;
 
@@ -77,6 +77,7 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
     @Override
     protected void doControl() {
         Processdata processdata = mapper.map(el3122, el2008, el3204_1, eL3064, el1008, el3204_2);
+        stateMachineWrapper.storeAndPreProcess(processdata);
         stateMachineWrapper.storeAndPreProcess(processdata);
 
         List<LimitCheckResult> failedChecks = stateMachineWrapper.checkLimits(processdata);
