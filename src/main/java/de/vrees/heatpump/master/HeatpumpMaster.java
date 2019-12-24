@@ -50,7 +50,7 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
 
 
     public HeatpumpMaster(StateMachineWrapper stateMachineWrapper, WebsocketService websocketService, LimitChecker limitChecker) {
-        super("enp3s0", PriorityParameters.MAXIMUM_PRIORITY, new MonotonicTime(0, 20_000_000), false, 100_000);
+        super("enp3s0", PriorityParameters.MAXIMUM_PRIORITY, new MonotonicTime(0, 50_000_000), false, 100_000);
 
         this.stateMachineWrapper = stateMachineWrapper;
 
