@@ -37,7 +37,7 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
 
     private long countLoops = 0;
 
-    @Scheduled(fixedRate = 100)
+    @Scheduled(fixedRate = 50)
     public void scheduleTask() {
         SimulationDataDef definition = next();
         Processdata processdata = modifyNexProcesdata(processdataMapper.map(definition.getProcessdata()));
@@ -56,12 +56,12 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
     private Processdata modifyNexProcesdata(Processdata processdata) {
         processdata.setTimestamp(Instant.now());
         processdata.setId(ThreadLocalRandom.current().nextLong());
-        processdata.setTemperatureFlow(random(37, 45, 10));
-        processdata.setTemperatureReturn(random(36, 42, 10));
+        processdata.setTemperatureFlow(random(37, 45.2f, 10));
+        processdata.setTemperatureReturn(random(36, 43, 10));
         processdata.setTemperatureEvaporatingIn(random(5, 7, 10));
         processdata.setTemperatureEvaporatingOut(random(4, 5, 10));
         processdata.setTemperatureOverheatedGas(random(7, 8, 10));
-        processdata.setTemperatureSwitchOnSensor(random(42, 44, 10));
+        processdata.setTemperatureSwitchOnSensor(random(41.8f, 44f, 10));
         processdata.setPressureLow(random(3, 4, 10));
         processdata.setPressureHigh(random(8, 11, 10));
         processdata.setPressureDiffenceEvaporator(random(10, 99, 10));
@@ -91,7 +91,7 @@ public class SimulateMaster implements Iterator<SimulationDataDef> {
         }
     }
 
-    private float random(int min, int max, int scaleFactor) {
+    private float random(float min, float max, int scaleFactor) {
         float val = ThreadLocalRandom.current().nextFloat();
         return min + round(val * (max - min), scaleFactor);
     }

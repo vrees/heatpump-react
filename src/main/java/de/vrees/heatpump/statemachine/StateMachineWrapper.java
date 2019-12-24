@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -26,7 +25,7 @@ public class StateMachineWrapper {
     private final LimitChecker limitChecker;
     private final ApplicationProperties props;
 
-    private long countLoops = 0;
+//    private long countLoops = 0;
 
 
     public List<LimitCheckResult> checkLimits(Processdata processdata) {
@@ -38,26 +37,21 @@ public class StateMachineWrapper {
                     .withPayload(Events.LIMIT_EXCEEDED)
                     .setHeader(EventHeaderEnum.FAILED_CHECKS.name(), failedChecks).build()
             );
-            stateMachine.getExtendedState().getVariables().put(ExtendedStateKeys.IMMEDIATE_SEND_DATA, "checks failed");
+            stateMachine.getExtendedState().getVariables().put(ExtendedStateKeys.TICK_COUNTER, 0L);
         }
 
         return failedChecks;
     }
 
     public void sendData(Processdata processdata) {
-        String reason = stateMachine.getExtendedState().get(ExtendedStateKeys.IMMEDIATE_SEND_DATA, String.class);
+        Long tickCounter = stateMachine.getExtendedState().get(ExtendedStateKeys.TICK_COUNTER, Long.class);
 
-        if (!StringUtils.isEmpty(reason)) {
-            stateMachine.getExtendedState().getVariables().remove(ExtendedStateKeys.IMMEDIATE_SEND_DATA);
-            countLoops = 0;
-            log.debug("Data sent immediate. Reason={}", reason);
-        }
-
-        if (countLoops % 100 == 0) {
+        if (tickCounter % 40 == 0) {
             websocketService.sendProcessdata(processdata);
             logValues(processdata);
         }
-        countLoops++;
+
+        stateMachine.getExtendedState().getVariables().put(ExtendedStateKeys.TICK_COUNTER, ++tickCounter);
     }
 
     private void logValues(Processdata processdata) {
@@ -79,19 +73,22 @@ public class StateMachineWrapper {
     }
 
     private void generateEvents(Processdata processdata) {
-        switch (processdata.getState()) {
+        switch (stateMachine.getState().getId()) {
             case READY:
                 if (processdata.getTemperatureSwitchOnSensor() < props.getHeatTemperaturSwitchOn()) {
+                    log.debug("TemperatureSwitchOnSensor < HeatTemperaturSwitchOn: {} < {}", processdata.getTemperatureSwitchOnSensor(), props.getHeatTemperaturSwitchOn());
                     stateMachine.sendEvent(Events.HEAT_REQUEST);
                 }
                 break;
             case RUNNING:
                 if (processdata.getTemperatureFlow() > props.getHeatTemperaturSwitchOff()) {
+                    log.debug("TemperatureFlow > HeatTemperaturSwitchOff: {} > {}", processdata.getTemperatureFlow(), props.getHeatTemperaturSwitchOff());
                     stateMachine.sendEvent(Events.SWITCH_OFF);
                 }
                 break;
             case BACKLASH:
                 if ((processdata.getTemperatureFlow() - processdata.getTemperatureReturn()) < props.getTemperatureDiffBacklashOff()) {
+                    log.debug("(TemperatureFlow() - TemperatureReturn) < TemperatureDiffBacklashOff(): ({} - {}) < {}", processdata.getTemperatureFlow(), processdata.getTemperatureReturn(), props.getTemperatureDiffBacklashOff());
                     stateMachine.sendEvent(Events.COOLDED_DOWN);
                 }
                 break;

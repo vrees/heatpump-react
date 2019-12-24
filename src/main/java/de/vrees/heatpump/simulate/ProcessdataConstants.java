@@ -37,7 +37,7 @@ public class ProcessdataConstants {
     private static Processdata initializeDefault() {
         Processdata pd = new Processdata();
 
-        pd.setState(States.BACKLASH);
+        pd.setState(States.UNDEFINED);
 
         pd.setTemperatureEvaporatingIn(6.4f);
         pd.setTemperatureEvaporatingOut(4.2f);
