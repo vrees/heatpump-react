@@ -96,13 +96,13 @@ public class EL3152 extends Slave {
             .add("pressureLow=Overrange" + getPressureLowOverrange())
             .toString();
     }
-
+}
 
 /* Slaveinfo:
 
-2 - 0:1 EL3122
+2 - 5:1 EL3152
 	Manufacturer: 0x00000002
-	Product code: 0x0c323052
+	Product code: 0x0c503052
 	Revision: 0
 	Distributed Clocks: no
 	SM(0) Address: 0x1800, length: 246	Flags: 65574	Type: Mailbox messages receive
@@ -114,9 +114,5 @@ public class EL3152 extends Slave {
 			0x3101:0x02 INTEGER16	Value
 		TxPDO 0x1a01	TxPDO 002 mapping
 			0x3102:0x01 UNSIGNED8	Status
-			0x3102:0x02 INTEGER16	Valueatus
-  [0x0006.0] 0x3102:0x02 0x10 INTEGER16    Value
-
- */
-
-}
+			0x3102:0x02 INTEGER16	Value
+*/

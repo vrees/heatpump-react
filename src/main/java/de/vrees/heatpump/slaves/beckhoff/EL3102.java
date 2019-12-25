@@ -25,17 +25,12 @@ public class EL3102 extends Slave {
             super(address);
         }
 
-
         Bool underrange = new Bool();
         Bool overrange = new Bool();
         Member limit1 = new Bit2();
         Member limit2 = new Bit2();
         Bool error = new Bool();
-        Bool gap1 = new Bool();
-        Bit5 gap2 = new Bit5();
-        Bool txPDOState = new Bool();
-        Bool txPDOToggle = new Bool();
-        Bool gap3 = new Bool();
+
         Signed16 value = new Signed16();
     }
 
@@ -152,73 +147,21 @@ public class EL3102 extends Slave {
 
 /* Slaveinfo:
 
-5 - 0:4 EL3064
+5 - 40:1 EL3102
 	Manufacturer: 0x00000002
-	Product code: 0x0bf83052
-	Revision: 1048576
-	Distributed Clocks: yes
-	SM(0) Address: 0x1000, length: 128	Flags: 65574	Type: Mailbox messages receive
-	SM(1) Address: 0x1080, length: 128	Flags: 65570	Type: Mailbox messages transmit
-	SM(2) Address: 0x1100, length: 0	Flags: 4	Type: Cyclic process data receive
-	SM(3) Address: 0x1180, length: 16	Flags: 65568	Type: Cyclic process data transmit
-		TxPDO 0x1a00	AI TxPDO-Map Standard Ch.1
-			0x6000:0x01 BOOLEAN	Underrange
-			0x6000:0x02 BOOLEAN	Overrange
-			0x6000:0x03 BIT2	Limit 1
-			0x6000:0x05 BIT2	Limit 2
-			0x6000:0x07 BOOLEAN	Error
-			0x0000:0x00 (1 bit)
-			0x0000:0x00 (5 bit)
-			0x1800:0x07 BOOLEAN	TxPDO State
-			0x1800:0x09 BOOLEAN	TxPDO Toggle
-			0x0000:0x00 (1 bit)
-			0x6000:0x11 INTEGER16	Value
-		TxPDO 0x1a02	AI TxPDO-Map Standard Ch.2
-			0x6010:0x01 BOOLEAN	Underrange
-			0x6010:0x02 BOOLEAN	Overrange
-			0x6010:0x03 BIT2	Limit 1
-			0x6010:0x05 BIT2	Limit 2
-			0x6010:0x07 BOOLEAN	Error
-			0x0000:0x00 (1 bit)
-			0x0000:0x00 (5 bit)
-			0x1802:0x07 BOOLEAN	TxPDO State
-			0x1802:0x09 BOOLEAN	TxPDO Toggle
-			0x0000:0x00 (1 bit)
-			0x6010:0x11 INTEGER16	Value
-		TxPDO 0x1a04	AI TxPDO-Map Standard Ch.3
-			0x6020:0x01 BOOLEAN	Underrange
-			0x6020:0x02 BOOLEAN	Overrange
-			0x6020:0x03 BIT2	Limit 1
-			0x6020:0x05 BIT2	Limit 2
-			0x6020:0x07 BOOLEAN	Error
-			0x0000:0x00 (1 bit)
-			0x0000:0x00 (5 bit)
-			0x1804:0x07 BOOLEAN	TxPDO State
-			0x1804:0x09 BOOLEAN	TxPDO Toggle
-			0x0000:0x00 (1 bit)
-			0x6020:0x11 INTEGER16	Value
-		TxPDO 0x1a06	AI TxPDO-Map Standard Ch.4
-			0x6030:0x01 BOOLEAN	Underrange
-			0x6030:0x02 BOOLEAN	Overrange
-			0x6030:0x03 BIT2	Limit 1
-			0x6030:0x05 BIT2	Limit 2
-			0x6030:0x07 BOOLEAN	Error
-			0x0000:0x00 (1 bit)
-			0x0000:0x00 (5 bit)
-			0x1806:0x07 BOOLEAN	TxPDO State
-			0x1806:0x09 BOOLEAN	TxPDO Toggle
-			0x0000:0x00 (1 bit)
-			0x6030:0x11 INTEGER16	Value
-
-5 - 0:4 EL3064
-	Manufacturer: 0x00000002
-	Product code: 0x0bf83052
-	Revision: 1048576
-	Distributed Clocks: yes
-	SM(0) Address: 0x1000, length: 128	Flags: 65574	Type: Mailbox messages receive
-	SM(1) Address: 0x1080, length: 128	Flags: 65570	Type: Mailbox messages transmit
-	SM(2) Address: 0x1100, length: 0	Flags: 4	Type: Cyclic process data receive
-	SM(3) Address: 0x1180, length: 16	Flags: 65568	Type: Cyclic process data transmit
+	Product code: 0x0c1e3052
+	Revision: 0
+	Distributed Clocks: no
+	SM(0) Address: 0x1800, length: 246	Flags: 65574	Type: Mailbox messages receive
+	SM(1) Address: 0x18f6, length: 246	Flags: 65570	Type: Mailbox messages transmit
+	SM(2) Address: 0x1000, length: 0	Flags: 65572	Type: Cyclic process data receive
+	SM(3) Address: 0x1100, length: 0	Flags: 65568	Type: Cyclic process data transmit
+		TxPDO 0x1a00	TxPDO 001 mapping
+			0x3101:0x01 UNSIGNED8	Status
+			0x3101:0x02 INTEGER16	Value
+		TxPDO 0x1a01	TxPDO 002 mapping
+			0x3102:0x01 UNSIGNED8	Status
+			0x3102:0x02 INTEGER16	Value
 
  */
 

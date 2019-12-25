@@ -55,3 +55,12 @@ public class EL2004 extends Slave {
         out4.output.set(val);
     }
 }
+
+/*
+3 - 10:0 EL2004
+    Manufacturer: 0x00000002
+    Product code: 0x07d43052
+    Revision: 1048576
+    Distributed Clocks: yes
+    SM(0) Address: 0x0f00, length: 0	Flags: 589892	Type: Unused
+ */
