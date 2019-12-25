@@ -43,7 +43,7 @@ public class EL1008 extends Slave {
         sm(0).registerPDO(heatRequest);
         sm(0).registerPDO(alarmExpansionValve);
         sm(0).registerPDO(operatingStateWaterPump);
-        sm(0).registerPDO(operatingStateWaterPump);
+        sm(0).registerPDO(incidentCompressor);
         sm(0).registerPDO(incidentFlow);
         sm(0).registerPDO(incidentHighPressure);
         sm(0).registerPDO(incidentLowPressure);

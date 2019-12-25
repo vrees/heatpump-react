@@ -48,11 +48,11 @@ public class LimitChecker {
         if (pd.isIncidentFlow())
             failedChecks.add(new LimitCheckResult(ENSURE_FLOW_VOLUMNE, null));
 
-        // Prüfe, of Wasser Durchflussmenge ausreichend ist. Mindestens 2500 Liter/Stunde
+        // Schutzschalter hat ausgelöst
         if (pd.isIncidentCompressor())
             failedChecks.add(new LimitCheckResult(MOTOR_PROTECTION_SWITH, null));
 
-        // Expansionsvetil meldet Fehler
+        // Expansionsventil meldet Fehler
         if (pd.isAlarmExpansionValve())
             failedChecks.add(new LimitCheckResult(ALARM_EXPANSION_VALVE, null));
 

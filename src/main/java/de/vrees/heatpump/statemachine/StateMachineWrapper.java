@@ -53,7 +53,8 @@ public class StateMachineWrapper {
             logValues(processdata);
         }
 
-        stateMachine.getExtendedState().getVariables().put(ExtendedStateKeys.TICK_COUNTER, ++tickCounter);
+        tickCounter++;
+        stateMachine.getExtendedState().getVariables().put(ExtendedStateKeys.TICK_COUNTER, tickCounter);
     }
 
     private void logValues(Processdata processdata) {
