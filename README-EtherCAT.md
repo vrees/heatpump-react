@@ -88,6 +88,12 @@ A gradle wrapper is provided, optionally you can use your system gradle by repla
     ../gradlew publishToMavenLocal -Ptarget=JAVA   (gradle publishToMavenLocal -Ptarget=JAVA)
     ../gradlew publishToMavenLocal -Ptarget=PLATFORM
 
+### set alias 0 fpr slave 3
+
+```
+sudo eepromtool enp3s0 3 -walias 0
+```
+
 ## Useful Commands
 
 ####listen EADDRINUSE

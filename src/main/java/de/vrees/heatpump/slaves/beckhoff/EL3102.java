@@ -35,21 +35,16 @@ public class EL3102 extends Slave {
     }
 
     private final Input pressureDiffenceEvaporator = new Input(0x1a00);
-    private final Input reserve1 = new Input(0x1a02);
-    private final Input reserve2 = new Input(0x1a04);
-    private final Input reserve3 = new Input(0x1a06);
-
+    private final Input reserve1 = new Input(0x1a01);
 
     public EL3102(int aliasAddress, int configAddress) {
         super(vendorID, productCode, aliasAddress, configAddress);
 
-        registerSyncManager(new SyncManager(2, true));
-        registerSyncManager(new SyncManager(3, true));
+        registerSyncManager(new SyncManager(2, false));
+        registerSyncManager(new SyncManager(3, false));
 
         sm(3).registerPDO(pressureDiffenceEvaporator);
         sm(3).registerPDO(reserve1);
-        sm(3).registerPDO(reserve2);
-        sm(3).registerPDO(reserve3);
     }
 
     public float getPressureDiffenceEvaporator() {
@@ -86,39 +81,6 @@ public class EL3102 extends Slave {
     }
 
 
-    public int getReserve2() {
-        return reserve2.value.get();
-    }
-
-    public boolean getReserve2Underrange() {
-        return reserve2.underrange.get();
-    }
-
-    public boolean getReserve2Overrange() {
-        return reserve2.overrange.get();
-    }
-
-    public boolean getReserve2Error() {
-        return reserve2.error.get();
-    }
-
-
-    public int getReserve3() {
-        return reserve3.value.get();
-    }
-
-    public boolean getReserve3Underrange() {
-        return reserve3.underrange.get();
-    }
-
-    public boolean getReserve3Overrange() {
-        return reserve3.overrange.get();
-    }
-
-    public boolean getReserve3Error() {
-        return reserve3.error.get();
-    }
-
     public String toProcessdataString() {
         return new StringJoiner(", ", EL3102.class.getSimpleName() + "[", "]")
             .add("PressureDiffenceEvaporator=" + getPressureDiffenceEvaporator())
@@ -131,23 +93,12 @@ public class EL3102 extends Slave {
             .add("Reserve1Underrange=" + getReserve1Underrange())
             .add("Reserve1=Overrange" + getReserve1Overrange())
 
-            .add("Reserve2=" + getReserve2())
-            .add("Reserve2Error=" + getReserve2Error())
-            .add("Reserve2Underrange=" + getReserve2Underrange())
-            .add("Reserve2=Overrange" + getReserve2Overrange())
-
-            .add("Reserve3=" + getReserve3())
-            .add("Reserve3Error=" + getReserve3Error())
-            .add("Reserve3Underrange=" + getReserve3Underrange())
-            .add("Reserve3=Overrange" + getReserve3Overrange())
-
             .toString();
     }
 
 
 /* Slaveinfo:
-
-5 - 40:1 EL3102
+5 - 0:4 EL3102
 	Manufacturer: 0x00000002
 	Product code: 0x0c1e3052
 	Revision: 0
@@ -162,7 +113,6 @@ public class EL3102 extends Slave {
 		TxPDO 0x1a01	TxPDO 002 mapping
 			0x3102:0x01 UNSIGNED8	Status
 			0x3102:0x02 INTEGER16	Value
-
  */
 
 }

@@ -63,7 +63,7 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
         useEvaluationUnit = Arrays.stream(environment.getActiveProfiles()).filter(p -> "useEvaluationUnit".equals(p)).findFirst().isPresent();
 
         if (useEvaluationUnit) {
-            // test eavluation unit on desk in office
+            // test evaluation unit on desk in office
             registerSlave(ek1100);
             registerSlave(el3122);
             registerSlave(el2008);
@@ -82,7 +82,7 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
             registerSlave(el3204_2);
         }
 
-        setRequireAllSlaves(false);
+        setRequireAllSlaves(true);
         enableTrace();
     }
 
