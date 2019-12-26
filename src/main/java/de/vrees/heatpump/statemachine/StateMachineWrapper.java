@@ -39,7 +39,7 @@ public class StateMachineWrapper {
                     .withPayload(Events.LIMIT_EXCEEDED)
                     .setHeader(EventHeaderEnum.FAILED_CHECKS.name(), failedChecks).build()
             );
-            stateMachine.getExtendedState().getVariables().put(ExtendedStateKeys.TICK_COUNTER, 0L);
+//            stateMachine.getExtendedState().getVariables().put(ExtendedStateKeys.TICK_COUNTER, 0L);
         }
 
         return failedChecks;
