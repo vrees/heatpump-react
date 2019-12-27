@@ -42,9 +42,9 @@ public class EL3204_1 extends Slave {
         registerSyncManager(new SyncManager(2, false));
         registerSyncManager(new SyncManager(3, false));
 
+        sm(3).registerPDO(temperatureEvaporatingIn);
         sm(3).registerPDO(temperatureEvaporatingOut);
         sm(3).registerPDO(temperatureFlow);
-        sm(3).registerPDO(temperatureEvaporatingIn);
         sm(3).registerPDO(temperatureReturn);
     }
 
