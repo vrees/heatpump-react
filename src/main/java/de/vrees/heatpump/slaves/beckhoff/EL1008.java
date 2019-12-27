@@ -73,9 +73,9 @@ public class EL1008 extends Slave {
         return incidentCompressor.input.get();
     }
 
-    // Stoerung Durchfluss - minimale Druchlussmenge unterschritten
+    // Stoerung Durchfluss - minimale Druchlussmenge unterschritten  - Achtung! Invertierte Logik
     public boolean isIncidentFlow() {
-        return incidentFlow.input.get();
+        return !incidentFlow.input.get();
     }
 
     // Stoerung Hochdruck Ranco-Thermostat meldet zu hohen Hochdruck
