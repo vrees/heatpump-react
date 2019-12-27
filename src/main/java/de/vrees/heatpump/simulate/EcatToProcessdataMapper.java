@@ -9,7 +9,7 @@ import java.time.Instant;
 public class EcatToProcessdataMapper {
 
     // Real Heatpump
-    public Processdata map(EL3152 el3152, EL2004 el2004, EL3204_1 el3204_1, EL3102 eL3102, EL1008 el1008, EL3204_2 el3204_2) {
+    public Processdata mapRealHeatpump(EL3152 el3152, EL2004 el2004, EL3204_1 el3204_1, EL3102 eL3102, EL1008 el1008, EL3204_2 el3204_2) {
         Processdata processdata = new Processdata();
 //        processdata.setState( in.getState() );
         processdata.setTimestamp(Instant.now());
@@ -41,7 +41,7 @@ public class EcatToProcessdataMapper {
     }
 
     // Evaluation Unit
-    public Processdata map(EL3122 el3122, EL2008 el2008, EL3204_1 el3204_1, EL3064 eL3064, EL1008 el1008, EL3204_2 el3204_2) {
+    public Processdata mapEvaluationUnit(EL3122 el3122, EL2008 el2008, EL3204_1 el3204_1, EL3064 eL3064, EL1008 el1008, EL3204_2 el3204_2) {
         Processdata processdata = new Processdata();
 //        processdata.setState( in.getState() );
         processdata.setTimestamp(Instant.now());

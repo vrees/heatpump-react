@@ -96,9 +96,9 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
         Processdata processdata;
 
         if (useEvaluationUnit)
-            processdata = mapper.map(el3122, el2008, el3204_1, eL3064, el1008, el3204_2);
+            processdata = mapper.mapEvaluationUnit(el3122, el2008, el3204_1, eL3064, el1008, el3204_2);
         else
-            processdata = mapper.map(el3152, el2004, el3204_1, el3102, el1008, el3204_2);
+            processdata = mapper.mapRealHeatpump(el3152, el2004, el3204_1, el3102, el1008, el3204_2);
 
         stateMachineWrapper.storeAndPreProcess(processdata);
 

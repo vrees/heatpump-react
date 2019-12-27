@@ -154,7 +154,7 @@ jhipster:
 
 application:
   limits:
-    pressureHighMax: 15 # Maximaler Druck auf der Hochdruckseite [bar]
+    pressureHighMax: 16 # Maximaler Druck auf der Hochdruckseite [bar]
     pressureLowMax: 6 # Maximaler Druck auf der Niederdruckseite [bar]
     pressureDiffenceEvaporatorMax: 100 # Maximaler Druckverlust des Verdampfer-Wärmetauschers [mbar]
     evaporatingTemperatureOutMin: 3 # Minimale Temperatur am Austritt des Verdampfer-Wärmetausschers. Triplepunkt des Wassers. [�C]
