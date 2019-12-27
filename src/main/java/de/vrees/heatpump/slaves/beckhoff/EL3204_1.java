@@ -30,10 +30,9 @@ public class EL3204_1 extends Slave {
         Bool txPDOToggle = new Bool();
         Signed16 value = new Signed16();
     }
-
-    private final Input temperatureEvaporatingIn = new Input(0x1a00);
+    private final Input temperatureEvaporatingOut = new Input(0x1a00);
     private final Input temperatureFlow = new Input(0x1a01);
-    private final Input temperatureEvaporatingOut = new Input(0x1a02);
+    private final Input temperatureEvaporatingIn = new Input(0x1a02);
     private final Input temperatureReturn = new Input(0x1a03);
 
 
@@ -43,9 +42,9 @@ public class EL3204_1 extends Slave {
         registerSyncManager(new SyncManager(2, false));
         registerSyncManager(new SyncManager(3, false));
 
-        sm(3).registerPDO(temperatureEvaporatingIn);
         sm(3).registerPDO(temperatureEvaporatingOut);
         sm(3).registerPDO(temperatureFlow);
+        sm(3).registerPDO(temperatureEvaporatingIn);
         sm(3).registerPDO(temperatureReturn);
     }
 
