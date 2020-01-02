@@ -88,10 +88,39 @@ A gradle wrapper is provided, optionally you can use your system gradle by repla
     ../gradlew publishToMavenLocal -Ptarget=JAVA   (gradle publishToMavenLocal -Ptarget=JAVA)
     ../gradlew publishToMavenLocal -Ptarget=PLATFORM
 
-### set alias 0 fpr slave 3
+### set alias of an EtherCAT client
+
+I oreder io change an alias of an specific Etherat client use Soem's eepromteool
 
 ```
 sudo eepromtool enp3s0 3 -walias 0
+```
+
+## Build and deploy to Dockerhub
+
+##### Prerequirments - ~/.m2/settings.xml
+
+```
+<settings>
+  <servers>
+    <server>
+      <id>registry-1.docker.io</id>
+      <username>vrees</username>
+      <password>.........</password>
+    </server>
+  </servers>
+</settings>
+
+```
+
+```
+./mvnw package -Pprod verify jib:build
+```
+
+##### on Raspi
+
+```
+apt install gnupg2 pass
 ```
 
 ## Useful Commands
