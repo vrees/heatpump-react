@@ -1,16 +1,16 @@
 version: '2'
 services:
   heatpump-app:
-    image: heatpump
+    image: vrees/heatpump
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
-      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - SPRING_PROFILES_ACTIVE=prod,swagger,simulate
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-      - SPRING_DATASOURCE_URL=jdbc:mariadb://heatpump-mariadb:3306/heatpump
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://mariadb:3306/heatpump
       - JHIPSTER_SLEEP=120 # gives time for mariadb server to start
     ports:
       - 8080:8080
-  heatpump-mariadb:
+  mariadb:
     extends:
       file: mariadb.yml
-      service: heatpump-mariadb
+      service: mariadb

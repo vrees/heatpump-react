@@ -1,6 +1,6 @@
 version: '2'
 services:
-  heatpump-mariadb:
+  mariadb:
     image: mariadb:10.4.8
     # volumes:
     #     - ~/volumes/jhipster/heatpump/mysql/:/var/lib/mysql/
