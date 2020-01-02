@@ -909,6 +909,7 @@
             </dependencies>
             <build>
                 <plugins>
+<!--
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
@@ -945,6 +946,7 @@
                             </execution>
                         </executions>
                     </plugin>
+-->
                 </plugins>
             </build>
             <properties>
@@ -1016,6 +1018,7 @@
                             </execution>
                         </executions>
                     </plugin>
+<!--
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
@@ -1066,6 +1069,7 @@
                             </execution>
                         </executions>
                     </plugin>
+-->
                     <plugin>
                         <groupId>pl.project13.maven</groupId>
                         <artifactId>git-commit-id-plugin</artifactId>
