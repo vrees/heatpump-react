@@ -28,6 +28,7 @@ import java.util.List;
 @Slf4j
 public class HeatpumpMaster extends EtherCATRealtimeThread implements ApplicationRunner {
 
+    public static final String DEFAULT_NETWORK_INTERFACE = "enp3s0";
     private final EK1100 ek1100 = new EK1100(0, 0); // Coupler
 
     // Evaluation unit only
@@ -55,7 +56,8 @@ public class HeatpumpMaster extends EtherCATRealtimeThread implements Applicatio
     private boolean useEvaluationUnit = false;
 
     public HeatpumpMaster(StateMachineWrapper stateMachineWrapper, Environment environment) {
-        super("enp3s0", PriorityParameters.MAXIMUM_PRIORITY, new MonotonicTime(0, 50_000_000), false, 100_000);
+        super(environment.getProperty("NETWORK_INTERFACE" , DEFAULT_NETWORK_INTERFACE), PriorityParameters.MAXIMUM_PRIORITY, new MonotonicTime(0, 50_000_000), false, 100_000);
+        log.info("Using Network Interface={}", environment.getProperty("NETWORK_INTERFACE" , DEFAULT_NETWORK_INTERFACE));
 
         this.stateMachineWrapper = stateMachineWrapper;
         this.environment = environment;

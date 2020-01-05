@@ -21,3 +21,30 @@ MYSQL_PASSWORD=goForGold
 Used cooler for RPi 4: http://bit.ly/2V4DYyd
 
 **Wiki** https://github.com/gcgarner/IOTstack/wiki
+
+## Build and deploy to Dockerhub
+
+##### Prerequirments - ~/.m2/settings.xml
+
+```
+<settings>
+  <servers>
+    <server>
+      <id>registry-1.docker.io</id>
+      <username>vrees</username>
+      <password>.........</password>
+    </server>
+  </servers>
+</settings>
+
+```
+
+```
+mvn package -Pprod verify jib:build
+```
+
+##### on Raspi
+
+```
+apt install gnupg2 pass
+```

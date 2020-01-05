@@ -634,7 +634,10 @@
                     <version>${jib-maven-plugin.version}</version>
                     <configuration>
                         <from>
+<!--
                             <image>adoptopenjdk:11-jre-hotspot</image>
+-->
+                            <image>balenalib/raspberrypi3-debian-openjdk</image>
                         </from>
                         <to>
                             <image>docker.io/vrees/heatpump:latest</image>
